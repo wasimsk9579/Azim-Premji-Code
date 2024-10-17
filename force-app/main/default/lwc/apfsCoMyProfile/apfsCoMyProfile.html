@@ -1,0 +1,455 @@
+<!--
+  @description       : 
+  @author            : owais.ahanger@cloudodyssey.co
+  @group             : 
+  @last modified on  : 09-17-2024
+  @last modified by  : owais.ahanger@cloudodyssey.co
+-->
+<template>
+    <div class="myprofile">
+            <form onsubmit={handleSave}>
+                <div class="title-block slds-page-header__name-title slds-m-vertical_large ">
+                     {myProfileHeading}
+                </div>
+                <div class="button-contain">
+                <div class="slds-grid slds-wrap">
+                    <div class="slds-col slds-small-size_12-of-12 slds-medium-size_12-of-12 slds-large-size_12-of-12">
+                        <span class="custom-box">
+                        </span>
+                    </div>
+                </div>
+                <div class="slds-grid slds-wrap">
+                    <div class="slds-col slds-small-size_12-of-12 slds-medium-size_12-of-12 slds-large-size_12-of-12">
+                        <span class="custom-box">
+                            <lightning-button 
+                            class="no-border-button rightflex"
+                              variant="base"
+                              label="Change Password" 
+                              onclick={handlePasswordChange} 
+                            ></lightning-button>
+                        </span>
+                    </div>
+                </div>
+                </div>
+                
+                  <!-- Child component to upload the profile photo start -->
+                <div class="profile-photo-section">
+                        <c-apfs-co-upload-profile-photo
+                        onphotouploadstatus={handleProfilePhotoUploadStatus}>
+                    </c-apfs-co-upload-profile-photo>
+                </div>
+                <template if:false={isProfilePhotoUploaded}>
+                    <div class="profile-empty">
+                    <p>{profilepictureinfolabel}</p>
+                    </div>
+                </template> 
+                 <!-- Child component to upload the profile photo end-->
+                
+                <div class="sub-title-block slds-page-header__name-title slds-m-left_large slds-m-right_large slds-p-around-small">{personalInformationHeading}</div>
+                <div class="personal"> 
+            <lightning-layout multiple-rows>
+                <lightning-layout-item size="12" small-device-size="12" medium-device-size="6" large-device-size="6" padding="horizontal-small">
+                    <div class="custom-box">
+                            <div class="label-block">
+                                <label class="labelsContainer">
+                                    {firstNameLabel}
+                                    <abbr title="required" class="slds-required">*</abbr>
+                                </label>
+                            </div>
+                            <div class="input-block">
+                                <lightning-input
+                                            type="text"
+                                            class="input-field"
+                                            value={firstName}
+                                            disabled
+                                            variant="label-hidden"
+                                            required>
+                                </lightning-input>
+                            </div>
+                    </div>
+                </lightning-layout-item>
+                <lightning-layout-item size="12" small-device-size="12" medium-device-size="6" large-device-size="6" padding="horizontal-small">
+                    <div class="custom-box">
+                        <div class="label-block">
+                            <label class="labelsContainer">
+                                {lastNameLabel}
+                                <abbr title="required" class="slds-required">*</abbr>
+                            </label>
+                        </div>
+                        <div class="input-block">
+                            <lightning-input
+                                        type="text"
+                                        class="input-field"
+                                        value={lastName}
+                                        disabled
+                                        variant="label-hidden"
+                                        required>
+                                    </lightning-input>
+                        </div>
+                    </div>
+                </lightning-layout-item>
+            </lightning-layout>
+
+            <lightning-layout multiple-rows>
+                <lightning-layout-item size="12" small-device-size="12" medium-device-size="6" large-device-size="6" padding="horizontal-small">
+                    <div class="custom-box">
+                            <div class="label-block">
+                                <label class="labelsContainer">
+                                    {genderLabel}
+                                    <abbr title="required" class="slds-required">*</abbr>
+                                </label>
+                            </div>
+                            <div class="input-block">
+                                <lightning-input
+                                            type="text"
+                                            class="input-field"
+                                            value={gender}
+                                            disabled
+                                            variant="label-hidden"
+                                            required>
+                                </lightning-input>
+                            </div>
+                    </div>
+                </lightning-layout-item>
+                <lightning-layout-item size="12" small-device-size="12" medium-device-size="6" large-device-size="6" padding="horizontal-small">
+                    <div class="custom-box">
+                        <div class="label-block">
+                            <label class="labelsContainer">
+                                {dateOfBirthLabel}
+                                <abbr title="required" class="slds-required">*</abbr>
+                            </label>
+                        </div>
+                        <div class="input-block">
+                            <lightning-input
+                                        type="date"
+                                        class="input-field"
+                                        value={birthDate}
+                                        variant="label-hidden"
+                                        disabled={profilecomplete}
+                                        message-when-value-missing={completethisfieldlabel}
+                                        message-when-range-overflow={dateofbirthminimumlabel}
+                                        message-when-bad-input={dateofbirthminimumlabel}
+                                        max={maxDate}
+                                        onchange={handleBirthDateChange}
+                                        required>
+                            </lightning-input>
+                        </div>
+                </div>
+                </lightning-layout-item>
+            </lightning-layout>
+
+            <lightning-layout multiple-rows>
+                <lightning-layout-item size="12" small-device-size="12" medium-device-size="6" large-device-size="6" padding="horizontal-small">
+                    <div class="custom-box">
+                            <div class="label-block">
+                                <label class="labelsContainer">
+                                    {mobileNumberLabel}
+                                    <abbr title="required" class="slds-required">*</abbr>
+                                </label>
+                            </div>
+                            <div class="input-block">
+                                <lightning-input
+                                            type="tel"
+                                            class="input-field"
+                                            value={PhoneNumber}
+                                            readonly={toggleInputField}
+                                            max-length="10"
+                                            min-length="10"
+                                            message-when-value-missing={completethisfieldlabel}
+                                            message-when-too-short={mobilenumberlessthan10label}
+                                            onkeypress={handleKeyPress}
+                                            onchange={handlePhoneChange}
+                                            onbeforeinput={handlePinBeforeInput}
+                                            variant="label-hidden"
+                                            pattern="[0-9]*"
+                                            required>
+                                </lightning-input>
+                                <template if:true={otpVerifiedstatus}>
+                                    <p class="slds-text-color_success slds-m-top_x-small ">{phoneNumberIsVerified}</p>
+                                </template>
+                                <div class="button-container">
+                                   
+                                <template if:false={otpVerifiedstatus}>
+                                    <lightning-button   label="Verify" variant="brand" onclick={handleSendOtp} class="verify-button" disabled={verifyButtonStatus}></lightning-button>
+                                </template>
+                                <template if:true={editButtonStatus}>
+                                <lightning-button   label="Edit" variant="brand" onclick={handleEditClick} class="verify-button"></lightning-button>
+                                </template>
+                                </div>
+                                <template lwc:if={otpSent}>
+                                    <section role="dialog" tabindex="-1" class="slds-modal slds-fade-in-open">
+                                        <div class="slds-modal__container">
+                                            <!-- Modal Header -->
+                                            <header class="slds-modal__header">
+                                                <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="Close" onclick={handleModalCancel}>
+                                                    <lightning-icon icon-name="utility:close" alternative-text="close" size="small" class="slds-icon-text-default"></lightning-icon>
+                                                    <span class="slds-assistive-text">Close</span>
+                                                </button>
+                                                <h2 class="slds-text-heading_medium">{verifyYourMobileNumberLabel}</h2>
+                                            </header>
+                                            <!-- Modal Body -->
+                                            <div class="slds-modal__content slds-p-around_medium slds-text-align_center">
+                                                <p>{successfullyGeneratedOneTimePasswordOtpLabel}</p>
+                                                <p>Sent to: {phone}</p>
+                                                <lightning-input
+                                                    label={enterotplabel}
+                                                    placeholder="Enter Received OTP"
+                                                    value={otp}
+                                                    type="tel"
+                                                    max-length="6"
+                                                    min-lenght="6"
+                                                    message-when-value-missing={completethisfieldlabel}
+                                                    class="bold-label slds-m-top_medium"
+                                                    onkeypress={handleKeyPress}
+                                                    onchange={handleChangeotpfield}
+                                                    onpaste={preventPaste}
+                                                    required>
+                                                </lightning-input>
+                                                <template lwc:if={OTPError}>
+                                                    <div class="font">
+                                                    <p
+                                                     style="color: #EA001E;">{otpmustbeexactly6digitslabel}
+                                                    </p>
+                                                    </div>
+                                                </template>
+                                                <p class="slds-m-top_medium">Resend OTP in: {timeLeft} seconds. </p>
+                                                <template if:true={ResendStatus}> {didntGetTheOtpYetLabel}<a href="javascript:void(0);" onclick={handleResendOtp} class="slds-text-link"><strong> Resend OTP</strong></a></template>
+                                            </div>
+                                            <!-- Modal Footer -->
+                                            <footer class="slds-modal__footer">
+                                                <div class="otpverifybuttons">
+                                                    <div>
+                                                <lightning-button variant="neutral" label="Cancel" onclick={handleModalCancel}></lightning-button>
+                                                </div>
+                                                <div class="otpbuttonmargin">
+                                                <lightning-button variant="brand" label="Verify" onclick={handleVerifyOtp}></lightning-button>
+                                                </div>
+                                                </div>
+                                            </footer>
+                                        </div>
+                                    </section>
+                                    <div class="slds-backdrop slds-backdrop_open"></div>
+                                </template>
+                                <div class="editpadding">
+                                
+                            </div>
+
+                            </div>
+                    </div>
+                </lightning-layout-item>
+                <lightning-layout-item size="12" small-device-size="12" medium-device-size="6" large-device-size="6" padding="horizontal-small">
+                    <div class="custom-box">
+                        <div class="label-block">
+                            <label class="labelsContainer">
+                                {emailIdLabel}
+                                <abbr title="required" class="slds-required"></abbr>
+                            </label>
+                        </div>
+                        <div class="input-block">
+                            <lightning-input
+                                        type="email"
+                                        class="input-field"
+                                        value={email}
+                                        max-length="50"
+                                        pattern="[a-zA-Z0-9._]{2,60}@[a-zA-Z]{2,60}[.]{1}[a-z]{2,30}"
+                                        message-when-pattern-mismatch={invalidemaillabel}
+                                        onchange={handleEmailChange}
+                                        variant="label-hidden"
+                                        >
+                                    </lightning-input>
+                        </div>
+                    </div>
+                </lightning-layout-item>
+            </lightning-layout>
+
+
+            <lightning-layout multiple-rows>
+                <lightning-layout-item size="12" small-device-size="12" medium-device-size="6" large-device-size="6" padding="horizontal-small">
+                    <template if:true={aadharavailable}>
+                        <div class="custom-box" >
+                            <div class="label-block">
+                                <label class="labelsContainer">
+                                    {aadhaarNumberLabel}
+                                    <abbr title="required" class="slds-required">*</abbr>
+                                </label>
+                            </div>
+                            <div class="input-block">
+                                <lightning-input
+                                            type="text"
+                                            class="input-field"
+                                            value={aadhaar}
+                                            disabled
+                                            variant="label-hidden"
+                                            required>
+                                        </lightning-input>
+                            </div>
+                        </div>
+                    </template>   
+                    <template if:false={aadharavailable}>
+                        <div class="custom-box">
+                            <div class="label-block">
+                                <label class="labelsContainer">
+                                    {aadhaarNumberLabel}
+                                    <!-- <abbr title="required" class="slds-required"></abbr> -->
+                                </label>
+                            </div>
+                            <div class="input-block">
+                                <lightning-input
+                                            type="tel"
+                                            class="input-field"
+                                            value={aadhaar}
+                                            disabled={aadhaaravailable}
+                                            pattern="[0-9]*"
+                                            onkeypress={handleKeyPress}
+                                            message-when-value-missing={completethisfieldlabel}
+                                            message-when-too-short={aadhaarnumbermustbe12digitslabel}
+                                            max-length="12"
+                                            min-length="12"
+                                            onchange={handleAadhaarChange}
+                                            variant="label-hidden"
+                                            
+                                            >
+                                        </lightning-input>
+                                    </div>
+                        </div>
+                    </template> 
+                </lightning-layout-item>
+                
+                <lightning-layout-item size="12" small-device-size="12" medium-device-size="6" large-device-size="6" padding="horizontal-small">
+                    
+                                    <div class="aadhaar-card-section">
+                                            <c-apfs-co-upload-aadhaar-card
+                                            onaadhaaruploadstatus={handleAadhaarUploadStatus}>
+                                        </c-apfs-co-upload-aadhaar-card>
+                                    </div>
+                                   
+                </lightning-layout-item>
+            </lightning-layout>
+        </div>
+        <div class="sub-title-block slds-page-header__name-title slds-m-left_large slds-m-right_large slds-p-around-small">{communicationAddressHeading}</div>
+        <div class="personal"> 
+            <lightning-layout multiple-rows>
+                <lightning-layout-item size="12" small-device-size="12" medium-device-size="6" large-device-size="6" padding="horizontal-small">
+                    <div class="custom-box">
+                        <div class="label-block">
+                            <label class="labelsContainer">
+                                {stateLabel}
+                                <abbr title="required" class="slds-required">*</abbr>
+                            </label>
+                        </div>
+                        <div class="input-block">
+                            <lightning-combobox
+                                label="State"
+                                class="input-field"
+                                placeholder={selectanoptionlabel}
+                                value={state}
+                                message-when-value-missing={completethisfieldlabel}
+                                options={stateOptions}
+                                onchange={handleStateChange}
+                                required
+                                variant="label-hidden"
+                            ></lightning-combobox>
+                        </div>
+                    </div>
+                </lightning-layout-item>
+                <lightning-layout-item size="12" small-device-size="12" medium-device-size="6" large-device-size="6" padding="horizontal-small">
+                    <div class="custom-box">
+                        <div class="label-block">
+                            <label class="labelsContainer">
+                                {districtLabel}
+                                <abbr title="required" class="slds-required">*</abbr>
+                            </label>
+                        </div>
+                        <div class="input-block">
+                            <lightning-combobox
+                                name="district"
+                                class="input-field"
+                                label="District"
+                                placeholder={selectanoptionlabel}
+                                value={selectedDistrict} 
+                                message-when-value-missing={completethisfieldlabel}
+                                options={districtOptions}
+                                required
+                                onchange={handleDistrictChange}
+                                variant="label-hidden"> 
+                            </lightning-combobox>
+                        </div>
+                        
+                    </div>
+                </lightning-layout-item>
+            </lightning-layout>
+
+            <lightning-layout multiple-rows>
+                <lightning-layout-item size="12" small-device-size="12" medium-device-size="6" large-device-size="6" padding="horizontal-small">
+                    <div class="custom-box">
+                        <div class="label-block">
+                            <label class="labelsContainer">
+                                {addressForCommunicationLabel}
+                                <abbr title="required" class="slds-required">*</abbr>
+                            </label>
+                            <lightning-helptext content={enterinenglishlabel} style="margin-top: -5px;"></lightning-helptext>
+                        </div>
+                        <div class="input-block">
+                            <lightning-textarea
+                            class="input-field noresize"
+                            value={fulladdress}
+                           max-length="250"
+                            onchange={handleAddressChange}
+                            
+                            onbeforeinput={validateaddressInput}
+                            variant="label-hidden"
+                            required
+                            message-when-value-missing={completethisfieldlabel}
+                            rows="3"
+                        ></lightning-textarea>
+                        </div>
+                    </div>
+                </lightning-layout-item>
+                <lightning-layout-item size="12" small-device-size="12" medium-device-size="6" large-device-size="6" padding="horizontal-small">
+                    <div class="custom-box">
+                        <div class="label-block">
+                            <label class="labelsContainer">
+                                {pinCodeLabel}
+                            </label>
+                        </div>
+                        <div class="input-block">
+                            <lightning-input
+                                        type="tel"
+                                        class="input-field"
+                                        value={pincode}
+                                        max-length="6"
+                                        min-length="6"
+                                        message-when-too-short={pincodeshouldbe6digitslabel}
+                                        onkeypress={handleKeyPress}
+                                        onchange={handlePINChange}
+                                        onbeforeinput={handlePinBeforeInput}
+                                        pattern="[0-9]*"
+                                        variant="label-hidden"
+                                        >
+                                    </lightning-input>
+                        </div>
+                    </div>
+                </lightning-layout-item>
+            </lightning-layout>
+        </div>
+            <div class="slds-col slds-size_1-of-1 slds-p-around_x-small slds-align_absolute-center">
+                <lightning-button
+                    type="submit"
+                    label="Save Changes"
+                    variant="brand"
+                    onclick={handleSave}>
+                </lightning-button>
+            </div>
+            </form>
+    </div>
+    <template if:true={isLoading}>
+        <div class="overlay">
+            <lightning-spinner alternative-text="Loading" size="medium"></lightning-spinner>
+        </div>
+    </template>
+    <template if:true={isLoadingInVerifyOtp}>
+        <div >
+            <lightning-spinner alternative-text="Loading" size="medium"></lightning-spinner>
+        </div>
+    </template>
+</template>

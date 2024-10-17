@@ -1,0 +1,17 @@
+<!--
+  @description       : 
+  @author            : owais.ahanger@cloudodyssey.co
+  @group             : 
+  @last modified on  : 09-25-2024
+  @last modified by  : owais.ahanger@cloudodyssey.co
+-->
+<template>
+    <div class="pending-action-wrapper">
+      <template lwc:if={isActionAvailable}>
+        <a href="javascript:void(0);" title={actionName} onclick={handlePendingAction}>{actionName}</a>
+    </template>
+    <template lwc:else>
+      <p>{actionName}</p>
+  </template>
+    </div>
+</template>

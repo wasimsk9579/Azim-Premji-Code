@@ -1,0 +1,55 @@
+<template>
+    <template lwc:if={applicantDetails}>
+        <!-- <div class="related-info">
+            <h3><strong>Applicant Details</strong></h3>
+            <p><strong>Applicant Name:</strong> &nbsp; {applicantDetails.Contact__r.Name}</p>
+            <p><strong>Class 12 Year of Passing:</strong> &nbsp; {applicantDetails.Contact__r.Class_Twelve_Year_Of_Passing__c}</p>
+            <p><strong>Class 12 Exam Centre State:</strong> &nbsp; {applicantDetails.Contact__r.Class_Twelve_Exam_Centre_State__c}</p>
+            <p><strong>Class 12 Exam Centre District:</strong> &nbsp; {applicantDetails.Contact__r.Class_Twelve_Exam_Centre_District__c}</p>
+            <p><strong>Class 10 Year of Passing:</strong> &nbsp; {applicantDetails.Contact__r.Class_Ten_Year_Of_Passing__c}</p>
+            <p><strong>Class 10 Exam Centre State:</strong> &nbsp; {applicantDetails.Contact__r.Class_Ten_Exam_Centre_State__c}</p>
+            <p><strong>Class 10 Exam Centre District:</strong> &nbsp; {applicantDetails.Contact__r.Class_Ten_Exam_Centre_District__c}</p>
+        </div> -->
+        <div class="related-info">
+            <h3><strong>Applicant Details</strong></h3>
+            <p><strong>Applicant Name:</strong> &nbsp; {applicantName}</p>
+            <p><strong>Class 12 Year of Passing:</strong> &nbsp; {classTwelveYearOfPassing}</p>
+            <p><strong>Class 12 Exam Centre State:</strong> &nbsp; {classTwelveExamCentreState}</p>
+            <p><strong>Class 12 Exam Centre District:</strong> &nbsp; {classTwelveExamCentreDistrict}</p>
+            <p><strong>Class 10 Year of Passing:</strong> &nbsp; {classTenYearOfPassing}</p>
+            <p><strong>Class 10 Exam Centre State:</strong> &nbsp; {classTenExamCentreState}</p>
+            <p><strong>Class 10 Exam Centre District:</strong> &nbsp; {classTenExamCentreDistrict}</p>
+        </div>
+        <template if:true={applicantDetails.Admissions__r}>
+            <div class="related-info">
+                <h3><strong>Admission Details</strong></h3>
+                <template for:each={applicantDetails.Admissions__r} for:item="admission">
+                    <div key={admission.Id}>
+                        <p><strong>Institute Name:</strong> {admission.Name_Of_The_Institute__c}</p>
+                        <p><strong>Institute State:</strong> {admission.Institute_State__c}</p>
+                        <p><strong>Institute District:</strong> {admission.Institute_District__c}</p>
+                        <p><strong>Course Name:</strong> {admission.Course_Name__c}</p>
+                        <p><strong>Course Start Date:</strong> {admission.Course_Start_Date__c}</p>
+                        <p><strong>Course Duration:</strong> {admission.Course_Duration_In_Years__c}</p>
+                        <p><strong>Current Course Year:</strong> {admission.Course_Year_Of_Studying__c}</p>
+                    </div>
+                </template>
+            </div>
+        </template>
+        
+        <template if:true={applicantDetails.Offers__r}>
+            <div class="related-info">
+                <h3><strong>Offer Details</strong></h3>
+                <template for:each={applicantDetails.Offers__r} for:item="offer">
+                    <div key={offer.Id}>
+                        <p><strong>Start Date:</strong> &nbsp; {offer.Offer_Start_Date__c}</p>
+                        <p><strong>End Date:</strong> &nbsp; {offer.Offer_End_Date__c}</p>
+                        <p><strong>Net Course Duration:</strong> &nbsp; {offer.Net_Course_Duration__c}</p>
+                        <p><strong>Scholarship Amount Per Annum:</strong> &nbsp; {offer.Scholarship_Amount_Per_Annum__c}</p>
+                        <p><strong>Total Scholarship Amount:</strong> &nbsp; {offer.Total_Scholarship_Amount__c}</p>
+                    </div>
+                </template>
+            </div>
+        </template>
+    </template>
+</template>

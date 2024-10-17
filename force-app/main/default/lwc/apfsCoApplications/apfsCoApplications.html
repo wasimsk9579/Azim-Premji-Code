@@ -1,0 +1,69 @@
+<!--
+  @description       : 
+  @author            : owais.ahanger@cloudodyssey.co
+  @group             : 
+  @last modified on  : 10-07-2024
+  @last modified by  : owais.ahanger@cloudodyssey.co
+-->
+<template>
+  
+  <div class="applications-wrapper">
+    <div class="slds-m-top_medium application-header">
+      <h2 class="slds-text-title_bold">{applicationDashboardLabel}</h2>
+    </div>
+    <template lwc:if={hasAppliedForScholarship}>
+    <div class="registered-applications">
+      <template for:each={applications} for:item="application">
+          <div key={application.Id} class="application-card">
+              <div class="slds-grid slds-wrap slds-gutters">
+                  <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-3">
+                      <p class="slds-text-title_bold">{applicationNumberLabel}</p>
+                      <p><a onclick={handleApplicationClick} title="Open Application" data-id={application.Id} >{application.Name} </a></p>
+                  </div>
+                  <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-3">
+                      <p class="slds-text-title_bold">{currentStatusLabel}</p>
+                      <p>{application.Application_External_Status__c}</p>
+                  </div>
+                  <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-3">
+                      <p class="slds-text-title_bold">{actionRequiredByApplicantLabel}</p>
+                       <c-apfs-co-show-pending-actions application-id={application.Id}></c-apfs-co-show-pending-actions>
+                  </div>
+                  <!-- Show Download Application Link -->
+                  <template lwc:if={application.isNotInDraft}>
+                  <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-3">
+                      <p class="slds-text-title_bold">{downloadLabel}</p>
+                      <p><a onclick={handleApplicationDownload} title="Download Application" data-id={application.Id}>Application</a></p>
+                           <!-- Show Download Offer Link -->
+                      <template lwc:if={application.hasActiveOffer}>
+                        <p><a onclick={handleOfferDownload} title="Download Offer Letter" data-id={application.Id}>Offer Letter</a></p>
+                      </template> 
+                  </div>
+              </template>
+
+              
+              </div>
+          </div>
+      </template>
+  </div>
+    </template>
+    <template lwc:else>
+      <div class="un-registered-applications">
+        <div> 
+          <lightning-button
+          title="Create Application" 
+          variant="base"
+          label="Create Application" 
+          onclick={handleCreateScholarshipApplication}
+          disabled={isCreateApplicationButtonDisabled} 
+        ></lightning-button>
+        </div>
+        
+      </div>
+  </template>
+</div>
+<template if:true={isLoading}>
+  <div class="overlay">
+      <lightning-spinner alternative-text="Loading" size="medium"></lightning-spinner>
+  </div>
+</template>
+</template>

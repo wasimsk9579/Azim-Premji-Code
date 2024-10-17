@@ -1,0 +1,150 @@
+<template>
+    <template lwc:if={scholarshipName}>
+        <div class="slds-grid slds-wrap slds-grid_align-spread">  
+            <div class="slds-col slds-size_1-of-3 slds-p-around_small"> 
+                <lightning-input 
+                    label="Scholarship Name" 
+                    value={scholarshipName}
+                    readonly>
+                </lightning-input>
+            </div>
+            <div class="slds-col slds-size_1-of-3 slds-p-around_small">
+                <lightning-input 
+                    label="Edition Name" 
+                    value={editionName}
+                    readonly>
+                </lightning-input>
+            </div>
+            <div class="slds-col slds-size_1-of-3 slds-p-around_small">
+                <lightning-input 
+                    label="Round Name" 
+                    value={roundName}
+                    readonly>
+                </lightning-input>
+            </div>
+        </div>
+    </template>
+   
+    <div class="slds-grid slds-wrap slds-grid_align-spread">
+        <div class="slds-col slds-size_1-of-3 slds-p-around_small">
+            <lightning-combobox
+                name="readOnlyInternal"
+                label="Internal Status"
+                value={readOnlyInternalValue}
+                options={internalReadOnlyPicklistValues}
+                onchange={handleInternalUpdateChange}
+                disabled>
+            </lightning-combobox>
+        </div>
+    </div>
+
+    <div class="slds-grid slds-wrap ">
+        <div class="slds-col slds-size_1-of-3 slds-p-around_small">
+            <lightning-combobox
+                name="State"
+                label="State"
+                value={stateValue}
+                options={stateValueOptions}
+                onchange={handleStateChange}>
+            </lightning-combobox>
+        </div>
+            <div class="slds-col slds-size_1-of-3 slds-p-around_small">
+                <lightning-combobox
+                    name="District"
+                    label="District"
+                    value={districtValue}
+                    options={districtValueOptions}
+                    onchange={handleDistrictChange}
+                    disabled={disableDistrictValue}>
+                </lightning-combobox>
+            </div>
+    </div>
+    
+    <div class="slds-grid slds-wrap slds-grid_align-spread">
+        <div class="slds-col slds-size_1-of-3 slds-p-around_small">
+            <lightning-combobox
+                name="referral"
+                label="Referred By Partner"
+                value={referralValue}
+                options={referralPicklistValues}
+                onchange={handleReferralChange}>
+            </lightning-combobox>
+        </div>
+    </div>
+
+    <div class="slds-grid slds-wrap slds-grid_align-spread">
+        <div class="slds-col slds-size_1-of-3 slds-p-around_small">
+            <lightning-button
+                variant="brand"
+                label="Get"
+                onclick={handleFetchRecords}>
+            </lightning-button>
+        </div>
+    </div> 
+ 
+    <template lwc:if={showDatatable}>
+        <div class="slds-grid table-info">
+            <div class="slds-size_9-of-12 table-info">
+                <template lwc:if={isLoading}>
+                    <lightning-spinner alternative-text="Loading" size="small"></lightning-spinner>
+                </template>
+                <template lwc:if={noRecordsMessageVisible}>
+                    <div class="slds-text-color_error">No records found.</div>
+                </template>
+
+                <template lwc:if={records.length}>
+                    <p>{records.length} records found</p>
+                    <lightning-datatable
+                        key-field="id"
+                        data={records}
+                        columns={columns}
+                        enable-infinite-loading={isInfiniteLoadingEnabled}
+                        onloadmore={loadMoreData}
+                        max-row-selection="1"
+                        onrowselection={handleRowSelection}>
+                    </lightning-datatable>
+                </template>
+            </div>
+
+            <!-- Related Info Section -->
+            <div class="slds-size_3-of-12" >
+                <template lwc:if={selectedRecord}>
+                <c-apfs-offer-verification-application-related-info 
+                    application-id={applicationId}>
+                </c-apfs-offer-verification-application-related-info>
+            </template>
+                <!-- <template lwc:if={selectedRecord}>
+                    <div class="related-info">
+                        <h3><strong>Applicant Details</strong></h3>
+                        <p><strong>Class 12 Year of Passing:</strong> &nbsp; {selectedRecord.Class_Twelve_Year_Of_Passing__c}</p>
+                        <p><strong>Class 12 Exam Centre State:</strong> &nbsp; {selectedRecord.Class_Twelve_Exam_Centre_State__c}</p>
+                        <p><strong>Class 12 Exam Centre District:</strong> &nbsp; {selectedRecord.Class_Twelve_Exam_Centre_District__c}</p>
+                        <p><strong>Class 10 Year of Passing:</strong> &nbsp; {selectedRecord.Class_Ten_Year_Of_Passing__c}</p>
+                        <p><strong>Class 10 Exam Centre State:</strong> &nbsp; {selectedRecord.Class_Ten_Exam_Centre_State__c}</p>
+                        <p><strong>Class 10 Exam Centre District:</strong> &nbsp; {selectedRecord.Class_Ten_Exam_Centre_District__c}</p>
+                    </div>
+                    <div class="related-info">
+                        <h3><strong>Admission Details</strong></h3>
+                        <template if:true={selectedRecord.Admissions}>
+                            <p><strong>Institute Name:</strong> &nbsp; {selectedRecord.Admissions.Name_Of_The_Institute__c}</p>
+                            <p><strong>Institute State:</strong> &nbsp; {selectedRecord.Admissions.Institute_State__c}</p>
+                            <p><strong>Institute District:</strong> &nbsp; {selectedRecord.Admissions.Institute_District__c}</p>
+                            <p><strong>Course Name:</strong> &nbsp; {selectedRecord.Admissions.Course_Name__c}</p>
+                            <p><strong>Course Start Date:</strong> &nbsp; {selectedRecord.Admissions.Course_Start_Date__c}</p>
+                            <p><strong>Course Duration (Years):</strong> &nbsp; {selectedRecord.Admissions.Course_Duration_In_Years__c}</p>
+                            <p><strong>Current Course Year:</strong> &nbsp; {selectedRecord.Admissions.Course_Year_Of_Studying__c}</p>
+                        </template>
+                    </div>
+                    <div class="related-info">
+                        <h3><strong>Offer Details</strong></h3>
+                        <p><strong>Start Date:</strong> &nbsp; {selectedRecord.Start_Date}</p>
+                        <p><strong>End Date:</strong> &nbsp; {selectedRecord.End_Date}</p>
+                        <p><strong>Net Course Duration:</strong> &nbsp; {selectedRecord.Net_Course_Duration}</p>
+                        <p><strong>Scholarship Amount Per Annum:</strong> &nbsp; {selectedRecord.Scholarship_Amount_Per_Annum__c}</p>
+                        <p><strong>Total Scholarship Amount:</strong> &nbsp; {selectedRecord.Total_Scholarship_Amount__c}</p>
+                    </div> 
+                </template> -->
+            </div>
+        </div>
+    </template>
+</template>

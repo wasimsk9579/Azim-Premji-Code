@@ -1,0 +1,170 @@
+/* General Styles */
+.application-card {
+    border-radius: 0.625rem;
+    padding: 12px;
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    padding-top: 12px;
+}
+
+/* Container Flexbox Adjustments */
+.container {
+    display: flex;
+    flex-direction: row;
+    height: 100%;
+    width: 100%; /* Ensure the container uses full width */
+}
+
+/* Query Section */
+.query-section {
+    width: 100%; /* Set to 100% for better adjustment */
+    padding-right: 10px;
+}
+
+/* FAQ Section */
+.faq-section {
+    padding-left: 10px;
+    margin-right: 20px;
+    width: 100%; /* Set to 100% for better adjustment */
+}
+
+/* Adjust for smaller screens (480px and below) */
+@media only screen and (max-width: 480px) {
+    .container {
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+        margin-left: 5px;
+    }
+
+    .query-section, .faq-section {
+        width: 100%; 
+        margin-right: 0px;
+        margin-top: 15px;/* Ensure sections take full width on small screens */
+    }
+}
+
+/* Adjust for very small screens (330px and below) */
+@media only screen and (max-width: 330px) {
+    .application-card {
+        padding: 8px; /* Adjust padding for smaller screens */
+    }
+
+    .container {
+        margin-left: 2px; /* Reduce margin for smaller screens */
+    }
+
+    .query-section, .faq-section {
+        padding-right: 5px;
+        padding-left: 5px;
+    }
+    
+    .truncate-with-ellipsis {
+        max-width: 150px; /* Further reduce max-width for truncation */
+    }
+}
+
+/* Truncation with Ellipsis */
+.truncate-with-ellipsis {
+    white-space: nowrap;
+    word-wrap: break-word; /* Prevent text from wrapping */
+    overflow: hidden;    /* Hide the overflowing text */
+    text-overflow: ellipsis; /* Display an ellipsis when text overflows */
+    max-width: 200px; 
+    padding-right: 0;
+    /* Adjust width to control where the text truncates */
+}
+
+/* Ensure the table has borders on all sides */
+.slds-table {
+    border-left: 1px solid rgb(165, 165, 165); /* Salesforce standard border color */
+    border-right: 1px solid rgb(165, 165, 165);
+}
+
+.slds-scrollable {
+    overflow: auto; /* Ensure that the content is scrollable without hiding borders */
+}
+
+/* High Specificity Styles */
+.case-body-content td[data-label] {
+    color: black !important; /* Force the color to black */
+}
+
+/* Media Queries for Larger Mobile Devices (500px and below) */
+@media only screen and (max-width: 500px) {
+    .case-body-content {
+        flex-direction: column;
+        margin-right: 15px;
+    }
+
+    .container {
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+        margin-left: 5px;
+    }
+}
+
+/* Styles for FAQ Section */
+.faq-section h1 {
+    font-size: x-large;
+    color: hsl(0, 0%, 0%);
+    margin-bottom: 10px;
+}
+
+.faq-section h2 {
+    font-size: 18px;
+    color: #555;
+}
+
+.faq-section ul {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+.faq-section li {
+    margin-bottom: 10px;
+}
+
+.faq-section a {
+    text-decoration: none;
+    color: #0070d2; /* Salesforce Blue */
+}
+
+.faq-section a:hover {
+    text-decoration: underline;
+}
+
+/* Sticky Header for Query Section */
+.query-title-block {
+    background: linear-gradient(45deg, #2B308B, #2472A3);
+    padding: .5rem 1rem;
+    color: #fff;
+    display: block;
+    text-transform: capitalize;
+    font-size: 1.1rem;
+    font-weight: 700;
+    line-height: 1.25;
+    border-radius: 0;
+    position: sticky;
+    top: 0;
+    left: 0;
+    margin: 0;
+    z-index: 1000;
+    width: 100%;
+}
+
+/* Handling Responsive Tables */
+@media (max-width: 48em) {
+
+    .slds-max-medium-table_stacked-horizontal th:before,
+    .slds-max-medium-table_stacked-horizontal td:before,
+    .slds-max-medium-table--stacked-horizontal th:before,
+    .slds-max-medium-table--stacked-horizontal td:before {
+        float: left;
+        margin-top: var(--lwc-spacingXxxSmall, 0.125rem);
+        margin-right: 15px !important;
+        color: var(--slds-g-color-neutral-base-30, rgb(0 0 0));
+    }
+}

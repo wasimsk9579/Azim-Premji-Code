@@ -1,0 +1,86 @@
+<!--
+  @description       : 
+  @author            : ChangeMeIn@UserSettingsUnder.SFDoc
+  @group             : 
+  @last modified on  : 09-09-2024
+  @last modified by  : ChangeMeIn@UserSettingsUnder.SFDoc
+-->
+<template>
+    <div class="container">
+        <!-- Query Table Section -->
+        <div class="query-section">
+            <div class="slds-table--header-fixed_container application-card">
+                <div class="query-title-block slds-page-header__name-title slds-p-around-small">QUERY LIST</div>
+                <div>
+                <table class="slds-table slds-table_bordered slds-max-medium-table_stacked-horizontal slds-table_col-bordered slds-scrollable">
+                    <thead>
+                        <tr>
+                            <th scope="col">
+                                <div class="slds-truncate case-body-content" title="Ticket Number">Ticket Number</div>
+                            </th>
+                            <th scope="col">
+                                <div class="slds-truncate case-body-content" title="Subject">Subject</div>
+                            </th>
+                            <th scope="col">
+                                <div class="slds-truncate case-body-content" title="Status">Status</div>
+                            </th>
+                            <th scope="col">
+                                <div class="slds-truncate case-body-content" title="Date/Time">Date/Time</div>
+                            </th>
+                            <th scope="col">
+                                <div class="slds-truncate case-body-content" title="Comments">Comments</div>
+                            </th>
+                        </tr>
+                    </thead>
+                    
+                    <tbody>
+                        <template for:each={tableData} for:item="record">
+                            <tr key={record.id} class="case-body-content">
+                                <td  data-label="Ticket Number:">
+                                    <a onclick={handleQueryClick} data-id={record.id}>
+                                        <div class="slds-truncate">{record.number}</div>
+                                    </a>
+                                </td>
+                                <td data-label="Subject:">
+                                    <a onclick={handleQueryClick} data-id={record.id}>
+                                        <div class="truncate-with-ellipsis"  style="text-align: right;" >{record.subject}</div>
+                                    </a>
+                                </td>
+                                <td data-label="Status:">
+                                    <div class="slds-truncate">{record.status}</div>
+                                </td>
+                                <td data-label="Date/Time:">
+                                    <div class="slds-truncate">{record.dateCreated}</div>
+                                </td>
+                                <td data-label="Comments:" >
+                                    <div class="truncate-with-ellipsis"  style="text-align: right;">{record.comments}</div>
+                                </td>
+                            </tr>
+                        </template>
+                    </tbody>
+                </table>
+            </div> 
+        </div>
+ 
+        </div>
+
+        <!-- FAQ Section -->
+        <div class="faq-section">
+            <div class="faq-container">
+                <h1>User Manuals and FAQs</h1>
+
+                <div class="faq-section">
+                    <ul>
+                        <li><a onclick={handleUserManualclick} target="_blank">User Manual (Hindi)</a></li>
+                    </ul>
+                </div>
+
+                <div class="faq-section">
+                    <ul>
+                        <li><a onclick={handleFAQclick} target="_blank">Frequently asked Questions (English)</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>

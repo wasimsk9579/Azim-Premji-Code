@@ -1,0 +1,17 @@
+.application-submit-wrapper{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    border-radius: 0.625rem;
+    padding: 0.75rem;
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    gap: 1.25rem;
+}
+
+.preview-submit-wrapper{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+}

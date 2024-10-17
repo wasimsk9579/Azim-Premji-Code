@@ -1,0 +1,375 @@
+<!--
+  @description       : 
+  @author            : girish.kumar@cloudodyssey.co
+  @group             : 
+  @last modified on  : 09-07-2024
+  @last modified by  : ChangeMeIn@UserSettingsUnder.SFDoc
+-->
+<template>
+    <div class="application-card scrollable-container">
+    
+        <div class="title-block slds-page-header__name-title slds-p-around-small slds-m-top_medium">{socioHeadingLabel}</div>
+       
+            <div class="gridTable slds-grid slds-wrap slds-m-around_medium">
+
+                <div class="slds-col slds-p-around_x-small slds-small-size_1-of-1 slds-medium-size_6-of-12 slds-large-size_6-of-12">
+                    <div class="labels-block">
+                        <label class="specially-abled-person label-block" >{speciAbledPersonLabel} </label>
+                    </div>
+                    <lightning-combobox 
+                    name="speciallyAbledPerson" 
+                    value={speciallyAbledPerson} 
+                    options={speciallyAbledPersonOptions} 
+                    onchange={handleChange} 
+                    variant="label-hidden"
+                    placeholder={selectanoptionlabel}
+                    disabled={isDisableAllFields}
+                    ></lightning-combobox> 
+                </div>
+        
+                <template lwc:if={isSpeciallyAbled}>
+                    
+                    <div class="slds-col slds-p-around_x-small slds-small-size_1-of-1 slds-medium-size_6-of-12 slds-large-size_6-of-12">
+                                
+                        <div class="labels-block">
+                            <label class="disabilityType label-block" >{ifYesThenDisabilityType}</label>
+                        </div>
+        
+                        <lightning-combobox 
+                        name="disabilityType" 
+                        value={disabilityType} 
+                        options={disabilityTypeOptions} 
+                        placeholder={selectanoptionlabel}
+                        onchange={handleChange} 
+                        variant="label-hidden"
+                        
+                        disabled={isDisableAllFields}
+                        ></lightning-combobox> 
+                    </div>
+                </template>
+        
+                <template lwc:if={isOtherDisability}>
+            
+                    <div class="slds-col slds-p-around_x-small slds-small-size_1-of-1 slds-medium-size_6-of-12 slds-large-size_6-of-12">
+                        <div class="labels-block">
+                            <label class="otherDisablitity label-block" >{ifOthersPleaseSpecifyDisType}</label>
+                            <lightning-helptext content={enterinenglishlabel} style="margin-top: -5px;"></lightning-helptext>
+                        </div>
+                        <lightning-input 
+                        type="text"
+                        onkeypress={handleKeyNamename}
+                        name="otherDisability" 
+                        value={otherDisability} 
+                        max-length="70"
+                        onbeforeinput={validateInput}
+                        onchange={handleChange} 
+                        variant="label-hidden"
+                        onpaste={handlePaste}
+                        
+                        disabled={isDisableAllFields}
+        
+                        ></lightning-input> 
+                    </div>
+        
+                </template>
+
+
+                <div class="slds-col slds-p-around_x-small slds-small-size_1-of-1 slds-medium-size_6-of-12 slds-large-size_6-of-12">
+                    <div class="labels-block">
+                        <label class="familyStatus label-block" >{currentFamilyStatusLabel}</label>
+                    </div>
+                   
+                    <lightning-combobox 
+                    name="familyStatus" 
+                    value={familyStatus} 
+                    options={familyStatusOptions}
+                    placeholder={selectanoptionlabel}
+                    onchange={handleChange}
+                    variant="label-hidden"
+                    disabled={isDisableAllFields}
+                    ></lightning-combobox>
+                </div>
+                
+                <div class="slds-col slds-p-around_x-small slds-small-size_12-of-12 slds-medium-size_6-of-12 slds-large-size_6-of-12">
+                    
+                    <div class="labels-block">
+                        <label class="motherName label-block" >{motherNameLabel}</label>
+                        <lightning-helptext content={enterinenglishlabel} style="margin-top: -5px;"></lightning-helptext>
+                    </div>
+                    <lightning-input
+                    name="motherName" 
+                    value={motherName} 
+                    onchange={handleChange}
+                    variant="label-hidden"
+                    onpaste={handlePaste}
+                    max-length="70"
+                    onbeforeinput={validateInput}
+                    onkeypress={handleKeyNamename}                        
+                    disabled={isDisableAllFields}
+                    ></lightning-input>  
+                </div>
+                <div class="slds-col slds-p-around_x-small slds-small-size_12-of-12 slds-medium-size_6-of-12 slds-large-size_6-of-12">
+                    
+                    <div class="labels-block">
+                        <label class="fatherName label-block" >{fatherNameLabel}</label>
+                        <lightning-helptext content={enterinenglishlabel} style="margin-top: -5px;"></lightning-helptext>
+                    </div>
+                    
+                    <lightning-input
+                    name="fatherName" 
+                    value={fatherName} 
+                    onchange={handleChange}
+                    variant="label-hidden"
+                    onpaste={handlePaste}
+                    max-length="70"
+                    onbeforeinput={validateInput}
+                    onkeypress={handleKeyNamename}                        
+                    disabled={isDisableAllFields}
+                    ></lightning-input>    
+                </div>
+            
+               
+            
+                <div class="slds-col slds-p-around_x-small slds-small-size_1-of-1 slds-medium-size_6-of-12 slds-large-size_6-of-12">
+                    <div class="labels-block">
+                        <label class="familyIncome label-block">{familyIncomePerYearLabel}</label>
+                    </div>
+                
+                    <lightning-combobox 
+                    name="familyIncome" 
+                    value={familyIncome} 
+                    options={familyIncomeOptions}
+                    placeholder={selectanoptionlabel}
+                    onchange={handleChange}
+                    variant="label-hidden"
+                    disabled={isDisableAllFields}
+                    ></lightning-combobox>
+                </div>
+    
+            <div class="slds-col slds-p-around_x-small slds-small-size_1-of-1 slds-medium-size_6-of-12 slds-large-size_6-of-12">
+                <div class="labels-block">
+                    <label class="Religion label-block" >{religionLabel}</label>
+                </div>
+                <lightning-combobox 
+                name="religion" 
+                value={religion} 
+                options={religionOptions} 
+                placeholder={selectanoptionlabel}
+                onchange={handleChange} 
+                variant="label-hidden"
+                
+                disabled={isDisableAllFields}
+                ></lightning-combobox> 
+            </div>
+    
+            <template lwc:if={isOtherReligion}>
+    
+                <div class="slds-col slds-p-around_x-small slds-small-size_1-of-1 slds-medium-size_6-of-12 slds-large-size_6-of-12">
+                    <div class="labels-block">
+                        <label class="otherReligion label-block" >{ifOthersSpecifyRel}</label>
+                        <lightning-helptext content={enterinenglishlabel} style="margin-top: -5px;"></lightning-helptext>
+                    </div>
+    
+                    <lightning-input 
+                    type="text"
+                    onkeypress={handleKeyNamename}
+                    name="otherReligion" 
+                    value={otherReligion} 
+                    max-length="70"
+                    onbeforeinput={validateInput}
+                    variant="label-hidden"
+                    onchange={handleChange}
+                    onpaste={handlePaste}
+                    
+                    disabled={isDisableAllFields}
+                    ></lightning-input>
+                </div>
+    
+            </template>
+    
+    
+            <div class="slds-col slds-p-around_x-small slds-small-size_12-of-12 slds-medium-size_6-of-12 slds-large-size_6-of-12">
+                    
+                <div class="labels-block">
+                    <label class="category label-block" >{communityCategoryLabel}</label>
+                </div>
+    
+                <lightning-combobox 
+                name="category" 
+                options={categoryOptions} 
+                placeholder={selectanoptionlabel}
+                value={category} 
+                onchange={handleChange}
+                variant="label-hidden"
+                disabled={isDisableAllFields}
+                >
+            </lightning-combobox>
+            </div>
+    
+            <template lwc:if={isCommunity}>
+                <div class="slds-col slds-p-around_x-small slds-small-size_12-of-12 slds-medium-size_6-of-12 slds-large-size_6-of-12">
+                
+                    <div class="labels-block">
+                        <label class="communityName label-block" >{mentionCommunityNameHere}</label>
+                        <lightning-helptext content={enterinenglishlabel} style="margin-top: -5px;"></lightning-helptext>
+                    </div>
+                    
+                    <lightning-input
+                    type="text"
+                    onkeypress={handleKeyNamename}
+                    name="otherCategory" 
+                    value={otherCategory} 
+                    max-length="70"
+                    onbeforeinput={validateInput}
+                    onchange={handleChange}
+                    variant="label-hidden"
+                    onpaste={handlePaste}
+                    disabled={isDisableAllFields}
+                    
+                    ></lightning-input>
+                </div>
+    
+            </template>
+    
+            <template lwc:if={category}>
+                <div class="slds-col slds-p-around_x-small slds-small-size_12-of-12 slds-medium-size_6-of-12 slds-large-size_6-of-12">
+                
+                    <div class="labels-block">
+                        <label class="communityName label-block" >{communityNameLabel}</label>
+                        <lightning-helptext content={enterinenglishlabel} style="margin-top: -5px;"></lightning-helptext>
+                    </div>
+                    
+                    <lightning-input
+                    type="text"
+                    onkeypress={handleKeyNamename}
+                    name="communityName" 
+                    value={communityName} 
+                    onchange={handleChange}
+                    onbeforeinput={validateInput}
+                    max-length="70"
+                    variant="label-hidden"
+                    onpaste={handlePaste}
+                    disabled={isDisableAllFields}
+                    
+                    ></lightning-input>
+                </div>
+    
+            </template>
+        </div>
+        <lightning-layout multiple-rows>
+            <lightning-layout-item size="12" small-device-size="12" medium-device-size="6" large-device-size="6" padding="horizontal-small">
+                <div class="file-margin">  
+                <div class="fileContainer">
+                        <label class="labelsContainer label-block">
+                            {uploadCasteAndIncomeCertificateLabel}
+                        </label>
+                        <lightning-helptext content={helptextforuploadlabel} style="margin-top: -5px;"></lightning-helptext></div>
+                        <lightning-input
+                             name="castcertificate"
+                            type="file"
+                            accept=".jpg,.pdf,.png,.jpeg"
+                            onchange={handleCasteUpload}
+                            variant="label-hidden"
+                            disabled={isDisableAllFields}
+                            >
+                        </lightning-input>
+                            <div class="file-upload-block selector-dropdown">
+                                        
+                                <template for:each={CasteDataList} for:item="file">
+                                    <div key={file.id} class="file-item ">
+                                        <span class="file-name"> {uploadedfilelabel}: {file.filename}</span>
+                                        <div class="file-icons">
+                                            <div >
+                                            <lightning-button-icon icon-name="utility:preview" alternative-text="Preview"
+                                            onclick={handlePreviewFile} data-id={file.id}
+                                            class="eye-btn slds-m-left_small"></lightning-button-icon>
+                                            </div>
+                                            <div class="FileIcons">
+                                        <lightning-button-icon icon-name="utility:delete" alternative-text="Delete" 
+                                            onclick={handleCasteRemove} data-id={file.id} disabled={isDisableAllFields}
+                                            class="eye-btn slds-m-left_small"></lightning-button-icon> 
+                                        </div>  
+                                        </div>  
+                                    </div>
+                                </template>
+                                <template lwc:if={fileUploadError}>
+                                    <div class="font">
+                                    <p  style="color: #EA001E;">{pleaseuploadrequireddocumentslabel}</p>
+                                    </div>
+                                </template>  
+                                <template lwc:if={fileUploadTypeError}>
+                                    <div class="font">
+                                    <p  style="color: #EA001E;">{invalidfiletypeerrorcustomlabel}</p>
+                                    </div>
+                                </template>  
+                    </div>       
+                </div>                 
+            </lightning-layout-item>
+            <lightning-layout-item size="12" small-device-size="12" medium-device-size="6" large-device-size="6" padding="horizontal-small">
+                <div class="file-margin-mobile">   
+                <div class="fileContainer" >
+                        <label class="labelsContainer label-block">
+                            {uploadDisabilityCertificateLabel}
+                        </label>
+                        <lightning-helptext content={helptextforuploadlabel} style="margin-top: -5px;"></lightning-helptext>
+                    </div>
+                        <lightning-input
+                                    type="file"
+                                    accept=".jpg,.pdf,.png,.jpeg"
+                                    onchange={handleDisabilityUpload}
+                                    variant="label-hidden"
+                                    disabled={isDisableAllFields}
+                                    >
+                                </lightning-input>
+                            <div class="file-upload-block selector-dropdown">
+                                        
+                                <template for:each={disabilityDataList} for:item="file">
+                                    <div key={file.id} class="file-item ">
+                                        <span class="file-name"> {uploadedfilelabel}: {file.filename}</span>
+                                        <div class="file-icons">
+                                            <div >
+                                            <lightning-button-icon icon-name="utility:preview" alternative-text="Preview"
+                                            onclick={handlePreviewFile} data-id={file.id}
+                                            class="eye-btn slds-m-left_small"></lightning-button-icon>
+                                            </div>
+                                            <div class="FileIcons">
+                                        <lightning-button-icon icon-name="utility:delete" alternative-text="Delete" 
+                                            onclick={handleDisabilityRemove} data-id={file.id} disabled={isDisableAllFields}
+                                            class="eye-btn slds-m-left_small"></lightning-button-icon> 
+                                        </div>   
+                                    </div> 
+                                    </div>
+                                </template>
+                                <template lwc:if={fileUploadError}>
+                                    <div class="font">
+                                    <p  style="color: #EA001E;">{pleaseuploadrequireddocumentslabel}</p>
+                                    </div>
+                                </template>  
+                                <template lwc:if={fileUploadTypeError}>
+                                    <div class="font">
+                                    <p  style="color: #EA001E;">{invalidfiletypeerrorcustomlabel}</p>
+                                    </div>
+                                </template>  
+                    </div>          
+                </div> 
+            </lightning-layout-item>
+            </lightning-layout>
+            
+        <div class="gridTable slds-grid slds-wrap slds-m-around_medium save-and-continue-button">
+            <lightning-button 
+            class="slds-m-bottom_large"  
+            label="Save and Continue" 
+            variant="brand"
+            onclick={handleSaveAndContinue}
+            disabled={isDisableAllFields}
+            >
+            </lightning-button>
+          </div>
+    
+    </div>
+        <template if:true={isLoading}>
+            <div class="overlay">
+                <lightning-spinner alternative-text="Loading" size="medium"></lightning-spinner>
+            </div>
+        </template>
+    </template>

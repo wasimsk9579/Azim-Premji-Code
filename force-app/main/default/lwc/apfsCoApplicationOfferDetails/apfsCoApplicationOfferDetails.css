@@ -1,0 +1,66 @@
+.Page {
+    font-family: sans-serif !important;
+}
+.detailSection{
+    margin-left: 7px;
+}
+.row-border {
+    position: relative;
+}
+
+.row-border::after {
+    content: '';
+    display: block;
+    width: 85%;                  
+    border-bottom: 1px solid #ddd; 
+    margin-top: 30px;
+}
+.input-position {
+    position: relative;
+    top: -20px;
+    width: 90%;
+}
+.row-border1{
+    content: '';
+    display: block;
+    width: 100%;                  
+    border-bottom: 1px solid #ddd;
+    padding: 7px;
+}
+.heading{
+    --sds-c-accordion-summary-color-background: var(--lwc-colorBackground,#f3f3f3);
+    border-radius: 8px;
+}
+.image-container {
+    position: relative;
+    overflow: hidden;
+    background-color: white;
+    padding: 10px;
+    width: 100%;
+    height: auto; 
+}
+
+.fileImage {
+    max-width: 100%;
+    max-height: 100%;
+    transition: transform 0.3s ease;
+}
+.editIconCss{
+    flex-direction: row;
+    display: flex;
+    justify-content: space-between;
+    margin-left: -5px;
+}
+.sticky-footer {
+    position: sticky;
+    bottom: 0;
+    background-color: rgb(220 220 220 / 80%);
+    padding: 10px 20px;
+    border-top: 1px solid #e0e0e0;
+    width: 100%; 
+    display: flex;
+    justify-content: center; 
+}
+.editButton2{
+    margin-left: 10px;
+}

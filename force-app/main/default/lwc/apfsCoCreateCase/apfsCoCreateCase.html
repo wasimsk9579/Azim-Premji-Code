@@ -1,0 +1,110 @@
+<!--
+  @description       : 
+  @author            : owais.ahanger@cloudodyssey.co
+  @group             : 
+  @last modified on  : 08-28-2024
+  @last modified by  : ChangeMeIn@UserSettingsUnder.SFDoc
+-->
+<template>
+    <!-- New Button -->
+     <div class="case-new-btn">
+        <lightning-button variant="brand" type="submit" label="New" onclick={handleOpenModal}></lightning-button>
+     </div>
+   
+
+    <!-- Modal -->
+    <template lwc:if={isModalOpen}>
+        <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true"
+            class="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container">
+                <!-- Modal Header -->
+                <header class="slds-modal__header">
+                    <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse"
+                        title="Close" onclick={handleCloseModal}>
+                    <lightning-icon icon-name="utility:close" alternative-text="close" size="small"></lightning-icon>
+                    <span class="slds-assistive-text">Close</span>
+                </button>
+                    <h2 id="modal-heading-01" class="slds-text-heading_medium">{newQueryLabel}</h2>
+                </header>
+
+                <!-- Modal Body -->
+                <div class="slds-modal__content slds-p-around_medium slds-form-element__label">
+                    <!-- Topic -->
+                    <lightning-combobox label={topicLabel} placeholder={selectTopicLabel} options={caseTopicOptions} onchange={handleTopicChange} message-when-value-missing={requiredFieldError} required></lightning-combobox>
+
+                    <!-- Sub Topic -->
+                    <lightning-combobox label={subTopicLabel} placeholder={selectSubTopicLabel} options={caseSubTopicOptions} onchange={handleSubTopicChange} message-when-value-missing={requiredFieldError} value={selectedCaseSubTopic} class="slds-m-top_small" disabled={isSubTopicDisabled} required></lightning-combobox>
+
+                    <!-- Example -->
+                     <template lwc:if={hasExampleOptions}>
+                     <div class="slds-m-top_small">
+                        <p class="slds-text-title">Example:</p>
+                        <div class="example-pill-container">
+                            <template for:each={caseExampleOptions} for:item="example">
+                                <span key={example.value} class="example-pill slds-pill">
+                                    <span class="slds-pill__label" title={example.label}>{example.label}</span>
+                                </span>
+                            </template>
+                        </div>
+                    </div>
+                </template>
+                  <!-- Subject Input -->
+                  <lightning-input 
+                  name="caseSubject" 
+                  label={subjectLabel}
+                  placeholder={enterSubjectLabel}
+                  value={selectedCaseSubject}
+                  message-when-value-missing={requiredFieldError} 
+                  onbeforeinput={handleBeForChangeSubject}
+                  onchange={handleSubjectChange} 
+                  oninput={handleInput} 
+                  class="slds-m-top_small" 
+                  required
+                  maxlength="75">
+              </lightning-input>
+              
+              
+
+          <!-- Description Input -->
+          <lightning-textarea 
+              name="caseDescription" 
+              label={descriptionLabel} 
+              placeholder={enterDescriptionLabel}
+              message-when-value-missing={requiredFieldError} 
+              value={selectedCaseDescription}
+              onbeforeinput={handleBeForChangeDescription} 
+              onchange={handleDescriptionChange} 
+              oninput={handleInputDescription}
+              class="slds-m-top_small"
+              maxlength="255"
+               required>
+          </lightning-textarea>
+                 
+               <!-- Application Lookup -->
+               <lightning-combobox 
+               name="applicationLookup" 
+               label={applicationLabel}
+               placeholder={selectApplicationLabel}
+               options={applicationOptions} 
+               value={selectedApplicationId} 
+               onchange={handleApplicationChange} 
+               class="slds-m-top_small">
+           </lightning-combobox>
+             
+                </div>
+
+                <!-- Modal Footer -->
+                <footer class="slds-modal__footer">
+                    <lightning-button label="Cancel" onclick={handleCloseModal}></lightning-button>
+                    <lightning-button variant="brand" label="Save" onclick={handleSave} class="slds-m-left_small"></lightning-button>
+                </footer>
+            </div>
+        </section>
+
+        <!-- Backdrop -->
+        <div class="slds-backdrop slds-backdrop_open"></div>
+        <template if:true={isLoading}>
+            <lightning-spinner alternative-text="Loading" size="medium"></lightning-spinner>
+        </template>
+    </template>
+</template>

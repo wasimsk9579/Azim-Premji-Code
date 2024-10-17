@@ -1,0 +1,180 @@
+/* Full width card to span across the entire width */
+.full-width-card {
+    width: 100%;
+    font-family: var(--lwc-fontFamily, Lato);
+}
+
+/* Container for labels with bold text */
+.labelsContainer {
+    font-weight: bold;
+}
+
+
+/* Full width card with SLDS class */
+.slds-card_full-width {
+    width: 100%;
+}
+
+/* Styling for submit button to ensure spacing */
+.btn-submit {
+    margin-bottom: 0.75rem !important;
+}
+
+/* Center-aligned text */
+.slds-align_absolute-center {
+    text-align: center;
+}
+
+/* Full width for Lightning input fields */
+.lightning-input {
+    width: 100%;
+}
+
+/* Margin at the top for Lightning buttons */
+.lightning-button {
+    margin-top: 1rem;
+}
+
+/* Normal font weight for input fields */
+.input-field {
+    font-weight: normal;
+}
+
+/* Error message styling for file uploads */
+.fileconsenterror {
+        font-family: var(--lwc-fontFamily, Lato);
+        font-size: 12px; /* Correct font-size syntax */
+        color: #EA001E;  
+        padding-left: 10px;
+}
+
+/* Normal font weight for selector dropdowns */
+.selector-dropdown {
+    font-weight: normal;
+}
+
+/* Flex container for file upload block */
+.file-upload-block {
+    display: flex;
+    align-items: center;
+    flex-wrap: nowrap;
+    max-width: 100%;
+}
+
+/* Styling for file name in the file upload block */
+.file-upload-block .file-name {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: calc(100% - 64px); /* Adjust this based on the width of the icons */
+    margin-right: 8px; /* Add some space between the file name and the icons */
+}
+.consent-checkbox
+{   
+    display: flex;
+    width: 100%;
+    padding-bottom: 0px!important;
+} 
+.child-consent
+{
+    display:flex;
+    margin-top: 3px;
+    margin-left: 6px;
+}
+.child-consentlabel
+{
+    
+    padding-left: 7px;
+    padding-right: 7px;
+} 
+.application-card {
+    border-radius: 0.625rem;
+    padding: 12px;
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+ 
+}
+.file-icons{
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    gap:15px;
+}
+
+/* Mobile responsiveness adjustments */
+@media (max-width: 768px) {
+    .slds-grid {
+        display: block;
+    }
+    .slds-col {
+        width: 100%;
+    }
+}
+.fileCss{
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    word-break: break-all;
+    max-width: 100%;
+    margin-right: 0.5rem;
+    }
+    .overlay {
+        position: fixed; 
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 1000; 
+    }
+    .file-item {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: flex-start;
+        padding: 0.5rem 0;
+    }
+    .noteclass {
+        font-family: var(--lwc-fontFamily, Lato);
+        font-size: 12px; /* Correct font-size syntax */
+        color: #454545;
+        
+    }
+    
+
+    .lable-class
+    {   
+        display: flex;
+        align-items: center;
+    }
+    .file-upload-class
+    {
+        display: flex;
+    }
+
+    .button_class
+    {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top:15px;
+    
+    }
+    .slds-checkbox__label .slds-checkbox_faux{
+        margin-right: 0px !important;
+    }
+
+    .ConsentVal
+    {
+    margin-right: 0px!important;
+}
+
+
+@media (max-width: 428px) {
+    .lable-class {
+        display: block;
+    }
+ 
+}

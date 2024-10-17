@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningMessageChannel xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>This Lightning Message Channel sends information from ApfsCoShowUploadedDocuments to apfsCoDocumentReject</description>
+    <isExposed>true</isExposed>
+    <lightningMessageFields>
+        <description>message To Send</description>
+        <fieldName>FileExtension</fieldName>
+    </lightningMessageFields>
+    <lightningMessageFields>
+        <description>To render LWC</description>
+        <fieldName>isOpen</fieldName>
+    </lightningMessageFields>
+    <lightningMessageFields>
+        <description>file link</description>
+        <fieldName>filePreviewUrl</fieldName>
+    </lightningMessageFields>
+    <lightningMessageFields>
+        <description>file Id</description>
+        <fieldName>contentVersionId</fieldName>
+    </lightningMessageFields>
+    <lightningMessageFields>
+        <description>contact Id</description>
+        <fieldName>contactId</fieldName>
+    </lightningMessageFields>
+    <lightningMessageFields>
+        <description>file Id</description>
+        <fieldName>contentDocumentId</fieldName>
+    </lightningMessageFields>
+    <lightningMessageFields>
+        <description>file Id</description>
+        <fieldName>applicationId</fieldName>
+    </lightningMessageFields>
+    <lightningMessageFields>
+        <description>contact Id</description>
+        <fieldName>documentType</fieldName>
+    </lightningMessageFields>
+    <lightningMessageFields>
+        <description>contact Id</description>
+        <fieldName>RefreshApex</fieldName>
+    </lightningMessageFields>
+    <masterLabel>apfsCoDocMessagingChannel</masterLabel>
+</LightningMessageChannel>

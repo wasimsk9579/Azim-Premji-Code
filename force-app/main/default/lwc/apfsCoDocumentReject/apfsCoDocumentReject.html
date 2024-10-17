@@ -1,0 +1,38 @@
+<!--
+  @description       : 
+  @author            : ChangeMeIn@UserSettingsUnder.SFDoc
+  @group             : 
+  @last modified on  : 09-07-2024
+  @last modified by  : owais.ahanger@cloudodyssey.co
+-->
+<template>
+    <!-- Only show the content if isOpen is true -->
+     
+    <template lwc:if={isOpen}>
+        <lightning-card>
+                <template if:true={isImage}>
+                    <div class="image-container ">
+                        <img src={filePreviewUrl} alt="Document Preview"/>
+                    </div> 
+                </template><br/>
+
+              <!-- Pdf :{isPdf} -->
+               <template if:true={isPdf} >
+                <iframe src={filePreviewUrl} width="100%" height="600px" style={iframeStyle}></iframe>
+            </template><br/>
+                <!-- Comments Section -->
+                 <template if:true={showComments}>
+                <lightning-textarea label="Comments" class="reject-comments" onchange={handleCommentsChange} required></lightning-textarea><br/>
+                <lightning-button variant="brand" label="Submit Rejection" onclick={handleSubmitReject}></lightning-button>
+
+            </template>
+            <br/>
+            <div class="footer">
+                <lightning-button class="slds-m-right_small" variant="neutral" label="Cancel" onclick={handleCancel}></lightning-button>
+                <!-- <lightning-icon icon-name="action:close" alternative-text="Rejected" title="Rejected" onclick={handleReject}></lightning-icon>&nbsp;&nbsp;&nbsp;
+                <lightning-icon icon-name="action:approval" alternative-text="Approved" title="Approved" onclick={handleApprove}></lightning-icon> -->
+               <!-- <lightning-button variant="success" label="Verified" onclick={handleApprove}></lightning-button>-->
+            </div>
+        </lightning-card>
+    </template>
+</template>

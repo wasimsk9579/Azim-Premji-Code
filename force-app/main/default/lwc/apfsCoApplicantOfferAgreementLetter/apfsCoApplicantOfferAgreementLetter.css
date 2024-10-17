@@ -1,0 +1,94 @@
+.application-card {
+    border-radius: 0.625rem;
+    padding: 12px;
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+ 
+}
+.file-icons{
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    gap:15px;
+}
+
+.no-border-button
+{
+    
+        border: none;
+        background: none;
+        color: blue;
+        cursor: pointer;
+       
+    }
+
+    .labels-block{
+        display: flex;
+        align-items: center;
+        padding-left: 2px;
+        margin: 1%;
+    }
+    .task-body-content {
+        display: flex;
+        width: 100%;
+        padding: 0.5rem;
+        color: rgb(9, 2, 2);
+        background: var(--reva-table-row-background-color);
+    }
+.labelsContainer{
+    margin-left: 1rem;
+}
+.padding-card {
+    padding: 0px 24px;
+}
+.lable-padding
+{
+    padding: 8px;
+}
+
+/* Responsive design for screen sizes 500px and below */
+@media only screen and (max-width: 550px) {
+    .slds-col {
+        width: 100% !important; /* Ensures columns take full width on small screens */
+        
+    }
+    .offer-letter-margin
+    {
+        margin-bottom: 1rem;
+    }
+}
+.fileCss{
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    word-break: break-all;
+    max-width: 100%;
+    margin-right: 0.5rem;
+    }
+    .overlay {
+        position: fixed; 
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 1000; 
+    }
+    .marginclass
+    {
+        margin-left: 7px;
+    }
+    .rightflex
+    {
+        padding-left: 2px;
+    }
+
+.label-class
+{   
+    display: flex;
+    align-items: center;
+} 
+.file-item {
+    padding: 0.5rem 0 0.5rem 1rem;
+}

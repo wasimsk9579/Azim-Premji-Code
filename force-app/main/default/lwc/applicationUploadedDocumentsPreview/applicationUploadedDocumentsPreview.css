@@ -1,0 +1,20 @@
+.preview-modal {
+    display: flex;
+    flex-direction: column;
+    height: 100%; /* Ensure full height of the parent container */
+}
+
+.slds-card__footer {
+    text-align: right;
+    padding: 0.5rem;
+}
+.image-container{
+    height: 500px;
+    max-width: 500px;
+    
+}
+.image-containe img{
+    height: 100%;
+    width: 100%;
+    object-fit: contain;
+}

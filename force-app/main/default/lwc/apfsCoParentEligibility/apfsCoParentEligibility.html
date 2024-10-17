@@ -1,0 +1,18 @@
+<!--
+  @description       : 
+  @author            : ChangeMeIn@UserSettingsUnder.SFDoc
+  @group             : 
+  @last modified on  : 07-31-2024
+  @last modified by  : owais.ahanger@cloudodyssey.co
+-->
+<template>
+    <c-apfs-co-eligibility show-modal={showModal} onclose={handleModalClose}></c-apfs-co-eligibility>
+    <template lwc:if={eligibilityStatus}>
+       <c-apfs-co-mobile-number-verification></c-apfs-co-mobile-number-verification>
+    </template>
+    <template lwc:else>
+      <div style="color:red;font-size:13px;text-align: center;">
+        Sorry! You are not eligible to register at the moment.
+    </div>
+    </template>
+</template>

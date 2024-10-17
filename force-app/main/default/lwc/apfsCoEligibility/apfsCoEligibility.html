@@ -1,0 +1,134 @@
+<!--
+  @description       : 
+  @author            : ChangeMeIn@UserSettingsUnder.SFDoc
+  @group             : 
+  @last modified on  : 09-05-2024
+  @last modified by  : ChangeMeIn@UserSettingsUnder.SFDoc
+-->
+<template>
+    <lightning-layout>
+        <template if:true={showModal}>
+            <section role="dialog" tabindex="-1" class="slds-modal slds-fade-in-open">
+                <div class="slds-modal__container custom-modal-container">
+                    <!-- Modal/Popup Header -->
+                    <header class="slds-modal__header">
+                        <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse"
+                            title="Close" onclick={closeModal}>
+                            <lightning-icon icon-name="utility:close" alternative-text="close" size="small"></lightning-icon>
+                            <span class="slds-assistive-text">Close / बंद करें</span>
+                        </button>
+                        <div class="slds-page-header__name-title slds-page-header__title title-block slds-m-vertical_large">
+                            <h1>ELIGIBILITY CRITERIA (पात्रता हेतु मापदंड)</h1>
+                        </div>
+                    </header>
+                    <!-- class="combobox-container custom-checkbox-spacing " -->
+                    <!-- Modal/Popup Body -->
+                    <div class="slds-modal__content slds-p-around_medium custom-modal-content">
+                        
+                        <!-- Gender Selection -->
+                        <label class="slds-form-element__label combobox-container label-spacing">
+                            <div> <span style="color: red;">*</span><span> Please select your gender</span> </div> 
+                             <span class="hindi-label">(कृपया अपना लिंग चुनें)</span>
+                         </label>
+                         <div class="custom-combobox-wrapper">
+                        <lightning-combobox name="gender"  
+                          
+                            value={gender} placeholder="Select your gender (अपना लिंग चुनें)" 
+                            options={genderOptions} onchange={handleChange} 
+                            data-id="gender">
+                        </lightning-combobox>
+                        </div>
+                        <template if:true={showError.gender}>
+                            <div class="slds-text-color_error error-messages error-messages-for-gender">
+                                This scholarship is applicable only to the female students. <span class="hindi-label error-color">(यह स्कॉलरशिप केवल छात्राओं  के लिए है।)</span>
+                            </div>
+                        </template>
+
+
+                        <!-- Grade 10 from Government School -->
+                        <fieldset>
+                            <label class="slds-form-element__label combobox-container">
+                               <div> <span style="color: red;">*</span><span> Have you passed class 10th from a government school?</span> </div> 
+                                <span class="hindi-label">(क्या आपने  10वीं कक्षा शासकीय स्कूल से उत्तीर्ण की है?)</span>
+                            </label>
+                            <lightning-radio-group data-id="gradeX" name="gradeX" label="" 
+                            class="custom-radio-group-spacing custom-radio-background" options={yesNoOptions} value={checkboxState.gradeX} onchange={handleChange}>
+                            </lightning-radio-group>
+                        </fieldset>
+                        <!-- Grade 12 from Government School -->
+                        <fieldset>
+                            <label class="slds-form-element__label combobox-container">
+                                <div><span style="color: red;">*</span> <span> Have you passed class 12th from government school? </span></div>
+                                    <span class="hindi-label">(क्या आपने  12वीं कक्षा शासकीय स्कूल से उत्तीर्ण की है?)</span>
+                            </label>
+                            <lightning-radio-group data-id="gradeXII" name="gradeXII" label="" 
+                            class="custom-radio-group-spacing custom-radio-background"  options={yesNoOptions} value={checkboxState.gradeXII} onchange={handleChange}>
+                            </lightning-radio-group>
+                        </fieldset>
+
+                        <!-- Error Message for Grades -->
+                        <template if:true={showError.grades}>
+                            <div class="slds-text-color_error error-messages">
+                                You must have completed both class 10 and 12 from a government school to be eligible for this scholarship. 
+                                <span class="hindi-label error-color">(स्कॉलरशिप में पात्र होने के लिए, आपको 10वीं और 12वीं कक्षा (दोनों) ही शासकीय स्कूल से पूरी होनी चाहिए)</span>
+                            </div>
+                        </template>
+                         
+
+                        <!-- Completion of Class 12 from Specified States -->
+                        <fieldset>
+                            <label class="slds-form-element__label combobox-container">
+                                <div><span style="color: red;">*</span> 
+                                <span> Have you completed your class 12th from Madhya Pradesh, Uttar Pradesh, Rajasthan, or Jharkhand?</span>
+                                </div>
+                                <!-- <span class="hindi-label">(क्या आपने इन राज्यों में से किसी से कक्षा 12वीं पूरी की है: मध्य प्रदेश, उत्तर प्रदेश, राजस्थान, और झारखंड?)</span> -->
+                            </label>
+                            <label class="slds-form-element__label combobox-container hindimargin">
+                                <span class="hindi-label">(क्या आपने अपनी 12वीं कक्षा मध्य प्रदेश, उत्तर प्रदेश, राजस्थान या झारखंड से पूरी की है?)</span>
+                            </label>
+                            <lightning-radio-group data-id="completedClass12thFromStates" 
+                                name="completedClass12thFromStates" label="" 
+                                class="custom-radio-group-spacing custom-radio-background"
+                                options={yesNoOptions} value={checkboxState.completedClass12thFromStates} 
+                                onchange={handleChange}>
+                            </lightning-radio-group>
+                        </fieldset>
+                        <template if:true={showError.completedClass12thFromStates}>
+                            <div class="slds-text-color_error error-messages">
+                                You must have passed class 12 in one of the specified states to be eligible. 
+                                <span class="hindi-label error-color">( स्कॉलरशिप में पात्र होने के लिए, आपको निर्दिष्ट राज्यों में से किसी एक में 12वीं कक्षा उत्तीर्ण होनी चाहिए)</span>
+                            </div>
+                        </template> 	
+                         
+                        <!-- Admission in Regular College/University/Polytechnic -->
+                        <fieldset>
+                            <label class="slds-form-element__label combobox-container">
+                              <div>  <span style="color: red;">*</span> <span> Have you  got admission in the first year of a college, university, or polytechnic?</span></div>
+                                <span class="hindi-label">(क्या आपको कॉलेज, विश्वविद्यालय, या पॉलिटेक्निक के प्रथम वर्ष में प्रवेश मिला है?)</span>
+                            </label>
+                            <lightning-radio-group data-id="securedAdmission" name="securedAdmission" label="" 
+                            class="custom-radio-group-spacing custom-radio-background"  options={yesNoOptions} value={checkboxState.securedAdmission} 
+                                onchange={handleChange}>
+                            </lightning-radio-group>
+                        </fieldset>
+                        <template if:true={showError.securedAdmission}>
+                            <div class="slds-text-color_error error-messages">
+                                You must have secured admission to a recognised college, university, or polytechnic to be eligible for the scholarship. 
+                                <span class="hindi-label error-color">(स्कॉलरशिप में पात्र होने के लिए,आपको किसी मान्यता प्राप्त कॉलेज, विश्वविद्यालय या पॉलिटेक्निक में प्रवेश प्राप्त करना अनिवार्य है।)</span>
+                            </div>
+                        </template>
+                    </div>
+                    
+                    <!-- Modal/Popup Footer -->
+                    <footer class="slds-modal__footer">
+                        <button class="slds-button slds-align_absolute-center slds-button_success" 
+                            onclick={confirm} disabled={isFormValid}>
+                            Check Eligibility (पात्रता जांचें)
+                        </button>
+                    </footer>
+                </div>
+            </section>
+            <div class="slds-backdrop slds-backdrop_open"></div>
+        </template>
+    </lightning-layout>
+</template>

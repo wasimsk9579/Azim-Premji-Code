@@ -1,0 +1,1666 @@
+<template>
+    <lightning-accordion allow-multiple-sections-open active-section-name={activeSections}>
+        <div class="profile-photo">
+            <p class="slds-align_absolute-center">Profile Picture</p>
+            <img src={defaultProfilePhotoUrl} alt="Profile Photo" /></div>
+        <!---Profile-->        
+        <lightning-accordion-section name="A" label="My Profile" class="heading">
+            <div class="detailSection">
+                <template lwc:if={isProfileCompleted}>
+                    <div class="slds-grid slds-wrap">
+                        <div class="slds-col slds-size_1-of-4 slds-p-top_small"><label class="slds-form-element__label">Aadhaar Number</label></div>
+                        <div class="slds-col slds-size_1-of-4 slds-p-top_small">
+                            <p class="slds-form-element__static editIconCss">
+                                <template if:false={isRecordEditMode}>
+                                    <a class="link" name="Aadhaar Card" onclick={handleClick}>{aadhaarNo}</a>
+                                    <template lwc:if={recordEditPermission}>
+                                        <lightning-button-icon icon-name="utility:edit" variant="bare" alternative-text="Edit" onclick={toggleEditMode} class="editButton"></lightning-button-icon>
+                                    </template>
+                                </template>
+                                <template lwc:if={isRecordEditMode}>
+                                    <lightning-input value={aadhaarNo} onchange={handleFieldChange} data-id="aadhaarNo" class="input-position" maxlength="12"></lightning-input>
+                                </template>
+                            </p>
+                        </div>
+                        <div class="slds-col slds-size_1-of-4 slds-p-top_small">
+                            <label class="slds-form-element__label">Name</label>
+                        </div>
+                        <div class="slds-col slds-size_1-of-4 slds-p-top_small">
+                            <p class="slds-form-element__static editIconCss">
+                                <template if:false={isRecordEditMode}>
+                                    <a class="link" name="Self Photo" onclick={handleClick}>{selfPhoto}</a>
+                                    <template lwc:if={recordEditPermission}>
+                                        <lightning-button-icon icon-name="utility:edit" variant="bare" alternative-text="Edit" onclick={toggleEditMode} class="editButton"></lightning-button-icon>
+                                    </template>
+                                </template>
+                                <template lwc:if={isRecordEditMode}>
+                                    <div class="slds-grid slds-wrap">
+                                        <div class="slds-col slds-size_1-of-1 slds-p-top_small">
+                                            <lightning-input label="First Name" value={firstName} onchange={handleFieldChange} data-id="firstName" class="input-position"></lightning-input>
+                                        </div>
+                                        <div class="slds-col slds-size_1-of-1 slds-p-top_small">
+                                            <lightning-input label="Last Name" value={lastName} onchange={handleFieldChange} data-id="lastName" class="input-position"></lightning-input>
+                                        </div>
+                                    </div>                                    
+                                </template>
+                            </p>
+                        </div>
+                        <p class="slds-horizontal-rule row-border1"></p>
+                        <div class="slds-col slds-size_1-of-4 slds-p-top_small">
+                            <label class="slds-form-element__label">Gender</label>
+                        </div>
+                        <div class="slds-col slds-size_1-of-4 slds-p-top_small">
+                            <p class="slds-form-element__static editIconCss">
+                                <template if:false={isRecordEditMode}>
+                                    <lightning-formatted-text value={gender}></lightning-formatted-text>
+                                    <template lwc:if={recordEditPermission}>
+                                        <lightning-button-icon icon-name="utility:edit" variant="bare" alternative-text="Edit" onclick={toggleEditMode} class="editButton"></lightning-button-icon>
+                                    </template>
+                                </template>
+                                <template lwc:if={isRecordEditMode}>
+                                    <lightning-combobox value={gender} options={genderModeOptions} onchange={handleFieldChange} data-id="gender" class="input-position"></lightning-combobox>
+                                </template>
+                            </p>
+                        </div>
+                        <div class="slds-col slds-size_1-of-4 slds-p-top_small">
+                            <label class="slds-form-element__label">Date of Birth</label>
+                        </div>
+                        <div class="slds-col slds-size_1-of-4 slds-p-top_small">
+                            <p class="slds-form-element__static editIconCss">
+                                <template if:false={isRecordEditMode}>
+                                    <lightning-formatted-text value={formattedBirthDay}></lightning-formatted-text>
+                                    <template lwc:if={recordEditPermission}>
+                                        <lightning-button-icon icon-name="utility:edit" variant="bare" alternative-text="Edit" onclick={toggleEditMode} class="editButton"></lightning-button-icon>
+                                    </template>
+                                </template>
+                                <template lwc:if={isRecordEditMode}>
+                                    <lightning-input type="date" value={birthDay} onchange={handleFieldChange} data-id="birthDay" class="input-position"></lightning-input>
+                                </template>
+                            </p>
+                        </div>
+                        <p class="slds-horizontal-rule row-border1"></p>
+                        <div class="slds-col slds-size_1-of-4 slds-p-top_small">
+                            <label class="slds-form-element__label">Mobile Number</label>
+                        </div>
+                        <div class="slds-col slds-size_1-of-4 slds-p-top_small">
+                            <p class="slds-form-element__static editIconCss">
+                                <template if:false={isRecordEditMode}>
+                                    <lightning-formatted-text value={mobilePhone}></lightning-formatted-text>
+                                    <template lwc:if={recordEditPermission}>
+                                        <lightning-button-icon icon-name="utility:edit" variant="bare" alternative-text="Edit" onclick={toggleEditMode} class="editButton">
+                                        </lightning-button-icon>
+                                    </template>
+                                </template>
+                                <template lwc:if={isRecordEditMode}>
+                                    <lightning-input value={mobilePhone} onchange={handleFieldChange}
+                                        data-id="mobilePhone" class="input-position" type="tel"></lightning-input>
+                                </template>
+                            </p>
+                        </div>
+                        <div class="slds-col slds-size_1-of-4 slds-p-top_small">
+                            <label class="slds-form-element__label">Email Id</label>
+                        </div>
+                        <div class="slds-col slds-size_1-of-4 slds-p-top_small">
+                            <p class="slds-form-element__static editIconCss">
+                                <template if:false={isRecordEditMode}>
+                                    <lightning-formatted-text value={email}></lightning-formatted-text>
+                                    <template lwc:if={recordEditPermission}>
+                                        <lightning-button-icon icon-name="utility:edit" variant="bare" alternative-text="Edit" onclick={toggleEditMode} class="editButton">
+                                        </lightning-button-icon>
+                                    </template>
+                                </template>
+                                <template lwc:if={isRecordEditMode}>
+                                    <lightning-input value={email} onchange={handleFieldChange} data-id="email" class="input-position" type="email"></lightning-input>
+                                </template>
+                            </p>
+                        </div>
+                        <p class="slds-horizontal-rule row-border1"></p>
+                        <div class="slds-col slds-size_1-of-4 slds-p-top_small">
+                            <label class="slds-form-element__label">State</label>
+                        </div>
+                        <div class="slds-col slds-size_1-of-4 slds-p-top_small">
+                            <p class="slds-form-element__static editIconCss">
+                                <template if:false={isRecordEditMode}>
+                                    <lightning-formatted-text value={state}></lightning-formatted-text>
+                                    <template lwc:if={recordEditPermission}>
+                                        <lightning-button-icon icon-name="utility:edit" variant="bare" alternative-text="Edit" onclick={toggleEditMode} class="editButton">
+                                        </lightning-button-icon>
+                                    </template>
+                                </template>
+                                <template lwc:if={isRecordEditMode}>
+                                    <lightning-combobox options={statesOptionsProfile} value={state} onchange={handleProfileStateChange} data-id="state" class="input-position"></lightning-combobox>
+                                </template>
+                            </p>
+                        </div>
+                        <div class="slds-col slds-size_1-of-4 slds-p-top_small">
+                            <label class="slds-form-element__label">District</label>
+                        </div>
+                        <div class="slds-col slds-size_1-of-4 slds-p-top_small">
+                            <p class="slds-form-element__static editIconCss">
+                                <template if:false={isRecordEditMode}>
+                                    <lightning-formatted-text value={district}></lightning-formatted-text>
+                                    <template lwc:if={recordEditPermission}>
+                                        <lightning-button-icon icon-name="utility:edit" variant="bare" alternative-text="Edit" onclick={toggleEditMode} class="editButton"></lightning-button-icon>
+                                    </template>
+                                </template>
+                                <template lwc:if={isRecordEditMode}>
+                                    <lightning-combobox options={districtsOptionsProfile} value={district} onchange={handleFieldChange} data-id="district" class="input-position"></lightning-combobox>
+                                </template>
+                            </p>
+                        </div>
+                        <p class="slds-horizontal-rule row-border1"></p>
+                        <div class="slds-col slds-size_1-of-4 slds-p-top_small">
+                            <label class="slds-form-element__label">Address for Communication</label>
+                        </div>
+                        <div class="slds-col slds-size_1-of-4 slds-p-top_small">
+                            <p class="slds-form-element__static editIconCss">
+                                <template if:false={isRecordEditMode}>
+                                    <lightning-formatted-text value={fullAddress}></lightning-formatted-text>
+                                    <template lwc:if={recordEditPermission}>
+                                        <lightning-button-icon icon-name="utility:edit" variant="bare" alternative-text="Edit" onclick={toggleEditMode} class="editButton"></lightning-button-icon></template>
+                                </template>
+                                <template lwc:if={isRecordEditMode}>
+                                    <lightning-input value={fullAddress} onchange={handleFieldChange} data-id="fullAddress" class="input-position"></lightning-input>
+                                </template>
+                            </p>
+                        </div>
+                        <div class="slds-col slds-size_1-of-4 slds-p-top_small">
+                            <label class="slds-form-element__label">Pin Code</label>
+                        </div>
+                        <div class="slds-col slds-size_1-of-4 slds-p-top_small">
+                            <p class="slds-form-element__static editIconCss">
+                                <template if:false={isRecordEditMode}>
+                                    <lightning-formatted-text value={fullAddressPinCode}></lightning-formatted-text>
+                                    <template lwc:if={recordEditPermission}>
+                                        <lightning-button-icon icon-name="utility:edit" variant="bare" alternative-text="Edit" onclick={toggleEditMode} class="editButton">
+                                        </lightning-button-icon>
+                                    </template>
+                                </template>
+                                <template lwc:if={isRecordEditMode}>
+                                    <lightning-input value={fullAddressPinCode} onchange={handleFieldChange} data-id="fullAddressPinCode" class="input-position" maxlength="6"></lightning-input>
+                                </template>
+                            </p>
+                        </div>
+                    </div>
+                </template>
+                <template if:false={isProfileCompleted}>
+                    <p>N/A</p>
+                </template>
+            </div>
+        </lightning-accordion-section>
+        <!--Referral-->
+        <lightning-accordion-section name="B" label="Referral Details" class="heading">
+            <div class="detailSection">
+                <template lwc:if={isReferralCompleted}>
+                    <div class="slds-grid slds-wrap">
+                        <div class="slds-col slds-size_1-of-4 slds-p-top_small">
+                            <label class="slds-form-element__label">Have you been referred by partners of the Azim Premji Foundation?</label>
+                        </div>
+                        <div class="slds-col slds-size_1-of-4 slds-p-top_small">
+                            <p class="slds-form-element__static editIconCss">
+                                <template if:false={isRecordEditMode}>
+                                    <lightning-formatted-text value={referredByAPFOrPartners}></lightning-formatted-text>
+                                    <template lwc:if={recordEditPermission}>
+                                        <lightning-button-icon icon-name="utility:edit" variant="bare" alternative-text="Edit" onclick={toggleEditMode} class="editButton">
+                                        </lightning-button-icon>
+                                    </template>
+                                </template>
+                                <template lwc:if={isRecordEditMode}>
+                                    <lightning-combobox options={isReferredOption} value={referredByAPFOrPartners} onchange={handleFieldChange} data-id="referredByAPFOrPartners" class="input-position"></lightning-combobox>
+                                </template>
+                            </p>
+                        </div>
+                        <template lwc:if={referredByPartner}>
+                            <div class="slds-col slds-size_1-of-4 slds-p-top_small">
+                                <label class="slds-form-element__label">Partner State</label>
+                            </div>
+                            <div class="slds-col slds-size_1-of-4 slds-p-top_small">
+                                <p class="slds-form-element__static editIconCss">
+                                    <template if:false={isRecordEditMode}>
+                                        <lightning-formatted-text value={referralPartnerState}></lightning-formatted-text>
+                                        <template lwc:if={recordEditPermission}>
+                                            <lightning-button-icon icon-name="utility:edit" variant="bare" alternative-text="Edit" onclick={toggleEditMode} class="editButton">
+                                            </lightning-button-icon>
+                                        </template>
+                                    </template>
+                                    <template lwc:if={isRecordEditMode}>
+                                        <lightning-combobox options={partnerStateOptions} value={referralPartnerState} onchange={handlePartnerStateChange} data-id="referralPartnerState" class="input-position"></lightning-combobox>
+                                    </template>
+                                </p>
+                            </div>
+                            <p class="slds-horizontal-rule row-border1"></p>
+                            <div class="slds-col slds-size_1-of-4 slds-p-top_small">
+                                <label class="slds-form-element__label">Name of the Partner</label>
+                            </div>
+                            <div class="slds-col slds-size_1-of-4 slds-p-top_small">
+                                <p class="slds-form-element__static editIconCss">
+                                    <template if:false={isRecordEditMode}>
+                                        <lightning-formatted-text value={referralPartnerName}></lightning-formatted-text>
+                                        <template lwc:if={recordEditPermission}>
+                                            <lightning-button-icon icon-name="utility:edit" variant="bare"  alternative-text="Edit" onclick={toggleEditMode} class="editButton">
+                                            </lightning-button-icon>
+                                        </template>
+                                    </template>
+                                    <template lwc:if={isRecordEditMode}>
+                                        <lightning-combobox options={organizationOptions} value={referralPartnerName} onchange={handleFieldChange} data-id="referralPartnerName" class="input-position"></lightning-combobox>
+                                    </template>
+                                </p>
+                            </div>
+                            <div class="slds-col slds-size_1-of-4 slds-p-top_small">
+                                <label class="slds-form-element__label">Name of the Scholarship Coordinator</label>
+                            </div>
+                            <div class="slds-col slds-size_1-of-4 slds-p-top_small">
+                                <p class="slds-form-element__static editIconCss">
+                                    <template if:false={isRecordEditMode}>
+                                        <lightning-formatted-text value={referralFullName}></lightning-formatted-text>
+                                        <template lwc:if={recordEditPermission}>
+                                            <lightning-button-icon icon-name="utility:edit" variant="bare" alternative-text="Edit" onclick={toggleEditMode} class="editButton">
+                                            </lightning-button-icon>
+                                        </template>
+                                    </template>
+                                    <template lwc:if={isRecordEditMode}>
+                                        <lightning-input value={referralFullName} onchange={handleFieldChange} data-id="referralFullName" class="input-position"></lightning-input>
+                                    </template>
+                                </p>
+                            </div>
+                        </template>
+                    </div>
+                </template>
+                <template if:false={isReferralCompleted}>
+                    <p>N/A.</p>
+                </template>
+            </div>
+        </lightning-accordion-section>
+        <!--Class10-->
+        <lightning-accordion-section name="D" label="Class 10 Details" class="heading">
+            <div class="detailSection">
+                <template lwc:if={isEducationCompleted}>
+                    <div class="slds-grid slds-wrap">
+                        <div class="slds-col slds-size_1-of-4 slds-p-top_small"><label class="slds-form-element__label">Year of Passing</label></div>
+                        <div class="slds-col slds-size_1-of-4 slds-p-top_small">
+                            <p class="slds-form-element__static editIconCss">
+                                <template if:false={isRecordEditMode}>
+                                    <lightning-formatted-text value={class10YearOfPassing}></lightning-formatted-text>
+                                    <template lwc:if={recordEditPermission}>
+                                        <lightning-button-icon icon-name="utility:edit" variant="bare" alternative-text="Edit" onclick={toggleEditMode} class="editButton"> </lightning-button-icon>
+                                    </template>
+                                </template>
+                                <template lwc:if={isRecordEditMode}>
+                                    <lightning-input value={class10YearOfPassing} name="class10YearOfPassing" onchange={handleChange} data-id="class10YearOfPassing" class="input-position"></lightning-input>
+                                </template>
+                            </p>
+                        </div>
+                        <div class="slds-col slds-size_1-of-4 slds-p-top_small">
+                            <label class="slds-form-element__label">Mode of Education</label>
+                        </div>
+                        <div class="slds-col slds-size_1-of-4 slds-p-top_small">
+                            <p class="slds-form-element__static editIconCss">
+                                <template if:false={isRecordEditMode}>
+                                    <lightning-formatted-text value={class10EducationMode}></lightning-formatted-text>
+                                    <template lwc:if={recordEditPermission}>
+                                        <lightning-button-icon icon-name="utility:edit" variant="bare" alternative-text="Edit" onclick={toggleEditMode} class="editButton"> </lightning-button-icon>
+                                    </template>
+                                </template>
+                                <template lwc:if={isRecordEditMode}>
+                                    <lightning-combobox value={class10EducationMode} name="class10ModeOfEducation" placeholder="Select" options={educationModeOptions} onchange={handleChange} data-id="class10EducationMode" class="input-position"></lightning-combobox>
+                                </template>
+                            </p>
+                        </div>
+                        <p class="slds-horizontal-rule row-border1"></p>
+                        <div class="slds-col slds-size_1-of-4 slds-p-top_small">
+                            <label class="slds-form-element__label">State</label>
+                        </div>
+                        <div class="slds-col slds-size_1-of-4 slds-p-top_small">
+                            <p class="slds-form-element__static editIconCss">
+                                <template if:false={isRecordEditMode}>
+                                    <lightning-formatted-text value={class10ExamState}></lightning-formatted-text>
+                                    <template lwc:if={recordEditPermission}>
+                                        <lightning-button-icon icon-name="utility:edit" variant="bare" alternative-text="Edit" onclick={toggleEditMode} class="editButton"></lightning-button-icon>
+                                    </template>
+                                </template>
+                                <template lwc:if={isRecordEditMode}>
+                                    <lightning-combobox options={statesOptions} name="class10ExamState" value={class10ExamState} onchange={handleChange} data-id="class10ExamState" class="input-position"></lightning-combobox>
+                                </template>
+                            </p>
+                        </div>
+                        <div class="slds-col slds-size_1-of-4 slds-p-top_small">
+                            <label class="slds-form-element__label">District</label>
+                        </div>
+                        <div class="slds-col slds-size_1-of-4 slds-p-top_small">
+                            <p class="slds-form-element__static editIconCss">
+                                <template if:false={isRecordEditMode}>
+                                    <lightning-formatted-text value={class10ExamDistrict}></lightning-formatted-text>
+                                    <template lwc:if={recordEditPermission}>
+                                        <lightning-button-icon icon-name="utility:edit" variant="bare" alternative-text="Edit" onclick={toggleEditMode} class="editButton">
+                                        </lightning-button-icon>
+                                    </template>
+                                </template>
+                                <template lwc:if={isRecordEditMode}>
+                                    <lightning-combobox options={districtsOptions10} name="class10ExamDistrict" value={class10ExamDistrict} onchange={handleChange} data-id="class10ExamDistrict" class="input-position"></lightning-combobox>
+                                </template>
+                            </p>
+                        </div>
+                        <p class="slds-horizontal-rule row-border1"></p>
+                        <template lwc:if={isClass10ModeOfEduRegular}>
+                            <div class="slds-col slds-size_1-of-4 slds-p-top_small">
+                                <label class="slds-form-element__label">Block</label>
+                            </div>
+                            <div class="slds-col slds-size_1-of-4 slds-p-top_small">
+                                <p class="slds-form-element__static editIconCss">
+                                    <template if:false={isRecordEditMode}>
+                                        <lightning-formatted-text value={class10ExamBlock}></lightning-formatted-text>
+                                        <template lwc:if={recordEditPermission}>
+                                            <lightning-button-icon icon-name="utility:edit" variant="bare" alternative-text="Edit" onclick={toggleEditMode} class="editButton"></lightning-button-icon>
+                                        </template>
+                                    </template>
+                                    <template lwc:if={isRecordEditMode}>
+                                        <lightning-combobox options={filteredBlockOptions10} name="class10ExamBlock" value={class10ExamBlock} onchange={handleChange} data-id="class10ExamBlock" class="input-position"></lightning-combobox>
+                                    </template>
+                                </p>
+                            </div>
+                        </template>
+                        <template lwc:if={isClass10ModeOfEduRegular}>
+                            <div class="slds-col slds-size_1-of-4 slds-p-top_small">
+                                <label class="slds-form-element__label">Name Of the School</label>
+                            </div>
+                            <div class="slds-col slds-size_1-of-4 slds-p-top_small">
+                                <p class="slds-form-element__static editIconCss">
+                                    <template if:false={isRecordEditMode}>
+                                        <lightning-formatted-text value={class10SchoolName}></lightning-formatted-text>
+                                        <template lwc:if={recordEditPermission}>
+                                            <lightning-button-icon icon-name="utility:edit" variant="bare" alternative-text="Edit" onclick={toggleEditMode} class="editButton"></lightning-button-icon>
+                                        </template>
+                                    </template>
+                                    <template lwc:if={isRecordEditMode}>
+                                        <lightning-combobox options={filteredSchoolNameOptions10}  name="class10SchoolName" value={class10SchoolName} onchange={handleChange} data-id="class10SchoolName" class="input-position"></lightning-combobox>
+                                    </template>
+                                </p>
+                            </div>
+                            <p class="slds-horizontal-rule row-border1"></p>
+                            <template lwc:if={class10SchoolOthers}>
+                                <div class="slds-col slds-size_1-of-4 slds-p-top_small">
+                                    <label class="slds-form-element__label">Others Name of the School</label>
+                                </div>
+                                <div class="slds-col slds-size_1-of-4 slds-p-top_small">
+                                    <p class="slds-form-element__static editIconCss">
+                                        <template if:false={isRecordEditMode}>
+                                            <lightning-formatted-text value={class10otherSchoolName}></lightning-formatted-text>
+                                            <template lwc:if={recordEditPermission}>
+                                                <lightning-button-icon icon-name="utility:edit" variant="bare"  alternative-text="Edit" onclick={toggleEditMode} class="editButton"></lightning-button-icon>
+                                            </template>
+                                        </template>
+                                        <template lwc:if={isRecordEditMode}>
+                                            <lightning-input value={class10otherSchoolName} name="class10otherSchoolName" onchange={handleChange} data-id="class10otherSchoolName" class="input-position"></lightning-input>
+                                        </template>
+                                    </p>
+                                </div>
+                            </template>
+                        </template>
+                        <template if:false={isClass10ModeOfEduRegular}>
+                            <div class="slds-col slds-size_1-of-4 slds-p-top_small">
+                                <label class="slds-form-element__label">Board Name</label>
+                            </div>
+                            <div class="slds-col slds-size_1-of-4 slds-p-top_small">
+                                <p class="slds-form-element__static editIconCss">
+                                    <template if:false={isRecordEditMode}>
+                                        <lightning-formatted-text value={class10BoardName}></lightning-formatted-text>
+                                        <template lwc:if={recordEditPermission}>
+                                            <lightning-button-icon icon-name="utility:edit" variant="bare" alternative-text="Edit" onclick={toggleEditMode} class="editButton"></lightning-button-icon>
+                                        </template>
+                                    </template>
+                                    <template lwc:if={isRecordEditMode}>
+                                        <lightning-combobox options={class10BoardOptions} name="class10BoardName" value={class10BoardName} onchange={handleChange} data-id="class10BoardName" class="input-position"></lightning-combobox>
+                                    </template>
+                                </p>
+                            </div>
+                            <template lwc:if={class10BoardOthers}>
+                                <div class="slds-col slds-size_1-of-4 slds-p-top_small">
+                                    <label class="slds-form-element__label">Others Board Name</label>
+                                </div>
+                                <div class="slds-col slds-size_1-of-4 slds-p-top_small">
+                                    <p class="slds-form-element__static editIconCss">
+                                        <template if:false={isRecordEditMode}>
+                                            <lightning-formatted-text value={class10OtherBoardName}></lightning-formatted-text>
+                                            <template lwc:if={recordEditPermission}>
+                                                <lightning-button-icon icon-name="utility:edit" variant="bare" alternative-text="Edit" onclick={toggleEditMode} class="editButton"></lightning-button-icon>
+                                            </template>
+                                        </template>
+                                        <template lwc:if={isRecordEditMode}>
+                                            <lightning-input value={class10OtherBoardName} name="otherClass10BoardName" onchange={handleChange} data-id="class10OtherBoardName" class="input-position"></lightning-input>
+                                        </template>
+                                    </p>
+                                </div>
+                                <p class="slds-horizontal-rule row-border1"></p>
+                            </template>
+                        </template>
+                        <div class="slds-col slds-size_1-of-4 slds-p-top_small">
+                            <label class="slds-form-element__label">Pin Code</label>
+                        </div>
+                        <div class="slds-col slds-size_1-of-4 slds-p-top_small">
+                            <p class="slds-form-element__static editIconCss">
+                                <template if:false={isRecordEditMode}>
+                                    <lightning-formatted-text value={class10ExamCentrePincode}></lightning-formatted-text>
+                                    <template lwc:if={recordEditPermission}>
+                                        <lightning-button-icon icon-name="utility:edit" variant="bare" alternative-text="Edit" onclick={toggleEditMode} class="editButton"></lightning-button-icon>
+                                    </template>
+                                </template>
+                                <template lwc:if={isRecordEditMode}>
+                                    <lightning-input value={class10ExamCentrePincode} name="class10pincode" onchange={handleChange} data-id="class10ExamCentrePincode" class="input-position" maxlength="6"></lightning-input>
+                                </template>
+                            </p>
+                        </div>
+                        <template lwc:if={isClass10ModeOfEduRegular}>
+                            <template lwc:if={class10SchoolOthers}>
+                                <p class="slds-horizontal-rule row-border1"></p>
+                            </template>
+                        </template>
+                        <template if:false={isClass10ModeOfEduRegular}>
+                            <template if:false={class10BoardOthers}>
+                                <p class="slds-horizontal-rule row-border1"></p>
+                            </template>
+                        </template>
+                        <div class="slds-col slds-size_1-of-4 slds-p-top_small">
+                            <label class="slds-form-element__label">Percentage</label>
+                        </div>
+                        <div class="slds-col slds-size_1-of-4 slds-p-top_small">
+                            <p class="slds-form-element__static editIconCss">
+                                <template if:false={isRecordEditMode}>
+                                    <a class="link" name="Class Ten Marks Card" onclick={handleClick}>{class10percentage}%</a>
+                                    <template lwc:if={recordEditPermission}>
+                                        <lightning-button-icon icon-name="utility:edit" variant="bare" alternative-text="Edit" onclick={toggleEditMode} class="editButton"></lightning-button-icon>
+                                    </template>
+                                </template>
+                                <template lwc:if={isRecordEditMode}>
+                                    <lightning-input value={class10percentage} onchange={handleFieldChange} data-id="class10percentage" class="input-position"></lightning-input>
+                                </template>
+                            </p>
+                        </div>
+                        <template lwc:if={isClass10ModeOfEduRegular}>
+                            <template if:false={class10SchoolOthers}>
+                                <p class="slds-horizontal-rule row-border1"></p>
+                            </template>
+                            <div class="slds-col slds-size_1-of-4 slds-p-top_small">
+                                <label class="slds-form-element__label">School Management Type</label>
+                            </div>
+                            <div class="slds-col slds-size_1-of-4 slds-p-top_small">
+                                <p class="slds-form-element__static">{schoolManagementType10}</p>
+                            </div>
+                        </template>
+                        <template lwc:if={class10SchoolOthers}>
+                            <p class="slds-horizontal-rule row-border1"></p>
+                        </template>
+                        <template lwc:if={class10BoardOthers}>
+                            <p class="slds-horizontal-rule row-border1"></p>
+                        </template>
+                        <div class="slds-col slds-size_1-of-4 slds-p-top_small">
+                            <label class="slds-form-element__label">Roll Number</label>
+                        </div>
+                         <div class="slds-col slds-size_1-of-4 slds-p-top_small">
+                            <p class="slds-form-element__static editIconCss">
+                                <template if:false={isRecordEditMode}>
+                                    <lightning-formatted-text value={class10Rollno}></lightning-formatted-text>
+                                    <template lwc:if={recordEditPermission}>
+                                        <lightning-button-icon icon-name="utility:edit" variant="bare" alternative-text="Edit" onclick={toggleEditMode} class="editButton"></lightning-button-icon>
+                                    </template>
+                                </template>
+                                <template lwc:if={isRecordEditMode}>
+                                    <lightning-input value={class10Rollno} onchange={handleFieldChange} data-id="class10Rollno" class="input-position"></lightning-input>
+                                </template>
+                            </p>
+                        </div>
+                    </div>
+                </template>
+                <template if:false={isEducationCompleted}>
+                    <p>N/A.</p>
+                </template>
+            </div>
+        </lightning-accordion-section>
+        <!--Class12-->
+        <lightning-accordion-section name="E" label="Class 12 Details" class="heading">
+            <div class="detailSection">
+                <template lwc:if={isEducationCompleted}>
+                    <div class="slds-grid slds-wrap">
+                        <div class="slds-col slds-size_1-of-4 slds-p-top_small">
+                            <label class="slds-form-element__label">Year of Passing</label>
+                        </div>
+                        <div class="slds-col slds-size_1-of-4 slds-p-top_small">
+                            <p class="slds-form-element__static editIconCss">
+                                <template if:false={isRecordEditMode}>
+                                    <lightning-formatted-text value={class12YearOfPassing}></lightning-formatted-text>
+                                    <template lwc:if={recordEditPermission}>
+                                        <lightning-button-icon icon-name="utility:edit" variant="bare" alternative-text="Edit" onclick={toggleEditMode} class="editButton"></lightning-button-icon>
+                                    </template>
+                                </template>
+                                <template lwc:if={isRecordEditMode}>
+                                    <lightning-input value={class12YearOfPassing} name="class12YearOfPassing" onchange={handleChange} data-id="class12YearOfPassing" class="input-position"></lightning-input>
+                                </template>
+                            </p>
+                        </div>
+                        <div class="slds-col slds-size_1-of-4 slds-p-top_small">
+                            <label class="slds-form-element__label">Mode of Education</label>
+                        </div>
+                        <div class="slds-col slds-size_1-of-4 slds-p-top_small">
+                            <p class="slds-form-element__static editIconCss">
+                                <template if:false={isRecordEditMode}>
+                                    <lightning-formatted-text value={class12EducationMode}></lightning-formatted-text>
+                                    <template lwc:if={recordEditPermission}>
+                                        <lightning-button-icon icon-name="utility:edit" variant="bare" alternative-text="Edit" onclick={toggleEditMode} class="editButton">
+                                        </lightning-button-icon>
+                                    </template>
+                                </template>
+                                <template lwc:if={isRecordEditMode}>
+                                    <lightning-combobox value={class12EducationMode} name="class12ModeOfEducation" placeholder="Select" options={educationModeOptions} onchange={handleChange} data-id="class12EducationMode" class="input-position"></lightning-combobox>
+                                </template>
+                            </p>
+                        </div>
+                        <p class="slds-horizontal-rule row-border1"></p>
+                        <div class="slds-col slds-size_1-of-4 slds-p-top_small">
+                            <label class="slds-form-element__label">State</label>
+                        </div>
+                        <div class="slds-col slds-size_1-of-4 slds-p-top_small">
+                            <p class="slds-form-element__static editIconCss">
+                                <template if:false={isRecordEditMode}>
+                                    <lightning-formatted-text value={class12ExamState}></lightning-formatted-text>
+                                    <template lwc:if={recordEditPermission}>
+                                        <lightning-button-icon icon-name="utility:edit" variant="bare" alternative-text="Edit" onclick={toggleEditMode} class="editButton"></lightning-button-icon>
+                                    </template>
+                                </template>
+                                <template lwc:if={isRecordEditMode}>
+                                    <lightning-combobox name="class12ExamState" options={statesOptions} value={class12ExamState} onchange={handleChange} data-id="class12ExamState" class="input-position"></lightning-combobox>
+                                </template>
+                            </p>
+                        </div>
+                        <div class="slds-col slds-size_1-of-4 slds-p-top_small">
+                            <label class="slds-form-element__label">District</label>
+                        </div>
+                        <div class="slds-col slds-size_1-of-4 slds-p-top_small">
+                            <p class="slds-form-element__static editIconCss">
+                                <template if:false={isRecordEditMode}>
+                                    <lightning-formatted-text value={class12ExamDistrict}></lightning-formatted-text>
+                                    <template lwc:if={recordEditPermission}>
+                                        <lightning-button-icon icon-name="utility:edit" variant="bare" alternative-text="Edit" onclick={toggleEditMode} class="editButton"></lightning-button-icon>
+                                    </template>
+                                </template>
+                                <template lwc:if={isRecordEditMode}>
+                                    <lightning-combobox options={districtsOptions12} name="class12ExamDistrict" value={class12ExamDistrict} onchange={handleChange} data-id="class12ExamDistrict" class="input-position"></lightning-combobox>
+                                </template>
+                            </p>
+                        </div>
+                        <p class="slds-horizontal-rule row-border1"></p>
+                        <template lwc:if={isClass12ModeOfEduRegular}>
+                            <div class="slds-col slds-size_1-of-4 slds-p-top_small">
+                                <label class="slds-form-element__label">Block</label>
+                            </div>
+                            <div class="slds-col slds-size_1-of-4 slds-p-top_small">
+                                <p class="slds-form-element__static editIconCss">
+                                    <template if:false={isRecordEditMode}>
+                                        <lightning-formatted-text value={class12ExamBlock}></lightning-formatted-text>
+                                        <template lwc:if={recordEditPermission}>
+                                            <lightning-button-icon icon-name="utility:edit" variant="bare" alternative-text="Edit" onclick={toggleEditMode} class="editButton"></lightning-button-icon>
+                                        </template>
+                                    </template>
+                                    <template lwc:if={isRecordEditMode}>
+                                        <lightning-combobox options={filteredBlockOptions12} name="class12ExamBlock" value={class12ExamBlock} onchange={handleChange} data-id="class12ExamBlock" class="input-position"></lightning-combobox>
+                                    </template>
+                                </p>
+                            </div>
+                        </template>
+                        <template lwc:if={isClass12ModeOfEduRegular}>
+                            <div class="slds-col slds-size_1-of-4 slds-p-top_small">
+                                <label class="slds-form-element__label">Name of the School</label>
+                            </div>
+                            <div class="slds-col slds-size_1-of-4 slds-p-top_small">
+                                <p class="slds-form-element__static editIconCss">
+                                    <template if:false={isRecordEditMode}>
+                                        <lightning-formatted-text value={class12SchoolName}></lightning-formatted-text>
+                                        <template lwc:if={recordEditPermission}>
+                                            <lightning-button-icon icon-name="utility:edit" variant="bare" alternative-text="Edit" onclick={toggleEditMode} class="editButton"></lightning-button-icon>
+                                        </template>
+                                    </template>
+                                    <template lwc:if={isRecordEditMode}>
+                                        <lightning-combobox options={filteredSchoolNameOptions12}  name="class12SchoolName" value={class12SchoolName} onchange={handleChange} data-id="class12SchoolName" class="input-position"></lightning-combobox>
+                                    </template>
+                                </p>
+                            </div>
+                            <p class="slds-horizontal-rule row-border1"></p>
+                            <template lwc:if={class12SchoolOthers}>
+                                <div class="slds-col slds-size_1-of-4 slds-p-top_small">
+                                    <label class="slds-form-element__label">Others Name of the School</label>
+                                </div>
+                                <div class="slds-col slds-size_1-of-4 slds-p-top_small">
+                                    <p class="slds-form-element__static editIconCss">
+                                        <template if:false={isRecordEditMode}>
+                                            <lightning-formatted-text value={class12otherSchoolName}></lightning-formatted-text>
+                                            <template lwc:if={recordEditPermission}>
+                                                <lightning-button-icon icon-name="utility:edit" variant="bare" alternative-text="Edit" onclick={toggleEditMode} class="editButton"></lightning-button-icon>
+                                            </template>
+                                        </template>
+                                        <template lwc:if={isRecordEditMode}>
+                                            <lightning-input value={class12otherSchoolName} name="class12otherSchoolName" onchange={handleChange}  data-id="class12otherSchoolName" class="input-position"></lightning-input>
+                                        </template>
+                                    </p>
+                                </div>
+                            </template>
+                        </template>
+                        <template if:false={isClass12ModeOfEduRegular}>
+                            <div class="slds-col slds-size_1-of-4 slds-p-top_small">
+                                <label class="slds-form-element__label">Board Name</label>
+                            </div>
+                            <div class="slds-col slds-size_1-of-4 slds-p-top_small">
+                                <p class="slds-form-element__static editIconCss">
+                                    <template if:false={isRecordEditMode}>
+                                        <lightning-formatted-text value={class12BoardName}></lightning-formatted-text>
+                                        <template lwc:if={recordEditPermission}>
+                                            <lightning-button-icon icon-name="utility:edit" variant="bare" alternative-text="Edit" onclick={toggleEditMode} class="editButton"></lightning-button-icon>
+                                        </template>
+                                    </template>
+                                    <template lwc:if={isRecordEditMode}>
+                                        <lightning-combobox options={class12BoardOptions} name="class12BoardName" value={class12BoardName} onchange={handleChange} data-id="class12BoardName" class="input-position"></lightning-combobox>
+                                    </template>
+                                </p>
+                            </div>
+                            <template lwc:if={class12BoardOthers}>
+                                <div class="slds-col slds-size_1-of-4 slds-p-top_small">
+                                    <label class="slds-form-element__label">Others Board Name</label>
+                                </div>
+                                <div class="slds-col slds-size_1-of-4 slds-p-top_small">
+                                    <p class="slds-form-element__static editIconCss">
+                                        <template if:false={isRecordEditMode}>
+                                            <lightning-formatted-text
+                                                value={class12OtherBoardName}></lightning-formatted-text>
+                                            <template lwc:if={recordEditPermission}>
+                                                <lightning-button-icon icon-name="utility:edit" variant="bare"
+                                                    alternative-text="Edit" onclick={toggleEditMode} class="editButton">
+                                                </lightning-button-icon>
+                                            </template>
+                                        </template>
+                                        <template lwc:if={isRecordEditMode}>
+                                            <lightning-input value={class12OtherBoardName} name="otherClass12BoardName"
+                                                onchange={handleChange} data-id="class12OtherBoardName"
+                                                class="input-position"></lightning-input>
+                                        </template>
+                                    </p>
+                                </div>
+                                <p class="slds-horizontal-rule row-border1"></p>
+                            </template>
+                        </template>
+                        <div class="slds-col slds-size_1-of-4 slds-p-top_small">
+                            <label class="slds-form-element__label">Pin Code</label>
+                        </div>
+                        <div class="slds-col slds-size_1-of-4 slds-p-top_small">
+                            <p class="slds-form-element__static editIconCss">
+                                <template if:false={isRecordEditMode}>
+                                    <lightning-formatted-text
+                                        value={class12ExamCentrePincode}></lightning-formatted-text>
+                                    <template lwc:if={recordEditPermission}>
+                                        <lightning-button-icon icon-name="utility:edit" variant="bare"
+                                            alternative-text="Edit" onclick={toggleEditMode} class="editButton">
+                                        </lightning-button-icon>
+                                    </template>
+                                </template>
+                                <template lwc:if={isRecordEditMode}>
+                                    <lightning-input value={class12ExamCentrePincode} name="class12pincode" onchange={handleChange} data-id="class12ExamCentrePincode" class="input-position" maxlength="6"></lightning-input>
+                                </template>
+                            </p>
+                        </div>
+                        <template lwc:if={isClass12ModeOfEduRegular}>
+                            <template lwc:if={class12SchoolOthers}>
+                                <p class="slds-horizontal-rule row-border1"></p>
+                            </template>
+                        </template>
+                        <template if:false={isClass12ModeOfEduRegular}>
+                            <template if:false={class12BoardOthers}>
+                                <p class="slds-horizontal-rule row-border1"></p>
+                            </template>
+                        </template>
+                        <div class="slds-col slds-size_1-of-4 slds-p-top_small">
+                            <label class="slds-form-element__label">Percentage</label>
+                        </div>
+                        <div class="slds-col slds-size_1-of-4 slds-p-top_small">
+                            <p class="slds-form-element__static editIconCss">
+                                <template if:false={isRecordEditMode}>
+                                    <a class="link" name="Class Twelve Marks Card"
+                                        onclick={handleClick}>{class12percentage}%</a>
+                                    <template lwc:if={recordEditPermission}>
+                                        <lightning-button-icon icon-name="utility:edit" variant="bare" alternative-text="Edit" onclick={toggleEditMode} class="editButton">
+                                        </lightning-button-icon>
+                                    </template>
+                                </template>
+                                <template lwc:if={isRecordEditMode}>
+                                    <lightning-input value={class12percentage} onchange={handleFieldChange} data-id="class12percentage" class="input-position"></lightning-input>
+                                </template>
+                            </p>
+                        </div>
+                        <template lwc:if={isClass12ModeOfEduRegular}>
+                            <template if:false={class12SchoolOthers}>
+                                <p class="slds-horizontal-rule row-border1"></p>
+                            </template>
+                            <div class="slds-col slds-size_1-of-4 slds-p-top_small">
+                                <label class="slds-form-element__label">School Management Type</label>
+                            </div>
+                            <div class="slds-col slds-size_1-of-4 slds-p-top_small">
+                                <p class="slds-form-element__static">{schoolManagementType12}</p>
+                            </div>
+                        </template>
+                        <template lwc:if={class12SchoolOthers}>
+                            <p class="slds-horizontal-rule row-border1"></p>
+                        </template>
+                        <template lwc:if={class12BoardOthers}>
+                            <p class="slds-horizontal-rule row-border1"></p>
+                        </template>
+                        <div class="slds-col slds-size_1-of-4 slds-p-top_small">
+                            <label class="slds-form-element__label">Roll Number</label>
+                        </div>
+                        <div class="slds-col slds-size_1-of-4 slds-p-top_small">
+                            <p class="slds-form-element__static editIconCss">
+                                <template if:false={isRecordEditMode}>
+                                    <lightning-formatted-text value={class12Rollno}></lightning-formatted-text>
+                                    <template lwc:if={recordEditPermission}>
+                                        <lightning-button-icon icon-name="utility:edit" variant="bare" alternative-text="Edit" onclick={toggleEditMode} class="editButton">
+                                        </lightning-button-icon>
+                                    </template>
+                                </template>
+                                <template lwc:if={isRecordEditMode}>
+                                    <lightning-input value={class12Rollno} name="class12Rollno"
+                                        onchange={handleChange} data-id="class12Rollno"
+                                        class="input-position"></lightning-input>
+                                </template>
+                            </p>
+                        </div>
+                    </div>
+                </template>
+                <template if:false={isEducationCompleted}>
+                    <p>N/A.</p>
+                </template>
+            </div>
+        </lightning-accordion-section>
+        <!--Class8-->
+        <lightning-accordion-section name="C" label="Class 8 Details(Optional)" class="heading">
+            <div class="detailSection">
+                <template lwc:if={isEducationCompleted}>
+                    <div class="slds-grid slds-wrap">
+                        <div class="slds-col slds-size_1-of-4 slds-p-top_small">
+                            <label class="slds-form-element__label">Year of Passing</label>
+                        </div>
+                        <div class="slds-col slds-size_1-of-4 slds-p-top_small">
+                            <p class="slds-form-element__static editIconCss">
+                                <template if:false={isRecordEditMode}>
+                                    <lightning-formatted-text value={class8YearOfPassing}></lightning-formatted-text>
+                                    <template lwc:if={recordEditPermission}>
+                                        <lightning-button-icon icon-name="utility:edit" variant="bare" alternative-text="Edit" onclick={toggleEditMode} class="editButton">
+                                        </lightning-button-icon>
+                                    </template>
+                                </template>
+                                <template lwc:if={isRecordEditMode}>
+                                    <lightning-input value={class8YearOfPassing} name="class8YearOfPassing" onchange={handleChange} data-id="class8YearOfPassing" class="input-position"></lightning-input>
+                                </template>
+                            </p>
+                        </div>
+                        <div class="slds-col slds-size_1-of-4 slds-p-top_small">
+                            <label class="slds-form-element__label">Mode of Education</label>
+                        </div>
+                        <div class="slds-col slds-size_1-of-4 slds-p-top_small">
+                            <p class="slds-form-element__static editIconCss">
+                                <template if:false={isRecordEditMode}>
+                                    <lightning-formatted-text value={class8EducationMode}></lightning-formatted-text>
+                                    <template lwc:if={recordEditPermission}>
+                                        <lightning-button-icon icon-name="utility:edit" variant="bare" alternative-text="Edit" onclick={toggleEditMode} class="editButton"></lightning-button-icon>
+                                    </template>
+                                </template>
+                                <template lwc:if={isRecordEditMode}>
+                                    <lightning-combobox value={class8EducationMode} name="class8ModeOfEducation" placeholder="Select" options={educationModeOptions} onchange={handleChange} data-id="class8EducationMode" class="input-position"></lightning-combobox>
+                                </template>
+                            </p>
+                        </div>
+                        <p class="slds-horizontal-rule row-border1"></p>
+                        <div class="slds-col slds-size_1-of-4 slds-p-top_small">
+                            <label class="slds-form-element__label">State</label>
+                        </div>
+                        <div class="slds-col slds-size_1-of-4 slds-p-top_small">
+                            <p class="slds-form-element__static editIconCss">
+                                <template if:false={isRecordEditMode}>
+                                    <lightning-formatted-text value={class8ExamState}></lightning-formatted-text>
+                                    <template lwc:if={recordEditPermission}>
+                                        <lightning-button-icon icon-name="utility:edit" variant="bare" alternative-text="Edit" onclick={toggleEditMode} class="editButton"></lightning-button-icon>
+                                    </template>
+                                </template>
+                                <template lwc:if={isRecordEditMode}>
+                                    <lightning-combobox options={statesOptions} name="class8ExamState" value={class8ExamState} onchange={handleChange} data-id="class8ExamState" class="input-position"></lightning-combobox>
+                                </template>
+                            </p>
+                        </div>
+                        <div class="slds-col slds-size_1-of-4 slds-p-top_small">
+                            <label class="slds-form-element__label">District</label>
+                        </div>
+                        <div class="slds-col slds-size_1-of-4 slds-p-top_small">
+                            <p class="slds-form-element__static editIconCss">
+                                <template if:false={isRecordEditMode}>
+                                    <lightning-formatted-text value={class8ExamDistrict}></lightning-formatted-text>
+                                    <template lwc:if={recordEditPermission}>
+                                        <lightning-button-icon icon-name="utility:edit" variant="bare" alternative-text="Edit" onclick={toggleEditMode} class="editButton"></lightning-button-icon>
+                                    </template>
+                                </template>
+                                <template lwc:if={isRecordEditMode}>
+                                    <lightning-combobox options={districtsOptions8} name="class8ExamDistrict" value={class8ExamDistrict} onchange={handleChange} data-id="class8ExamDistrict" class="input-position"></lightning-combobox>
+                                </template>
+                            </p>
+                        </div>
+                        <p class="slds-horizontal-rule row-border1"></p>
+                        <template lwc:if={isClass8ModeOfEduRegular}>
+                            <div class="slds-col slds-size_1-of-4 slds-p-top_small">
+                                <label class="slds-form-element__label">Block</label>
+                            </div>
+                            <div class="slds-col slds-size_1-of-4 slds-p-top_small">
+                                <p class="slds-form-element__static editIconCss">
+                                    <template if:false={isRecordEditMode}>
+                                        <lightning-formatted-text value={class8ExamBlock}></lightning-formatted-text>
+                                        <template lwc:if={recordEditPermission}>
+                                            <lightning-button-icon icon-name="utility:edit" variant="bare" alternative-text="Edit" onclick={toggleEditMode} class="editButton"> </lightning-button-icon>
+                                        </template>
+                                    </template>
+                                    <template lwc:if={isRecordEditMode}>
+                                        <lightning-combobox options={filteredBlockOptions8} name="class8ExamBlock" value={class8ExamBlock} onchange={handleChange} data-id="class8ExamBlock" class="input-position"></lightning-combobox>
+                                    </template>
+                                </p>
+                            </div>
+                        </template>
+                        <template lwc:if={isClass8ModeOfEduRegular}>
+                            <div class="slds-col slds-size_1-of-4 slds-p-top_small">
+                                <label class="slds-form-element__label">Name of the School</label>
+                            </div>
+                            <div class="slds-col slds-size_1-of-4 slds-p-top_small">
+                                <p class="slds-form-element__static editIconCss">
+                                    <template if:false={isRecordEditMode}>
+                                        <lightning-formatted-text value={class8SchoolName}></lightning-formatted-text>
+                                        <template lwc:if={recordEditPermission}>
+                                            <lightning-button-icon icon-name="utility:edit" variant="bare" alternative-text="Edit" onclick={toggleEditMode} class="editButton"></lightning-button-icon>
+                                        </template>
+                                    </template>
+                                    <template lwc:if={isRecordEditMode}>
+                                        <lightning-combobox options={filteredSchoolNameOptions8} name="class8SchoolName" value={class8SchoolName} onchange={handleChange} data-id="class8SchoolName" class="input-position"></lightning-combobox>
+                                    </template>
+                                </p>
+                            </div>
+                            <p class="slds-horizontal-rule row-border1"></p>
+                            <template lwc:if={class8SchoolOthers}>
+                                <div class="slds-col slds-size_1-of-4 slds-p-top_small">
+                                    <label class="slds-form-element__label">Others Name of the School</label>
+                                </div>
+                                <div class="slds-col slds-size_1-of-4 slds-p-top_small">
+                                    <p class="slds-form-element__static editIconCss">
+                                        <template if:false={isRecordEditMode}>
+                                            <lightning-formatted-text value={class8otherSchoolName}></lightning-formatted-text>
+                                            <template lwc:if={recordEditPermission}>
+                                                <lightning-button-icon icon-name="utility:edit" variant="bare" alternative-text="Edit" onclick={toggleEditMode} class="editButton"></lightning-button-icon>
+                                            </template>
+                                        </template>
+                                        <template lwc:if={isRecordEditMode}>
+                                            <lightning-input value={class8otherSchoolName} name="class8otherSchoolName" onchange={handleChange} data-id="class8otherSchoolName" class="input-position"></lightning-input>
+                                        </template>
+                                    </p>
+                                </div>
+                            </template>
+                        </template>
+                        <template if:false={isClass8ModeOfEduRegular}>
+                            <div class="slds-col slds-size_1-of-4 slds-p-top_small">
+                                <label class="slds-form-element__label">Board Name</label>
+                            </div>
+                            <div class="slds-col slds-size_1-of-4 slds-p-top_small">
+                                <p class="slds-form-element__static editIconCss">
+                                    <template if:false={isRecordEditMode}>
+                                        <lightning-formatted-text value={class8BoardName}></lightning-formatted-text>
+                                        <template lwc:if={recordEditPermission}>
+                                            <lightning-button-icon icon-name="utility:edit" variant="bare" alternative-text="Edit" onclick={toggleEditMode} class="editButton"></lightning-button-icon>
+                                        </template>
+                                    </template>
+                                    <template lwc:if={isRecordEditMode}>
+                                        <lightning-combobox options={class8BoardOptions} name="class8BoardName" value={class8BoardName} onchange={handleChange} data-id="class8BoardName" class="input-position"></lightning-combobox>
+                                    </template>
+                                </p>
+                            </div>
+                            <template lwc:if={class8BoardOthers}>
+                                <div class="slds-col slds-size_1-of-4 slds-p-top_small">
+                                    <label class="slds-form-element__label">Others Board Name</label>
+                                </div>
+                                <div class="slds-col slds-size_1-of-4 slds-p-top_small">
+                                    <p class="slds-form-element__static editIconCss">
+                                        <template if:false={isRecordEditMode}>
+                                            <lightning-formatted-text value={isOtherClass8BoardName}></lightning-formatted-text>
+                                            <template lwc:if={recordEditPermission}>
+                                                <lightning-button-icon icon-name="utility:edit" variant="bare" alternative-text="Edit" onclick={toggleEditMode} class="editButton"> </lightning-button-icon>
+                                            </template>
+                                        </template>
+                                        <template lwc:if={isRecordEditMode}>
+                                            <lightning-input value={isOtherClass8BoardName} name="otherClass8BoardName" onchange={handleChange} data-id="isOtherClass8BoardName" class="input-position"></lightning-input>
+                                        </template>
+                                    </p>
+                                </div>
+                                <p class="slds-horizontal-rule row-border1"></p>
+                            </template>
+                        </template>
+                        <div class="slds-col slds-size_1-of-4 slds-p-top_small">
+                            <label class="slds-form-element__label">Pin Code</label>
+                        </div>
+                        <div class="slds-col slds-size_1-of-4 slds-p-top_small">
+                            <p class="slds-form-element__static editIconCss">
+                                <template if:false={isRecordEditMode}>
+                                    <lightning-formatted-text value={class8ExamCentrePincode}></lightning-formatted-text>
+                                    <template lwc:if={recordEditPermission}>
+                                        <lightning-button-icon icon-name="utility:edit" variant="bare" alternative-text="Edit" onclick={toggleEditMode} class="editButton"></lightning-button-icon>
+                               </template>
+                                     </template>
+                                <template lwc:if={isRecordEditMode}>
+                                    <lightning-input value={class8ExamCentrePincode} name="class8pincode" onchange={handleChange} data-id="class8ExamCentrePincode" class="input-position" maxlength="6"></lightning-input>
+                                </template>
+                            </p>
+                        </div>
+                        <template lwc:if={isClass8ModeOfEduRegular}>
+                            <template lwc:if={class8SchoolOthers}>
+                                <p class="slds-horizontal-rule row-border1"></p>
+                            </template>
+                        </template>
+                        <template if:false={isClass8ModeOfEduRegular}>
+                            <template if:false={class8BoardOthers}>
+                                <p class="slds-horizontal-rule row-border1"></p>
+                            </template>
+                        </template>
+                        <div class="slds-col slds-size_1-of-4 slds-p-top_small">
+                            <label class="slds-form-element__label">Percentage</label>
+                        </div>
+                        <div class="slds-col slds-size_1-of-4 slds-p-top_small">
+                            <p class="slds-form-element__static editIconCss">
+                                <template if:false={isRecordEditMode}>
+                                    <a class="link" name="Class Eight Marks Card" onclick={handleClick}>{class8percentage}%</a>
+                                    <template lwc:if={recordEditPermission}>
+                                        <lightning-button-icon icon-name="utility:edit" variant="bare" alternative-text="Edit" onclick={toggleEditMode} class="editButton"></lightning-button-icon>
+                                    </template>
+                                </template>
+                                <template lwc:if={isRecordEditMode}>
+                                    <lightning-input value={class8percentage} onchange={handleFieldChange} data-id="class8percentage" class="input-position"></lightning-input>
+                                </template>
+                            </p>
+                        </div>
+                        <template lwc:if={isClass8ModeOfEduRegular}>
+                            <template if:false={class8SchoolOthers}>
+                                <p class="slds-horizontal-rule row-border1"></p>
+                            </template>
+                            <div class="slds-col slds-size_1-of-4 slds-p-top_small">
+                                <label class="slds-form-element__label">School Management Type</label>
+                            </div>
+                            <div class="slds-col slds-size_1-of-4 slds-p-top_small">
+                                <p class="slds-form-element__static">{schoolManagementType8}</p>
+                            </div>
+                        </template>
+                    </div>
+                </template>
+                <template if:false={isEducationCompleted}>
+                    <p>N/A.</p>
+                </template>
+            </div>
+        </lightning-accordion-section>
+        <!--Socio-->
+        <lightning-accordion-section name="F" label="Socio-Economic Details(Optional)" class="heading" >
+            <div class="detailSection">
+                <template lwc:if={isScocialEconomicCompleted}>
+                    <div class="slds-grid slds-wrap">
+                        <template lwc:if={socioCastVisiblity}>
+                        <div class="slds-col slds-size_1-of-4 slds-p-top_small">
+                            <label class="slds-form-element__label">Caste Certificate</label>
+                        </div>
+                        <div class="slds-col slds-size_1-of-4 slds-p-top_small">
+                            <p class="slds-form-element__static"><a class="link" name="Caste Certificate" onclick={handleClick}>Preview</a></p>
+                        </div>
+                        </template>
+                        <template lwc:if={socioDisVisiblity}>
+                        <div class="slds-col slds-size_1-of-4 slds-p-top_small">
+                            <label class="slds-form-element__label">Disability Certificate</label>
+                        </div>
+                        <div class="slds-col slds-size_1-of-4 slds-p-top_small">
+                            <p class="slds-form-element__static"><a class="link" name="Disability Certificate" onclick={handleClick}>Preview</a></p>
+                        </div>
+                        </template>
+                        <p class="slds-horizontal-rule row-border1"></p>
+                        <div class="slds-col slds-size_1-of-4 slds-p-top_small">
+                            <label class="slds-form-element__label">Specially Abled Person</label>
+                        </div>
+                        <div class="slds-col slds-size_1-of-4 slds-p-top_small">
+                            <p class="slds-form-element__static editIconCss">
+                                <template if:false={isRecordEditMode}>
+                                    <lightning-formatted-text value={speciallyAbled}></lightning-formatted-text>
+                                    <template lwc:if={recordEditPermission}>
+                                        <lightning-button-icon icon-name="utility:edit" variant="bare" alternative-text="Edit" onclick={toggleEditMode} class="editButton"></lightning-button-icon>
+                                    </template>
+                                </template>
+                                <template lwc:if={isRecordEditMode}>
+                                    <lightning-combobox options={speciallyAbledOptions} value={speciallyAbled} onchange={handleFieldChange} data-id="speciallyAbled" class="input-position"></lightning-combobox>
+                                </template>
+                            </p>
+                        </div>
+                        <div class="slds-col slds-size_1-of-4 slds-p-top_small">
+                            <label class="slds-form-element__label">Disability Type</label>
+                        </div>
+                        <div class="slds-col slds-size_1-of-4 slds-p-top_small">
+                            <p class="slds-form-element__static editIconCss">
+                                <template if:false={isRecordEditMode}>
+                                    <lightning-formatted-text value={disablity}></lightning-formatted-text>
+                                    <template lwc:if={recordEditPermission}>
+                                        <lightning-button-icon icon-name="utility:edit" variant="bare" alternative-text="Edit" onclick={toggleEditMode} class="editButton">
+                                        </lightning-button-icon>
+                                    </template>
+                                </template>
+                                <template lwc:if={isRecordEditMode}>
+                                    <lightning-combobox options={disablitiyOption} value={disablity} onchange={handleFieldChange} data-id="disablity" class="input-position"></lightning-combobox>
+                                </template>
+                            </p>
+                        </div>
+                        <template lwc:if={isOtherDisability}>
+                            <p class="slds-horizontal-rule row-border1"></p>
+                            <div class="slds-col slds-size_1-of-4 slds-p-top_small">
+                                <label class="slds-form-element__label">Others Disability Type</label>
+                            </div>
+                            <div class="slds-col slds-size_1-of-4 slds-p-top_small">
+                                <p class="slds-form-element__static editIconCss">
+                                    <template if:false={isRecordEditMode}>
+                                        <lightning-formatted-text value={otherDisablity}></lightning-formatted-text>
+                                        <template lwc:if={recordEditPermission}>
+                                            <lightning-button-icon icon-name="utility:edit" variant="bare" alternative-text="Edit" onclick={toggleEditMode} class="editButton">
+                                            </lightning-button-icon>
+                                        </template>
+                                    </template>
+                                    <template lwc:if={isRecordEditMode}>
+                                        <lightning-input value={otherDisablity} onchange={handleFieldChange} data-id="otherDisablity" class="input-position"></lightning-input>
+                                    </template>
+                                </p>
+                            </div>
+                        </template>
+                        <template if:false={isOtherDisability}>
+                            <p class="slds-horizontal-rule row-border1"></p>
+                        </template>
+                        <div class="slds-col slds-size_1-of-4 slds-p-top_small">
+                            <label class="slds-form-element__label">Parental Status</label>
+                        </div>
+                        <div class="slds-col slds-size_1-of-4 slds-p-top_small">
+                            <p class="slds-form-element__static editIconCss">
+                                <template if:false={isRecordEditMode}>
+                                    <lightning-formatted-text value={currentFamilyStatus}></lightning-formatted-text>
+                                    <template lwc:if={recordEditPermission}>
+                                        <lightning-button-icon icon-name="utility:edit" variant="bare" alternative-text="Edit" onclick={toggleEditMode} class="editButton">
+                                        </lightning-button-icon>
+                                    </template>
+                                </template>
+                                <template lwc:if={isRecordEditMode}>
+                                    <lightning-combobox options={parentalStatusOption} value={currentFamilyStatus} onchange={handleFieldChange} data-id="currentFamilyStatus" class="input-position"></lightning-combobox>
+                                </template>
+                            </p>
+                        </div>
+                        <template lwc:if={isOtherDisability}>
+                            <p class="slds-horizontal-rule row-border1"></p>
+                        </template>
+                        <div class="slds-col slds-size_1-of-4 slds-p-top_small">
+                            <label class="slds-form-element__label">Mother's Name</label>
+                        </div>
+                        <div class="slds-col slds-size_1-of-4 slds-p-top_small">
+                            <p class="slds-form-element__static editIconCss">
+                                <template if:false={isRecordEditMode}>
+                                    <lightning-formatted-text value={motherFullName}></lightning-formatted-text>
+                                    <template lwc:if={recordEditPermission}>
+                                        <lightning-button-icon icon-name="utility:edit" variant="bare" alternative-text="Edit" onclick={toggleEditMode} class="editButton">
+                                        </lightning-button-icon>
+                                    </template>
+                                </template>
+                                <template lwc:if={isRecordEditMode}>
+                                    <lightning-input value={motherFullName} onchange={handleFieldChange} data-id="motherFullName" class="input-position"></lightning-input>
+                                </template>
+                            </p>
+                        </div>
+                        <template if:false={isOtherDisability}>
+                            <p class="slds-horizontal-rule row-border1"></p>
+                        </template>
+                        <div class="slds-col slds-size_1-of-4 slds-p-top_small">
+                            <label class="slds-form-element__label">Father's Name</label>
+                        </div>
+                        <div class="slds-col slds-size_1-of-4 slds-p-top_small">
+                            <p class="slds-form-element__static editIconCss">
+                                <template if:false={isRecordEditMode}>
+                                    <lightning-formatted-text value={fatherFullName}></lightning-formatted-text>
+                                    <template lwc:if={recordEditPermission}>
+                                        <lightning-button-icon icon-name="utility:edit" variant="bare"
+                                            alternative-text="Edit" onclick={toggleEditMode} class="editButton">
+                                        </lightning-button-icon>
+                                    </template>
+                                </template>
+                                <template lwc:if={isRecordEditMode}>
+                                    <lightning-input value={fatherFullName} onchange={handleFieldChange}
+                                        data-id="fatherFullName" class="input-position"></lightning-input>
+                                </template>
+                            </p>
+                        </div>
+                        <template if:true={isOtherDisability}>
+                            <p class="slds-horizontal-rule row-border1"></p>
+                        </template>
+                        <div class="slds-col slds-size_1-of-4 slds-p-top_small">
+                            <label class="slds-form-element__label">Annual Family Income</label>
+                        </div>
+                        <div class="slds-col slds-size_1-of-4 slds-p-top_small">
+                            <p class="slds-form-element__static editIconCss">
+                                <template if:false={isRecordEditMode}>
+                                    <lightning-formatted-text value={familyIncomePerYear}></lightning-formatted-text>
+                                    <template lwc:if={recordEditPermission}>
+                                        <lightning-button-icon icon-name="utility:edit" variant="bare"
+                                            alternative-text="Edit" onclick={toggleEditMode} class="editButton">
+                                        </lightning-button-icon>
+                                    </template>
+                                </template>
+                                <template lwc:if={isRecordEditMode}>
+                                    <lightning-combobox options={familyIncomeOptions} value={familyIncomePerYear}
+                                        onchange={handleFieldChange} data-id="familyIncomePerYear"
+                                        class="input-position"></lightning-combobox>
+                                </template>
+                            </p>
+                        </div>
+                        <template if:false={isOtherDisability}>
+                            <p class="slds-horizontal-rule row-border1"></p>
+                        </template>
+                        <div class="slds-col slds-size_1-of-4 slds-p-top_small">
+                            <label class="slds-form-element__label">Religion</label>
+                        </div>
+                        <div class="slds-col slds-size_1-of-4 slds-p-top_small">
+                            <p class="slds-form-element__static editIconCss">
+                                <template if:false={isRecordEditMode}>
+                                    <lightning-formatted-text value={religion}></lightning-formatted-text>
+                                    <template lwc:if={recordEditPermission}>
+                                        <lightning-button-icon icon-name="utility:edit" variant="bare"
+                                            alternative-text="Edit" onclick={toggleEditMode} class="editButton">
+                                        </lightning-button-icon>
+                                    </template>
+                                </template>
+                                <template lwc:if={isRecordEditMode}>
+                                    <lightning-combobox options={religionOptions} value={religion}
+                                        onchange={handleFieldChange} data-id="religion"
+                                        class="input-position"></lightning-combobox>
+                                </template>
+                            </p>
+                        </div>
+                        <template lwc:if={isOtherReligion}>
+                            <template lwc:if={isOtherDisability}>
+                                <p class="slds-horizontal-rule row-border1"></p>
+                            </template>
+                            <div class="slds-col slds-size_1-of-4 slds-p-top_small">
+                                <label class="slds-form-element__label">Other Religion</label>
+                            </div>
+                            <div class="slds-col slds-size_1-of-4 slds-p-top_small">
+                                <p class="slds-form-element__static editIconCss">
+                                    <template if:false={isRecordEditMode}>
+                                        <lightning-formatted-text value={otherReligion}></lightning-formatted-text>
+                                        <template lwc:if={recordEditPermission}>
+                                            <lightning-button-icon icon-name="utility:edit" variant="bare"
+                                                alternative-text="Edit" onclick={toggleEditMode} class="editButton">
+                                            </lightning-button-icon>
+                                        </template>
+                                    </template>
+                                    <template lwc:if={isRecordEditMode}>
+                                        <lightning-input value={religion}
+                                            onchange={otherReligion} data-id="otherReligion"
+                                            class="input-position"></lightning-input>
+                                    </template>
+                                </p>
+                            </div>
+                        </template>
+                        <p class="slds-horizontal-rule row-border1"></p>
+                        <div class="slds-col slds-size_1-of-4 slds-p-top_small">
+                            <label class="slds-form-element__label">Category Name</label>
+                        </div>
+                        <div class="slds-col slds-size_1-of-4 slds-p-top_small">
+                            <p class="slds-form-element__static editIconCss">
+                                <template if:false={isRecordEditMode}>
+                                    <lightning-formatted-text value={category}></lightning-formatted-text>
+                                    <template lwc:if={recordEditPermission}>
+                                        <lightning-button-icon icon-name="utility:edit" variant="bare"
+                                            alternative-text="Edit" onclick={toggleEditMode} class="editButton">
+                                        </lightning-button-icon>
+                                    </template>
+                                </template>
+                                <template lwc:if={isRecordEditMode}>
+                                    <lightning-combobox options={categoryOptions} value={category} onchange={handleFieldChange} data-id="category" class="input-position"></lightning-combobox>
+                                </template>
+                            </p>
+                        </div>
+                        <template lwc:if={visbleOtherCategory}>
+                            <div class="slds-col slds-size_1-of-4 slds-p-top_small">
+                                <label class="slds-form-element__label">Others Category Name</label>
+                            </div>
+                            <div class="slds-col slds-size_1-of-4 slds-p-top_small">
+                                <p class="slds-form-element__static editIconCss">
+                                    <template if:false={isRecordEditMode}>
+                                        <lightning-formatted-text value={otherCategory}></lightning-formatted-text>
+                                        <template lwc:if={recordEditPermission}>
+                                            <lightning-button-icon icon-name="utility:edit" variant="bare"
+                                                alternative-text="Edit" onclick={toggleEditMode} class="editButton">
+                                            </lightning-button-icon>
+                                        </template>
+                                    </template>
+                                    <template lwc:if={isRecordEditMode}>
+                                        <lightning-input value={otherCategory} onchange={handleFieldChange}
+                                            data-id="otherCategory" class="input-position"></lightning-input>
+                                    </template>
+                                </p>
+                            </div>
+                            <template lwc:if={visbleOtherCategory}>
+                                <p class="slds-horizontal-rule row-border1"></p>
+                            </template>
+                        </template>
+                        <div class="slds-col slds-size_1-of-4 slds-p-top_small">
+                            <label class="slds-form-element__label">Community Name</label>
+                        </div>
+                        <div class="slds-col slds-size_1-of-4 slds-p-top_small">
+                            <p class="slds-form-element__static editIconCss">
+                                <template if:false={isRecordEditMode}>
+                                    <lightning-formatted-text value={communityName}></lightning-formatted-text>
+                                    <template lwc:if={recordEditPermission}>
+                                        <lightning-button-icon icon-name="utility:edit" variant="bare"
+                                            alternative-text="Edit" onclick={toggleEditMode} class="editButton">
+                                        </lightning-button-icon>
+                                    </template>
+                                </template>
+                                <template lwc:if={isRecordEditMode}>
+                                    <lightning-input value={communityName} onchange={handleFieldChange}
+                                        data-id="communityName" class="input-position"></lightning-input>
+                                </template>
+                            </p>
+                        </div>
+                    </div>
+                </template>
+                <template if:false={isScocialEconomicCompleted}>
+                    <p>N/A.</p>
+                </template>
+            </div>
+        </lightning-accordion-section>
+        <!--College-->
+        <lightning-accordion-section name="G" label="Admission Details" class="heading">
+            <div class="detailSection">
+                <template lwc:if={displayAdmission}>
+                    <template for:each={admissions} for:item="admission" for:index="index">
+                        <template lwc:if={admission}>
+                            <div key={admission.Id} class="slds-grid slds-wrap" data-key={admission.Id}>
+                                <div class="slds-col slds-size_1-of-4 slds-p-top_small"><label class="slds-form-element__label">State</label></div>
+                                <div class="slds-col slds-size_1-of-4 slds-p-top_small">
+                                    <p class="slds-form-element__static editIconCss">
+                                        <template if:false={isRecordEditMode}>
+                                            <lightning-formatted-text value={admission.Institute_State__c}></lightning-formatted-text>
+                                            <template lwc:if={recordEditPermission}>
+                                                <lightning-button-icon icon-name="utility:edit" variant="bare" alternative-text="Edit" onclick={toggleEditMode} class="editButton"></lightning-button-icon>
+                                            </template>
+                                        </template>
+                                        <template lwc:if={isRecordEditMode}>
+                                            <lightning-combobox options={statesOptionsProfile} value={admission.Institute_State__c} onchange={handleFieldChange} data-id="Institute_State__c" class="input-position" data-type="admission"></lightning-combobox>
+                                        </template>
+                                    </p>
+                                </div>
+                                <div class="slds-col slds-size_1-of-4 slds-p-top_small">
+                                    <label class="slds-form-element__label">District</label>
+                                </div>
+                                <div class="slds-col slds-size_1-of-4 slds-p-top_small">
+                                    <p class="slds-form-element__static editIconCss">
+                                        <template if:false={isRecordEditMode}>
+                                            <lightning-formatted-text value={admission.Institute_District__c}></lightning-formatted-text>
+                                            <template lwc:if={recordEditPermission}>
+                                                <lightning-button-icon icon-name="utility:edit" variant="bare" alternative-text="Edit" onclick={toggleEditMode} class="editButton"></lightning-button-icon>
+                                            </template>
+                                        </template>
+                                        <template lwc:if={isRecordEditMode}>
+                                            <lightning-combobox options={districtsOptionsAdmission} value={admission.Institute_District__c} onchange={handleFieldChange} data-id="Institute_District__c" class="input-position" data-type="admission"></lightning-combobox>
+                                        </template>
+                                    </p>
+                                </div>
+                                <p class="slds-horizontal-rule row-border1"></p>
+                                <div class="slds-col slds-size_1-of-4 slds-p-top_small">
+                                    <label class="slds-form-element__label">Name of Institute </label>
+                                </div>
+                                <div class="slds-col slds-size_1-of-4 slds-p-top_small">
+                                    <p class="slds-form-element__static editIconCss">
+                                        <template if:false={isRecordEditMode}>
+                                            <a class="link" name="College Admission Proof" onclick={handleClick}>{admission.Name_Of_The_Institute__c}</a>   
+                                            <template lwc:if={recordEditPermission}>
+                                                <lightning-button-icon icon-name="utility:edit" variant="bare" alternative-text="Edit" onclick={toggleEditMode} class="editButton"></lightning-button-icon>
+                                            </template>
+                                        </template>
+                                        <template lwc:if={isRecordEditMode}>
+                                            <lightning-input value={admission.Name_Of_The_Institute__c} onchange={handleFieldChange} data-id="Name_Of_The_Institute__c" class="input-position" data-type="admission"></lightning-input>
+                                        </template>
+                                    </p>
+                                </div>
+                                <div class="slds-col slds-size_1-of-4 slds-p-top_small">
+                                    <label class="slds-form-element__label"> Others Name of the Institute</label>
+                                </div>
+                                <div class="slds-col slds-size_1-of-4 slds-p-top_small">
+                                    <p class="slds-form-element__static editIconCss">
+                                        <template if:false={isRecordEditMode}>
+                                            <lightning-formatted-text value={admission.Other_Name_Of_Institute__c}></lightning-formatted-text>
+                                            <template lwc:if={recordEditPermission}>
+                                                <lightning-button-icon icon-name="utility:edit" variant="bare" alternative-text="Edit" onclick={toggleEditMode} class="editButton"> </lightning-button-icon>
+                                            </template>
+                                        </template>
+                                        <template lwc:if={isRecordEditMode}>
+                                            <lightning-input value={admission.Other_Name_Of_Institute__c} onchange={handleFieldChange} data-id="Other_Name_Of_Institute__c" class="input-position" data-type="admission"></lightning-input>
+                                        </template>
+                                    </p>
+                                </div>
+                                <p class="slds-horizontal-rule row-border1"></p>
+                                <div class="slds-col slds-size_1-of-4 slds-p-top_small">
+                                    <label class="slds-form-element__label">Course Type</label>
+                                </div>
+                                <div class="slds-col slds-size_1-of-4 slds-p-top_small">
+                                    <p class="slds-form-element__static editIconCss">
+                                        <template if:false={isRecordEditMode}>
+                                            <lightning-formatted-text value={admission.Course_Type__c}></lightning-formatted-text>
+                                            <template lwc:if={recordEditPermission}>
+                                                <lightning-button-icon icon-name="utility:edit" variant="bare" alternative-text="Edit" onclick={toggleEditMode} class="editButton"> </lightning-button-icon>
+                                            </template>
+                                        </template>
+                                        <template lwc:if={isRecordEditMode}>
+                                            <lightning-combobox options={courseTypeOptions} value={admission.Course_Type__c} onchange={handleFieldChange} data-id="Course_Type__c" class="input-position" data-type="admission"></lightning-combobox>
+                                        </template>
+                                    </p>
+                                </div>
+                                <div class="slds-col slds-size_1-of-4 slds-p-top_small">
+                                    <label class="slds-form-element__label">Course Category</label>
+                                </div>
+                                <div class="slds-col slds-size_1-of-4 slds-p-top_small">
+                                    <p class="slds-form-element__static editIconCss">
+                                        <template if:false={isRecordEditMode}>
+                                            <lightning-formatted-text value={admission.Course_Category__c}></lightning-formatted-text>
+                                            <template lwc:if={recordEditPermission}>
+                                                <lightning-button-icon icon-name="utility:edit" variant="bare" alternative-text="Edit" onclick={toggleEditMode} class="editButton"> </lightning-button-icon>
+                                            </template>
+                                        </template>
+                                        <template lwc:if={isRecordEditMode}>
+                                            <lightning-combobox options={courseCategoryOptions} value={admission.Course_Category__c} onchange={handleFieldChange} data-id="Course_Category__c" class="input-position" data-type="admission"></lightning-combobox>
+                                        </template>
+                                    </p>
+                                </div>
+                                <p class="slds-horizontal-rule row-border1"></p>
+                                <div class="slds-col slds-size_1-of-4 slds-p-top_small">
+                                    <label class="slds-form-element__label">Others Course Category</label>
+                                </div>
+                                <div class="slds-col slds-size_1-of-4 slds-p-top_small">
+                                    <p class="slds-form-element__static editIconCss">
+                                        <template if:false={isRecordEditMode}>
+                                            <lightning-formatted-text value={admission.Other_Course_Category__c}></lightning-formatted-text>
+                                            <template lwc:if={recordEditPermission}>
+                                                <lightning-button-icon icon-name="utility:edit" variant="bare" alternative-text="Edit" onclick={toggleEditMode} class="editButton"> </lightning-button-icon>
+                                            </template>
+                                        </template>
+                                        <template lwc:if={isRecordEditMode}>
+                                            <lightning-input value={admission.Other_Course_Category__c} onchange={handleFieldChange} data-id="Other_Course_Category__c" class="input-position" data-type="admission"></lightning-input>
+                                        </template>
+                                    </p>
+                                </div>
+                                <div class="slds-col slds-size_1-of-4 slds-p-top_small">
+                                    <label class="slds-form-element__label">Course Name</label>
+                                </div>
+                                <div class="slds-col slds-size_1-of-4 slds-p-top_small">
+                                    <p class="slds-form-element__static editIconCss">
+                                        <template if:false={isRecordEditMode}>
+                                            <lightning-formatted-text value={admission.Course_Name__c}></lightning-formatted-text>
+                                            <template lwc:if={recordEditPermission}>
+                                                <lightning-button-icon icon-name="utility:edit" variant="bare" alternative-text="Edit" onclick={toggleEditMode} class="editButton"> </lightning-button-icon>
+                                            </template>
+                                        </template>
+                                        <template lwc:if={isRecordEditMode}>
+                                            <lightning-input value={admission.Course_Name__c} onchange={handleFieldChange} data-id="Course_Name__c" class="input-position" data-type="admission"></lightning-input>
+                                        </template>
+                                    </p>
+                                </div>
+                                <p class="slds-horizontal-rule row-border1"></p>
+                                <div class="slds-col slds-size_1-of-4 slds-p-top_small">
+                                    <label class="slds-form-element__label">Course System</label>
+                                </div>
+                                <div class="slds-col slds-size_1-of-4 slds-p-top_small">
+                                    <p class="slds-form-element__static editIconCss">
+                                        <template if:false={isRecordEditMode}>
+                                            <lightning-formatted-text value={admission.Course_System__c}></lightning-formatted-text>
+                                            <template lwc:if={recordEditPermission}>
+                                                <lightning-button-icon icon-name="utility:edit" variant="bare" alternative-text="Edit" onclick={toggleEditMode} class="editButton"> </lightning-button-icon>
+                                            </template>
+                                        </template>
+                                        <template lwc:if={isRecordEditMode}>
+                                            <lightning-combobox options={courseSystemOptions} value={admission.Course_System__c} onchange={handleFieldChange} data-id="Course_System__c"
+                                                class="input-position" data-type="admission"></lightning-combobox>
+                                        </template>
+                                    </p>
+                                </div>
+                                <div class="slds-col slds-size_1-of-4 slds-p-top_small">
+                                    <label class="slds-form-element__label">Course Duration(In years)</label>
+                                </div>
+                                <div class="slds-col slds-size_1-of-4 slds-p-top_small">
+                                    <p class="slds-form-element__static editIconCss">
+                                        <template if:false={isRecordEditMode}>
+                                            <lightning-formatted-text value={admission.Course_Duration_In_Years__c}></lightning-formatted-text>
+                                            <template lwc:if={recordEditPermission}>
+                                                <lightning-button-icon icon-name="utility:edit" variant="bare" alternative-text="Edit" onclick={toggleEditMode} class="editButton"></lightning-button-icon>
+                                            </template>
+                                        </template>
+                                        <template lwc:if={isRecordEditMode}>
+                                            <lightning-combobox options={courseDurationInYearOptions} value={admission.Course_Duration_In_Years__c} onchange={handleFieldChange} data-id="Course_Duration_In_Years__c" class="input-position" data-type="admission"></lightning-combobox>
+                                        </template>
+                                    </p>
+                                </div>
+                                <p class="slds-horizontal-rule row-border1"></p>
+                                <div class="slds-col slds-size_1-of-4 slds-p-top_small">
+                                    <label class="slds-form-element__label">Course Start Date</label>
+                                </div>
+                                <div class="slds-col slds-size_1-of-4 slds-p-top_small">
+                                    <p class="slds-form-element__static editIconCss">
+                                        <template if:false={isRecordEditMode}>
+                                            <lightning-formatted-text value={admission.Course_Start_Date__c}></lightning-formatted-text>
+                                            <template lwc:if={recordEditPermission}>
+                                                <lightning-button-icon icon-name="utility:edit" variant="bare" alternative-text="Edit" onclick={toggleEditMode} class="editButton"></lightning-button-icon>
+                                            </template>
+                                        </template>
+                                        <template lwc:if={isRecordEditMode}>
+                                            <lightning-input value={admission.Course_Start_Date__c} onchange={handleFieldChange} data-id="Course_Start_Date__c" class="input-position" data-type="admission"></lightning-input>
+                                        </template>
+                                    </p>
+                                </div>
+                                <div class="slds-col slds-size_1-of-4 slds-p-top_small">
+                                    <label class="slds-form-element__label">Course Year of Studying</label>
+                                </div>
+                                <div class="slds-col slds-size_1-of-4 slds-p-top_small">
+                                    <p class="slds-form-element__static editIconCss">
+                                        <template if:false={isRecordEditMode}>
+                                            <lightning-formatted-text value={admission.Course_Year_Of_Studying__c}></lightning-formatted-text>
+                                            <template lwc:if={recordEditPermission}>
+                                                <lightning-button-icon icon-name="utility:edit" variant="bare" alternative-text="Edit" onclick={toggleEditMode} class="editButton"> </lightning-button-icon>
+                                            </template>
+                                        </template>
+                                        <template lwc:if={isRecordEditMode}>
+                                            <lightning-combobox options={yearOfStudyOptions} value={admission.Course_Year_Of_Studying__c} onchange={handleFieldChange} data-id="Course_Year_Of_Studying__c"
+                                                class="input-position" data-type="admission"></lightning-combobox>
+                                        </template>
+                                    </p>
+                                </div>
+                                <p class="slds-horizontal-rule row-border1"></p>
+                                <div class="slds-col slds-size_1-of-4 slds-p-top_small">
+                                    <label class="slds-form-element__label">Additional Proof of Admission</label>
+                                </div>
+                                <div class="slds-col slds-size_1-of-4 slds-p-top_small">
+                                    <p class="slds-form-element__static"><a class="link" name="College Fee Receipt" onclick={handleClick}>Preview</a></p>
+                                </div>
+                                <div class="slds-col slds-size_1-of-4 slds-p-top_small"><label class="slds-form-element__label">Institute Management</label></div>
+                                <div class="slds-col slds-size_1-of-4 slds-p-top_small"><p class="slds-form-element__static">{instituteManagement}</p></div>
+                            </div>
+                        </template>
+                    </template>
+                </template>
+                <template if:false={displayAdmission}>
+                    <p>N/A.</p>
+                </template>
+            </div>
+        </lightning-accordion-section>
+        <!--Other-->
+        <lightning-accordion-section name="I" label="Application Overall Comment" class="heading">
+            <div class="detailSection">
+                <div class="slds-grid slds-wrap">
+                    <div class="slds-col slds-size_1-of-4 slds-p-top_small">
+                        <label class="slds-form-element__label">Application Overall Comment</label>
+                    </div>
+                    <div class="slds-col slds-size_3-of-4 slds-p-top_small">
+                        <template lwc:if={isOverAllCommentEditMode}>
+                            <lightning-textarea style="margin-top: -15px;" value={OverAllReview} onchange={handleOverallReviewCommentChange}></lightning-textarea>
+                        </template>
+                        <p class="slds-form-element__static">
+                            <template if:false={isOverAllCommentEditMode}>
+                                <lightning-formatted-text value={OverAllReview}></lightning-formatted-text>
+                                <lightning-button-icon icon-name="utility:edit" variant="bare" alternative-text="Edit" onclick={enableOverallComment} class="editButton2">
+                                </lightning-button-icon>
+                            </template>
+                        </p>
+                    </div>
+                    <template lwc:if={isOverAllCommentEditMode}>
+                        <div class="footer">
+                            <lightning-button class="slds-m-right_small" variant="neutral" name="overAllReviewCommnetCancel" label="Cancel" onclick={handleClickButton}></lightning-button>
+                            <lightning-button class="slds-m-right_small" variant="brand" name="overAllReviewCommnet" label="Comment" onclick={handleClickButton}></lightning-button>
+                        </div>
+                    </template>
+                    <p class="slds-horizontal-rule row-border1"></p>
+                </div>
+            </div>
+        </lightning-accordion-section>
+    </lightning-accordion>
+    <template lwc:if={varificationButtonVisibilty}>
+        <div class="footer button-container">
+            <lightning-button class="pad-around" variant="brand" name="VerificationClear" label="Verification Cleared" onclick={handleClickButton} disabled={buttonDisable}></lightning-button>
+            <lightning-button class="pad-around" variant="brand" name="Application Document Needs Resubmission" label="Application Document Needs Resubmission" onclick={handleClickButton} disabled={buttonDisable}></lightning-button>
+            <lightning-button class="pad-around" variant="brand" name="FaceToFace" label="Face To Face" onclick={handleClickButton} disabled={buttonDisable}></lightning-button>
+            <lightning-button class="pad-around" variant="brand" name="On Hold" label="On Hold" onclick={handleClickButton} disabled={buttonDisable}></lightning-button>
+            <lightning-button class="pad-around" variant="brand" name="NotSelected" label="Not Selected Draft" onclick={handleClickButton} disabled={buttonDisable}></lightning-button>
+        </div>   
+    </template>
+    <template lwc:if={isRecordEditMode}>
+        <div class="footer sticky-footer highlight">
+            <lightning-button class="slds-m-right_small" variant="neutral" label="Cancel Edit" onclick={cancelEdit}></lightning-button>
+            <lightning-button class="slds-m-right_small" variant="brand" label="Update Record" onclick={saveRecord}></lightning-button>
+        </div>
+    </template>
+    <template lwc:if={commentVisibilityPopup}>
+        <section role="dialog" tabindex="-1" class="slds-modal slds-fade-in-open" aria-labelledby="modal-heading-id" aria-modal="true">
+            <div class="slds-modal__container">
+                <header class="slds-modal__header">
+                    <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse"
+                        title="Close" onclick={handleClickButton}>
+                        <lightning-icon name="cancelComment" icon-name="utility:close" alternative-text="close"
+                            size="small"></lightning-icon>
+                        <span class="slds-assistive-text">Close</span>
+                    </button>
+                    <h2 class="slds-text-heading_medium">Please provide a reason for <span
+                            style="text-transform: lowercase;">'{applicationInternalStatus}'.</span></h2>
+                </header>
+                <div class="slds-modal__content slds-p-around_medium">
+                    <template lwc:if={displayRejectedReason}>
+                        <label class="slds-form-element__label" for="RejectedReason">{applicationInternalStatus} Reason <abbr
+                                class="slds-required" title="required">*</abbr>
+                        </label>
+                        <template lwc:if={displayNotSelectedDraft}>
+                        <lightning-combobox name="RejectedReason" value={selectedRejectedReasonValue}
+                            options={picklistOptions} onchange={handleClickButton} style="margin-top: -13px;">
+                        </lightning-combobox>
+                        </template>
+                        <template lwc:if={displayOnHold}>
+                            <lightning-combobox name="RejectedReason" value={selectedRejectedReasonValue}
+                                options={onHoldOptions} onchange={handleClickButton} style="margin-top: -13px;">
+                            </lightning-combobox>
+                        </template>
+                    </template>
+                    <template lwc:if={commentInputVisibility}>
+                        <label class="slds-form-element__label" for="commentInput">Comment <abbr class="slds-required"
+                                title="required">*</abbr>
+                        </label>
+                        <lightning-textarea id="commentInput" value={commentValue} onchange={handleCommentChange}
+                            style="margin-top: -13px;"></lightning-textarea>
+                    </template>
+                </div>
+                <footer class="slds-modal__footer">
+                    <lightning-button variant="neutral" label="Cancel" name="cancelComment"
+                        onclick={handleClickButton}></lightning-button>
+                    <lightning-button variant="brand" class="slds-m-left_small" label="Submit" name="saveComment"
+                        onclick={handleClickButton}></lightning-button>
+                </footer>
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </template>
+    <template lwc:if={documentsVisibilityPopup}>
+        <section role="dialog" tabindex="-1" class="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container">
+                <header class="slds-modal__header">
+                    <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse"
+                        title="Close" onclick={closeModal}>
+                        <lightning-icon name="cancelVarificationClearPopup" icon-name="utility:close" alternative-text="close"
+                            size="small"></lightning-icon>
+                        <span class="slds-assistive-text">Close</span>
+                    </button>
+                    <h2 class="slds-text-heading_medium">Documents List</h2>
+                </header>
+                <div class="slds-modal__content slds-p-around_medium">
+                    <lightning-card title="Documents Rejected" icon-name="doctype:attachment">
+                        <template if:true={rejectedFiles.length}>
+                            <lightning-datatable key-field="contentVersionId" data={rejectedFiles} columns={columns}
+                                onrowaction={handleRowAction} hide-checkbox-column>
+                            </lightning-datatable>
+                        </template>
+                        <template if:false={rejectedFiles.length}>
+                            <p>No documents are rejected.</p>
+                        </template>
+                    </lightning-card>
+                    <lightning-card title="Documents Fully Rejected" icon-name="doctype:attachment">
+                        <template if:true={missingDocuments.length}>
+                            <lightning-datatable key-field="id" data={missingDocuments} columns={columnsMissingDoc}
+                                hide-checkbox-column>
+                            </lightning-datatable>
+                        </template>
+                        <template if:false={missingDocuments.length}>
+                            <p>No documents are fully rejected.</p>
+                        </template>
+                    </lightning-card>
+                    <template lwc:if={resumbisionComment}>
+                        <label class="slds-form-element__label" for="resumbisionComment">Comment <abbr class="slds-required"
+                                title="required">*</abbr>
+                        </label>
+                        <lightning-textarea id="resumbisionComment" value={commentValue} onchange={handleCommentChange}
+                            style="margin-top: -13px;"></lightning-textarea>
+                    </template>
+                </div>
+                <footer class="slds-modal__footer">
+                    <lightning-button variant="neutral" name="cancelVarificationClearPopup" label="Close"
+                        onclick={closeModal}></lightning-button>
+                    <lightning-button variant="brand" class="slds-m-left_small" name="createAction" label="Submit"
+                        onclick={handleClickButton}></lightning-button>
+                </footer>
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </template>
+    <template lwc:if={isRequiredFieldMissing}>
+        <section role="dialog" tabindex="-1" class="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container">
+                <div class="slds-modal__header">
+                    <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse"
+                        title="Close" onclick={handleClickButton}>
+                        <lightning-icon name="closeRequireFieldPopup" icon-name="utility:close" alternative-text="close"
+                            size="small"></lightning-icon>
+                        <span class="slds-assistive-text">Close</span>
+                    </button>
+                    <h2 class="slds-text-heading_medium">Missing Required Fields</h2>
+                </div>
+                <div class="slds-modal__content slds-p-around_medium">
+                    <p>{popupMessage}</p>
+                </div>
+                <div class="slds-modal__footer">
+                    <lightning-button variant="neutral" name="closeRequireFieldPopup" label="Close"
+                        onclick={handleClickButton}></lightning-button>
+                </div>
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </template>
+</template>

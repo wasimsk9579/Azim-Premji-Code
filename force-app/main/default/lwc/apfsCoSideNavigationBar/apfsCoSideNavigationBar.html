@@ -1,0 +1,130 @@
+<template>
+    <!-- side navbar section -->
+    <div class="navbar-main-section">
+        <div class="side-navbar-left-section slds-small-size_12-of-12 slds-medium-size_6-of-12 slds-large-size_6-of-12">
+            <!-- progress bar label starts here -->
+        
+            <div class="progress-bar-label slds-grid slds-grid_align-spread slds-p-around_large">
+                <span>Progress</span>
+                <span><strong>{displayValue}</strong></span>
+            </div>
+            <lightning-progress-bar value={progressPercentage} size="large" class="progressbar-indicator"></lightning-progress-bar>
+            <!-- progress bar label ends here -->
+
+            <!-- side navbar starts here -->
+            <lightning-vertical-navigation selected-item={selectedItem} name={selectedItem} onselect={handleNavigationSelect}>
+                <lightning-vertical-navigation-section class="navbar-item">
+                    <template if:false={isProvisional}>
+                        <template for:each={navbarItemAttributeRegular} for:item="item">
+                            <lightning-vertical-navigation-item-icon
+                                key={item.name}
+                                class="navbar-item-icon"
+                                label={item.label}
+                                name={item.name}
+                                icon-name={item.iconName}>
+                            </lightning-vertical-navigation-item-icon>
+                        </template>
+                    </template>
+                   
+
+                    <template if:true={isProvisional}>
+                        <template for:each={navbarItemAttributeProvisional} for:item="item">
+                            <lightning-vertical-navigation-item-icon
+                                key={item.name}
+                                class="navbar-item-icon"
+                                label={item.label}
+                                name={item.name}
+                                icon-name={item.iconName}>
+                            </lightning-vertical-navigation-item-icon>
+                        </template>
+                    </template>
+
+                </lightning-vertical-navigation-section>
+            </lightning-vertical-navigation>
+        </div>
+
+        <!-- side navbar ends here -->
+
+        <!-- Accordion block starts here -->
+        <div class="side-navbar-accordian-section slds-small-size_12-of-12 slds-medium-size_6-of-12 slds-large-size_6-of-12">
+            <lightning-accordion active-section-name="navigationMenu" class="accordian-menu-section" onsectiontoggle={handleSectionToggle} allow-multiple-sections-open>
+                <lightning-accordion-section name="menu" label="Menu" class="accordian-menu-article">
+                    <div class="side-navbar-accordian-menu-item slds-small-size_12-of-12 slds-medium-size_6-of-12 slds-large-size_6-of-12">
+                        <!-- progress bar label starts here -->
+                        <div class="progress-bar-label slds-grid slds-grid_align-spread slds-p-around_large">
+                            <span>Progress</span>
+                            <span><strong>{displayValue}</strong></span>
+                        </div>
+                        <lightning-progress-bar value={progressPercentage} size="large" class="progressbar-indicator"></lightning-progress-bar>
+                        <!-- progress bar label ends here -->
+
+                        <!-- side navbar block starts here -->
+                        <lightning-vertical-navigation selected-item={selectedItem} name={selectedItem} onselect={handleNavigationSelect}>
+                            <lightning-vertical-navigation-section class="navbar-item">
+                                
+                                <template if:false={isProvisional}>
+                                    <template for:each={navbarItemAttributeRegular} for:item="item">
+                                        <lightning-vertical-navigation-item-icon
+                                            key={item.name}
+                                            class="navbar-item-icon"
+                                            label={item.label}
+                                            name={item.name}
+                                            icon-name={item.iconName}>
+                                        </lightning-vertical-navigation-item-icon>
+                                    </template>
+                                </template>
+                               
+            
+                                <template if:true={isProvisional}>
+                                    <template for:each={navbarItemAttributeProvisional} for:item="item">
+                                        <lightning-vertical-navigation-item-icon
+                                            key={item.name}
+                                            class="navbar-item-icon"
+                                            label={item.label}
+                                            name={item.name}
+                                            icon-name={item.iconName}>
+                                        </lightning-vertical-navigation-item-icon>
+                                    </template>
+                                </template>
+            
+
+                            </lightning-vertical-navigation-section>
+                        </lightning-vertical-navigation>
+                    </div>
+                </lightning-accordion-section>
+            </lightning-accordion>
+        </div>
+        <!-- Accordion block ends here -->
+
+        <!-- content section -->
+        <div class="side-navbar-right-section slds-small-size_12-of-12 slds-medium-size_6-of-12 slds-large-size_6-of-12">
+            <!-- basic details block -->
+            <template lwc:if={isReferralDetails}>
+                <c-apfs-basic-details application-id={applicationId} onformcompleted={handleFormCompleted}></c-apfs-basic-details>
+            </template>
+
+            <!-- academic details block -->
+            <template lwc:if={isAcademicDetails}>
+                <c-apfs-co-academic-details application-id={applicationId} onformcompleted={handleFormCompleted}></c-apfs-co-academic-details>
+            </template>
+
+            <!-- socio-economic details block -->
+            <template lwc:if={isSocioEconomicDetails}>
+                <c-apfs-co-socio-economic-details application-id={applicationId} onformcompleted={handleFormCompleted}></c-apfs-co-socio-economic-details>
+            </template>
+
+            <!-- admission details block -->
+            <!-- <template if:false={isisProvisional}> -->
+                <template lwc:if={isAdmissionDetails}>
+                    <c-apfs-co-admission-form application-id={applicationId} onformcompleted={handleFormCompleted}></c-apfs-co-admission-form>
+                </template>
+            <!-- </template> -->
+
+                 <!-- admission details block -->
+                 <template lwc:if={isApplicationSubmit}>
+                    <c-apfs-co-application-submit application-id={applicationId} onformcompleted={handleFormCompleted}></c-apfs-co-application-submit>
+                </template>
+            
+        </div>
+    </div>
+</template>

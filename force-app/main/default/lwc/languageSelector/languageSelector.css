@@ -1,0 +1,10 @@
+.combobox-container{
+display: flex; 
+justify-content: left;
+padding-left: 1rem;
+}
+@media only screen and (max-width: 47.9375rem) {
+    .combobox-container{
+        padding-left: 1.5rem;
+    }
+}

@@ -1,0 +1,58 @@
+*{
+    font-family: var(--lwc-fontFamily, Lato);
+}
+
+.title-block {
+    background: linear-gradient(45deg, #2B308B, #2472A3);
+    color: #fff;
+    padding: 10px;
+    /* text-transform: capitalize; */
+    font-size: 19.2px;
+    line-height: 1.25;
+    display: block;
+}
+
+.input-block {
+    margin-bottom: 1rem;
+}
+
+
+.applicaton-card{
+    margin: 0px 12px;
+    border-radius: 0.625rem;
+    padding: 12px;
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.personal{
+    margin: 0px 10px;
+}
+
+.custom-box{
+    margin-left: 5px;
+}
+
+.file-margin{
+    margin-left:12px;
+}
+
+.labelsContainer {
+    font-weight: bold;
+    font-size: 13px;
+    font-family: var(--lwc-fontFamily, Lato);
+}
+
+.label{
+    font-weight: 550;
+    font-size: 13px !important;
+    margin: 0;
+}
+
+.noresize {
+    resize: none;
+}
+
+.selector-dropdown {
+    font-weight: normal !important; 
+}

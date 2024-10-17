@@ -1,0 +1,16 @@
+<!--
+  @description       : 
+  @author            : owais.ahanger@cloudodyssey.co
+  @group             : 
+  @last modified on  : 08-04-2024
+  @last modified by  : owais.ahanger@cloudodyssey.co
+-->
+<template>
+<lightning-card title="Custom File Upload">
+    <lightning-input type="file" label="Upload File" name="college-addmission-proof-file-upload-input" accept=".pdf,.jpeg,.jpg,.png" onchange={handleFileChange}></lightning-input>
+    <template if:true={displayedFileName}>
+        <p>Selected File: {displayedFileName}</p>
+    </template>
+    <lightning-button label="Upload" onclick={uploadFile} disabled={isUploadDisabled}></lightning-button>
+  </lightning-card>
+</template>

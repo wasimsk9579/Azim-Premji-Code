@@ -1,0 +1,104 @@
+<template>
+    <template if:true={isAccpetOfferTask}>
+    <div class="task-wrapper application-card"> 
+       <div class="title-block slds-page-header__name-title slds-m-top_medium slds-m-bottom_medium">{agreementOfferletterHeading}
+    </div>
+       <div class="task-body">
+                <!-- Scholarship Agreement -->
+               <div class="slds-col slds-size_1-of-2 marginclass">
+                   <label class="labelsContainer">
+                    {scholarshipAgreementLabel}
+                   </label>
+                   <lightning-button
+                       class="no-border-button rightflex"
+                       variant="base"
+                       label="Download"
+                       onclick={handleagreementclick}
+                   ></lightning-button>
+               </div>
+         
+               
+           <!-- Upload Scholarship Agreement -->
+      
+<div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-p-around_x-small margin">
+            <div>
+                <div class="label-class">
+                    <label class="labelsContainer">
+                        {uploadSignedLabel}
+                        <abbr title="required" class="slds-required">*</abbr>
+                    </label>
+                    <lightning-helptext content={agreementFileUploadHelptext} style="margin-top: -5px;"></lightning-helptext>
+                </div>
+        
+                <!-- Remove margin here to remove the gap between label and input -->
+                <div class="scholarship-agreement">
+                    <lightning-input
+                        name="scholarship-agreement-file-upload-input"
+                        class="selector-dropdown labelsContainer"
+                        type="file"
+                        accept={acceptedFormats}
+                        label="Upload scholarship agreement"
+                        message-when-value-missing={requiredfielderror}
+                        onchange={handleAgreementFileUpload}
+                        ondragover={handleDragOver}
+                        variant="label-hidden"
+                        disabled={isDisableAllFields}
+                    ></lightning-input>
+                </div>
+
+                <!-- Add margin here for the gap between input and uploaded file name -->
+                <div class="selector-dropdown">
+                    <template lwc:if={uploadedFiles}>
+                        <template for:each={uploadedFiles} for:item="file">
+                            <div key={file.contentDocumentId} class="file-item">
+                                <!-- Add small margin at the top for file name spacing -->
+                                <span class="fileCss  slds-m-top_small">{uploadfile}: {file.name}</span>
+                                <div class="file-icons ">
+                                    <lightning-button-icon
+                                        name="agreementfile"
+                                        class="eye-btn button-icon"
+                                        icon-name="utility:preview"
+                                        alternative-text="Preview"
+                                        data-id={file.contentDocumentId}
+                                        onclick={handleFilePreview}
+                                    ></lightning-button-icon>
+                                    <lightning-button-icon
+                                        name="agreementfile"
+                                        class="eye-btn"
+                                    icon-name="utility:delete"
+                                        alternative-text="Delete"
+                                        onclick={handleFileRemove}
+                                        data-id={file.contentDocumentId}
+                                        disabled={isDisableAllFields}
+                                    ></lightning-button-icon>
+                                </div>
+                            </div>
+                        </template>
+                    </template>
+                </div>
+            </div>
+        </div>
+        
+           <!-- Loading Spinner -->
+           <template lwc:if={isLoading}>
+               <div class="overlay">
+                   <lightning-spinner alternative-text="Loading" size="medium"></lightning-spinner>
+               </div>
+           </template>
+
+        
+           <!-- Save Button -->
+           <div class="slds-m-around_medium slds-text-align_center">
+               <lightning-button label=" Save and Next" variant="brand" onclick={handleSave}></lightning-button>
+           </div>
+       </div>
+  
+
+
+
+</div>
+</template>
+<template if:true={showbankdetails}>
+    <c-apfs-co-bank-details></c-apfs-co-bank-details>
+</template>
+</template>

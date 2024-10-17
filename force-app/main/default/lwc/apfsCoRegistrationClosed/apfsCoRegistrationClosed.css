@@ -1,0 +1,17 @@
+.mobile-number-verification-wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.send-otp-wrapper{
+    display: flex;
+    flex-direction: column;
+   justify-content: center;
+    align-items: center;
+    width: 100%;
+    gap: 1.25rem;
+    padding-top: 0.75rem;
+    padding-bottom: 0.75rem;
+}

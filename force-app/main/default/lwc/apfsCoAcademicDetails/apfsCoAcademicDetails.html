@@ -1,0 +1,901 @@
+<!--
+  @description       : 
+  @author            : owais.ahanger@cloudodyssey.co
+  @group             : 
+  @last modified on  : 09-07-2024
+  @last modified by  : ChangeMeIn@UserSettingsUnder.SFDoc
+-->
+<template>
+
+    <div class="application-card ">
+
+        <div
+            class="title-block slds-page-header__name-title slds-p-around-small slds-m-top_medium scrollable-container">
+            {educationHeading}
+        </div>
+        <template if:true={isLoading}>
+            <div class="overlay">
+                <lightning-spinner alternative-text="Loading" size="medium"></lightning-spinner>
+            </div>
+        </template>
+
+        <template if:true={class12Section}>
+            <!-- ====================================================== class 12 starts here ===================================================================== -->
+
+            <div
+                class="sub-title-block slds-page-header__name-title slds-m-left_large slds-m-right_large slds-p-around-small">
+                {class12DetailsLabel}</div>
+
+            <div class="gridTable slds-grid slds-wrap slds-m-around_medium">
+
+                <div
+                    class="slds-col slds-p-around_x-small slds-small-size_1-of-1 slds-medium-size_6-of-12 slds-large-size_6-of-12">
+
+                    <div class="labels-block">
+                        <label class="Year-of-Passing label-block">{yearOfPassingLabel}<abbr title="required"
+                                class="slds-required new">*</abbr></label>
+                        <lightning-helptext class="helperText" content={yearHelpText} style="margin-top: -5px;">
+                        </lightning-helptext>
+                    </div>
+
+                    <lightning-input type="tel" class="no-label year-of-passing" name="class12YearOfPassing"
+                        maxlength="4" value={class12YearOfPassing} onkeypress={handleYearOfPassingValidation}
+                        onchange={handleChange} variant="label-hidden" onpaste={handlePaste}
+                        onbeforeinput={handlePinBeforeInput} disabled={isDisableAcademicAllFields} required
+                        message-when-value-missing={requiredFieldError}>
+                    </lightning-input>
+                </div>
+
+                <!-- Mode of education -->
+
+                <div
+                    class="slds-col slds-p-around_x-small slds-small-size_1-of-1 slds-medium-size_6-of-12 slds-large-size_6-of-12">
+
+                    <div class="labels-block">
+                        <label class="Mode-of-Education label-block">{modeOfEducationLabel}<abbr title="required"
+                                class="slds-required new">*</abbr></label>
+                    </div>
+
+                    <lightning-combobox class="no-label" name="class12ModeOfEducation" value={class12ModeOfEducation}
+                        options={modeOfEducationOptions} onchange={handleChange} variant="label-hidden"
+                        disabled={isDisableAcademicAllFields} placeholder={selectanoptionlabel} required
+                        message-when-value-missing={requiredFieldError}>
+                    </lightning-combobox>
+                </div>
+
+                <!-- State of the examination center -->
+
+                <div
+                    class="slds-col slds-p-around_x-small slds-small-size_12-of-12 slds-medium-size_6-of-12 slds-large-size_6-of-12">
+
+                    <div class="labels-block">
+                        <label class="Select-State-of-the-Exam-Center label-block">{selectStateOfExamCenterLabel}<abbr
+                                title="required" class="slds-required new">*</abbr></label>
+                    </div>
+
+                    <lightning-combobox class="no-label" name="class12ExamState" options={statesOptions}
+                        value={class12ExamState} variant="label-hidden" onchange={handleChange}
+                        disabled={isDisableAcademicAllFields} placeholder={selectanoptionlabel} required
+                        message-when-value-missing={requiredFieldError}>
+                    </lightning-combobox>
+
+                </div>
+
+                <!-- District of the exam center -->
+
+                <div
+                    class="slds-col slds-p-around_x-small slds-small-size_12-of-12 slds-medium-size_6-of-12 slds-large-size_6-of-12">
+
+                    <div class="labels-block">
+                        <label
+                            class="Select-District-of-the-Exam-Center label-block">{selectDistrictOfExamCenterLabel}<abbr
+                                title="required" class="slds-required new">*</abbr></label>
+                    </div>
+
+                    <lightning-combobox class="no-label" name="class12ExamDistrict" options={districtsOptions12}
+                        value={class12ExamDistrict} onchange={handleChange} variant="label-hidden" required
+                        disabled={isState12Selected} placeholder={selectanoptionlabel}
+                        message-when-value-missing={requiredFieldError}>
+                    </lightning-combobox>
+
+                </div>
+                <template lwc:if={isClass12ModeOfEducationRegular}>
+
+                    <!-- Block of the exam center -->
+                    <div
+                        class="slds-col slds-p-around_x-small slds-small-size_12-of-12 slds-medium-size_6-of-12 slds-large-size_6-of-12">
+
+                        <div class="labels-block">
+                            <label
+                                class="Select-Block-of-the-Exam-Center label-block">{selectBlockOfExamCenterLabel}<abbr
+                                    title="required" class="slds-required new">*</abbr></label>
+                        </div>
+
+                        <lightning-combobox class="no-label" name="class12ExamBlock" options={filteredBlockOptions12}
+                            value={class12ExamBlock} onchange={handleChange} variant="label-hidden" required
+                            disabled={isDistrict12Selected} placeholder={selectanoptionlabel}
+                            message-when-value-missing={requiredFieldError}>
+                        </lightning-combobox>
+                    </div>
+                </template>
+                <!-- Pincode of the exam center -->
+
+                <div
+                    class="slds-col slds-p-around_x-small slds-small-size_12-of-12 slds-medium-size_6-of-12 slds-large-size_6-of-12">
+
+                    <div class="labels-block">
+                        <label class="pincode label-block">{pincodeLabel}</label>
+                    </div>
+
+                    <lightning-input type="tel" class="no-label class12pincode pincodeCheck" name="class12pincode"
+                        maxlength="6" value={class12Pincode} onkeypress={handlePincodeValidation} pattern="[0-9]*"
+                        onchange={handleChange} variant="label-hidden" onpaste={handlePaste}
+                        onbeforeinput={handlePinBeforeInput} disabled={isDisableAcademicAllFields}>
+                    </lightning-input>
+
+                </div>
+                <!-- Name of the school name -->
+
+                <template lwc:if={isClass12ModeOfEducationRegular}>
+
+                    <div
+                        class="slds-col slds-p-around_x-small slds-small-size_1-of-1 slds-medium-size_6-of-12 slds-large-size_6-of-12">
+
+                        <div class="labels-block">
+                            <label class="Name-of-the-School label-block">{nameOfSchoolLabel}<abbr title="required"
+                                    class="slds-required new">*</abbr></label>
+                        </div>
+
+                        <lightning-combobox class="search-input search-input1" name="class12SchoolName"
+                            value={class12SchoolName} options={filteredSchoolNameOptions12} onchange={selectSchool}
+                            variant="label-hidden" required disabled={Isclass12SchoolName}
+                            placeholder={selectanoptionlabel} message-when-value-missing={requiredFieldError}>
+                        </lightning-combobox>
+                    </div>
+
+                </template>
+
+                <!-- others school name -->
+
+                <template lwc:if={isClass12ModeOfEducationRegular}>
+                    <template lwc:if={isOtherClass12SchoolName}>
+
+                        <div
+                            class="slds-col slds-p-around_x-small slds-small-size_1-of-1 slds-medium-size_6-of-12 slds-large-size_6-of-12">
+
+                            <div class="labels-block">
+                                <label class="Name-of-the-School label-block">{isOthersPleaseEnterNameOfSchool}<abbr
+                                        title="required" class="slds-required new">*</abbr></label>
+                                <lightning-helptext content={enterinenglishlabel}
+                                    style="margin-top: -5px;"></lightning-helptext>
+                            </div>
+
+                            <lightning-input class="no-label" name="class12otherSchoolName"
+                                value={class12otherSchoolName} maxlength="70" onchange={handleChange}
+                                variant="label-hidden" onpaste={handlePaste} onbeforeinput={handleBeforeInput}
+                                disabled={isDisableAcademicAllFields} required
+                                message-when-value-missing={requiredFieldError}>
+                            </lightning-input>
+
+                        </div>
+
+                    </template>
+                </template>
+
+
+                <!-- Board name -->
+
+                <template lwc:if={isClass12ModeOfEducationDistance}>
+
+                    <div
+                        class="slds-col slds-p-around_x-small slds-small-size_1-of-1 slds-medium-size_6-of-12 slds-large-size_6-of-12">
+
+                        <div class="labels-block">
+                            <label class="Board-Name label-block">{boardNameLabel}<abbr title="required"
+                                    class="slds-required new">*</abbr></label>
+                        </div>
+
+                        <lightning-combobox class="no-label" name="class12BoardName" value={class12BoardName}
+                            options={boardNameOptions} onchange={handleChange} variant="label-hidden" required
+                            disabled={isBlock12Selected} message-when-value-missing={requiredFieldError}
+                            placeholder={selectanoptionlabel}>
+                        </lightning-combobox>
+
+                    </div>
+
+                </template>
+
+                <!-- other board name -->
+
+                <template lwc:if={isClass12ModeOfEducationDistance}>
+                    <template lwc:if={isOtherClass12BoardName}>
+
+                        <div
+                            class="slds-col slds-p-around_x-small slds-small-size_1-of-1 slds-medium-size_6-of-12 slds-large-size_6-of-12">
+
+                            <div class="labels-block">
+                                <label class="Name-of-the-School label-block">{isOthersPleaseEnterBoardName}<abbr
+                                        title="required" class="slds-required new">*</abbr></label>
+                                <lightning-helptext content={enterinenglishlabel}
+                                    style="margin-top: -5px;"></lightning-helptext>
+
+                            </div>
+
+                            <lightning-input class="no-label" name="otherClass12BoardName" value={otherClass12BoardName}
+                                maxlength="70" onchange={handleChange} variant="label-hidden" onpaste={handlePaste}
+                                onbeforeinput={handleBeforeInput} disabled={isDisableAcademicAllFields} required
+                                message-when-value-missing={requiredFieldError}>
+                            </lightning-input>
+
+                        </div>
+
+                    </template>
+                </template>
+
+                <!-- Pass percentage -->
+
+                <div
+                    class="slds-col slds-p-around_x-small slds-small-size_12-of-12 slds-medium-size_6-of-12 slds-large-size_6-of-12">
+                    <div class="labels-block">
+                        <label class="Pass-Percentage label-block">{percentageLabel}<abbr title="required"
+                                class="slds-required new">*</abbr></label>
+                        <lightning-helptext class="helperText" content={Percentage_Help_Text_Label}
+                            style="margin-top: -5px;">
+                        </lightning-helptext>
+                    </div>
+
+                    <lightning-input type="number" maxlength="5" class="no-label check-percentage" step="0.01" min="0"
+                        name="class12Percentage" onkeypress={handlePercentageValidation} value={class12Percentage}
+                        onchange={handleChange} variant="label-hidden" onpaste={handlePaste}
+                        onbeforeinput={handlePerBeforeInput} disabled={isDisableAcademicAllFields}
+                        message-when-value-missing={requiredFieldError}>
+                    </lightning-input>
+
+                </div>
+
+                <!-- Upload class 12 marksheet -->
+
+                <div
+                    class="slds-col slds-p-around_x-small slds-small-size_12-of-12 slds-medium-size_6-of-12 slds-large-size_6-of-12">
+
+                    <div class="labels-block">
+
+                        <label class="Attach-Class-12-Marksheet label-block">{attachClass12MarksheetLabel}<abbr
+                                title="required" class="slds-required new">*</abbr></label>
+                        <lightning-helptext class="helperText" content={File_Help_Test_Label} style="margin-top: -5px;">
+                        </lightning-helptext>
+
+                    </div>
+
+                    <lightning-input class="class12File" name="class12File" type="file"
+                        label="Attach Class 12 Marksheet" accept={acceptedFormats} data-filetype="class12"
+                        onchange={handleUploadFile} variant="label-hidden" onpaste={handlePaste}
+                        disabled={isDisableAcademicAllFields} value={class12FileName}
+                        message-when-value-missing={requiredFieldError} ondragover={handleDragOver}>
+                    </lightning-input>
+                    <template if:true={class12Files.length}>
+                        <template for:each={class12Files} for:item="item">
+                            <div key={item.title} class="file-item">{Uploaded_File_Label}: {item.fileName}
+                                <div class="file-icons">
+                                    <div>
+                                        <lightning-button-icon name="Class Twelve Marks Card" class="eye-btn "
+                                            icon-name="utility:preview" alternative-text="Preview"
+                                            data-filetype="class12" data-id={item.title} onclick={handlePreviewFile}>
+                                        </lightning-button-icon>
+                                    </div>
+                                    <div class="FileIcons">
+                                        <lightning-button-icon name="Class Twelve Marks Card" class="eye-btn"
+                                            icon-name="utility:delete" alternative-text="Delete" data-filetype="class12"
+                                            data-id={item.title} disabled={isDisableAcademicAllFields}
+                                            onclick={handleRemoveFile}>
+                                        </lightning-button-icon>
+                                    </div>
+                                </div>
+                            </div>
+                        </template>
+                    </template>
+
+                </div>
+
+            </div>
+            <div class="save-and-continue-button">
+                <lightning-button name="class12Next" class="slds-m-bottom_large" label="Next" variant="brand"
+                    onclick={handleNext}>
+                </lightning-button>
+            </div>
+        </template>
+
+
+        <template if:true={class10Section}>
+
+            <!-- =========================================================  Class 10 starts here  ============================================================================================================================================================== -->
+
+
+
+            <!-- Class 10th details starts here -->
+
+            <div
+                class="sub-title-block slds-page-header__name-title slds-m-left_large slds-m-right_large slds-p-around-small">
+                {class10DetailsLabel}</div>
+
+
+            <div class="gridTable slds-grid slds-wrap slds-m-around_medium">
+
+                <!-- Class 10 year of passing -->
+
+                <div
+                    class="slds-col slds-p-around_x-small slds-small-size_1-of-1 slds-medium-size_6-of-12 slds-large-size_6-of-12">
+
+                    <div class="labels-block">
+                        <label class="Year-of-Passing label-block">{yearOfPassingLabel}<abbr title="required"
+                                class="slds-required new">*</abbr></label>
+                        <lightning-helptext class="helperText" content={yearHelpText} style="margin-top: -5px;">
+                        </lightning-helptext>
+                    </div>
+
+                    <lightning-input type="tel" class="no-label year-of-passing" name="class10YearOfPassing"
+                        maxlength="4" value={class10YearOfPassing} onkeypress={handleYearOfPassingValidation}
+                        onchange={handleChange} variant="label-hidden" onpaste={handlePaste}
+                        onbeforeinput={handlePinBeforeInput} disabled={isDisableAcademicAllFields} required
+                        message-when-value-missing={requiredFieldError}>
+                    </lightning-input>
+                </div>
+
+                <!-- Mode of Education -->
+
+                <div
+                    class="slds-col slds-p-around_x-small slds-small-size_1-of-1 slds-medium-size_6-of-12 slds-large-size_6-of-12">
+
+                    <div class="labels-block">
+                        <label class="Mode-of-Education label-block">{modeOfEducationLabel}<abbr title="required"
+                                class="slds-required new">*</abbr></label>
+                    </div>
+
+                    <lightning-combobox class="no-label" name="class10ModeOfEducation" value={class10ModeOfEducation}
+                        options={modeOfEducationOptions} onchange={handleChange} variant="label-hidden"
+                        disabled={isDisableAcademicAllFields} required message-when-value-missing={requiredFieldError}
+                        placeholder={selectanoptionlabel}>
+                    </lightning-combobox>
+                </div>
+
+
+                <!-- State of the examination center -->
+
+                <div
+                    class="slds-col slds-p-around_x-small slds-small-size_12-of-12 slds-medium-size_6-of-12 slds-large-size_6-of-12">
+
+                    <div class="labels-block">
+                        <label class="Select-State-of-the-Exam-Center label-block">{selectStateOfExamCenterLabel}<abbr
+                                title="required" class="slds-required new">*</abbr></label>
+                    </div>
+
+                    <lightning-combobox class="no-label" name="class10ExamState" options={statesOptions}
+                        value={class10ExamState} variant="label-hidden" onchange={handleChange}
+                        disabled={isDisableAcademicAllFields} required message-when-value-missing={requiredFieldError}
+                        placeholder={selectanoptionlabel}>
+                    </lightning-combobox>
+
+                </div>
+
+                <!-- District of the exam center -->
+
+                <div
+                    class="slds-col slds-p-around_x-small slds-small-size_12-of-12 slds-medium-size_6-of-12 slds-large-size_6-of-12">
+
+                    <div class="labels-block">
+                        <label
+                            class="Select-District-of-the-Exam-Center label-block">{selectDistrictOfExamCenterLabel}<abbr
+                                title="required" class="slds-required new">*</abbr></label>
+                    </div>
+
+                    <lightning-combobox class="no-label" name="class10ExamDistrict" options={districtsOptions10}
+                        value={class10ExamDistrict} onchange={handleChange} variant="label-hidden" required
+                        disabled={isState10Selected} message-when-value-missing={requiredFieldError}
+                        placeholder={selectanoptionlabel}>
+                    </lightning-combobox>
+
+                </div>
+
+                <template lwc:if={isClass10ModeOfEducationRegular}>
+                    <!-- Block of the exam center -->
+                    <div
+                        class="slds-col slds-p-around_x-small slds-small-size_12-of-12 slds-medium-size_6-of-12 slds-large-size_6-of-12">
+
+                        <div class="labels-block">
+                            <label
+                                class="Select-Block-of-the-Exam-Center label-block">{selectBlockOfExamCenterLabel}<abbr
+                                    title="required" class="slds-required new">*</abbr></label>
+                        </div>
+
+                        <lightning-combobox class="no-label" name="class10ExamBlock" options={filteredBlockOptions10}
+                            value={class10ExamBlock} onchange={handleChange} variant="label-hidden" required
+                            disabled={isDistrict10Selected} message-when-value-missing={requiredFieldError}
+                            placeholder={selectanoptionlabel}>
+                        </lightning-combobox>
+
+                    </div>
+                </template>
+
+                <!-- Pincode of the exam center -->
+
+                <div
+                    class="slds-col slds-p-around_x-small slds-small-size_12-of-12 slds-medium-size_6-of-12 slds-large-size_6-of-12">
+
+                    <div class="labels-block">
+                        <label class="pincode label-block ">{pincodeLabel}</label>
+                    </div>
+
+                    <lightning-input type="tel" class="no-label class10pincode pincodeCheck" name="class10pincode"
+                        maxlength="6" value={class10Pincode} onkeypress={handlePincodeValidation}
+                        onbeforeinput={handlePinBeforeInput} onchange={handleChange} variant="label-hidden"
+                        disabled={isDisableAcademicAllFields} onpaste={handlePaste}>
+                    </lightning-input>
+
+                </div>
+                <!-- mode of education regular -->
+
+                <template lwc:if={isClass10ModeOfEducationRegular}>
+
+                    <div
+                        class="slds-col slds-p-around_x-small slds-small-size_1-of-1 slds-medium-size_6-of-12 slds-large-size_6-of-12">
+
+                        <div class="labels-block">
+                            <label class="Name-of-the-School label-block">{nameOfSchoolLabel}<abbr title="required"
+                                    class="slds-required new">*</abbr></label>
+                        </div>
+
+                        <lightning-combobox class="search-input search-input1" name="class10SchoolName"
+                            value={class10SchoolName} options={filteredSchoolNameOptions10} onchange={selectSchool}
+                            variant="label-hidden" required disabled={Isclass10SchoolName}
+                            message-when-value-missing={requiredFieldError} placeholder={selectanoptionlabel}>
+                        </lightning-combobox>
+
+
+                    </div>
+                </template>
+
+                <!-- other school name -->
+
+                <template lwc:if={isClass10ModeOfEducationRegular}>
+
+                    <template lwc:if={isOtherClass10SchoolName}>
+
+                        <div
+                            class="slds-col slds-p-around_x-small slds-small-size_1-of-1 slds-medium-size_6-of-12 slds-large-size_6-of-12">
+
+                            <div class="labels-block">
+                                <label class="Name-of-the-School label-block">{isOthersPleaseEnterNameOfSchool}<abbr
+                                        title="required" class="slds-required new">*</abbr></label>
+                                <lightning-helptext content={enterinenglishlabel}
+                                    style="margin-top: -5px;"></lightning-helptext>
+                            </div>
+
+                            <lightning-input class="no-label" name="class10otherSchoolName"
+                                value={class10otherSchoolName} maxlength="70" onchange={handleChange}
+                                variant="label-hidden" onbeforeinput={handleBeforeInput} onpaste={handlePaste}
+                                disabled={isDisableAcademicAllFields} message-when-value-missing={requiredFieldError}>
+                            </lightning-input>
+
+                        </div>
+
+                    </template>
+
+                </template>
+
+                <!-- board name -->
+
+                <template lwc:if={isClass10ModeOfEducationDistance}>
+
+                    <div
+                        class="slds-col slds-p-around_x-small slds-small-size_1-of-1 slds-medium-size_6-of-12 slds-large-size_6-of-12">
+
+                        <div class="labels-block">
+                            <label class="Board-Name label-block">{boardNameLabel}<abbr title="required"
+                                    class="slds-required new">*</abbr></label>
+                        </div>
+
+                        <lightning-combobox class="no-label" name="class10BoardName" value={class10BoardName}
+                            options={boardNameOptions} onchange={handleChange} variant="label-hidden" required
+                            disabled={isBlock10Selected} message-when-value-missing={requiredFieldError}
+                            placeholder={selectanoptionlabel}>
+                        </lightning-combobox>
+
+                    </div>
+
+                </template>
+
+                <!-- other board name -->
+
+                <template lwc:if={isClass10ModeOfEducationDistance}>
+
+                    <template lwc:if={isOtherClass10BoardName}>
+
+                        <div
+                            class="slds-col slds-p-around_x-small slds-small-size_1-of-1 slds-medium-size_6-of-12 slds-large-size_6-of-12">
+
+                            <div class="labels-block">
+                                <label class="Name-of-the-School label-block">{isOthersPleaseEnterBoardName}<abbr
+                                        title="required" class="slds-required new">*</abbr></label>
+                                <lightning-helptext content={enterinenglishlabel}
+                                    style="margin-top: -5px;"></lightning-helptext>
+                            </div>
+
+                            <lightning-input class="no-label" name="otherClass10BoardName" value={otherClass10BoardName}
+                                maxlength="70" onchange={handleChange} variant="label-hidden"
+                                onbeforeinput={handleBeforeInput} onpaste={handlePaste}
+                                disabled={isDisableAcademicAllFields} required
+                                message-when-value-missing={requiredFieldError}>
+                            </lightning-input>
+
+                        </div>
+
+                    </template>
+
+                </template>
+
+
+                <!-- pass percentage -->
+
+                <div
+                    class="slds-col slds-p-around_x-small slds-small-size_12-of-12 slds-medium-size_6-of-12 slds-large-size_6-of-12">
+                    <div class="labels-block">
+                        <label class="Pass-Percentage label-block">{percentageLabel}<abbr title="required"
+                                class="slds-required new">*</abbr></label>
+                        <lightning-helptext class="helperText" content={Percentage_Help_Text_Label}
+                            style="margin-top: -5px;">
+                        </lightning-helptext>
+                    </div>
+
+                    <lightning-input type="number" maxlength="5" class="no-label check-percentage" step="0.01" min="0"
+                        name="class10Percentage" value={class10Percentage} onkeypress={handlePercentageValidation}
+                        onchange={handleChange} variant="label-hidden" onpaste={handlePaste}
+                        onbeforeinput={handlePerBeforeInput} disabled={isDisableAcademicAllFields}
+                        message-when-value-missing={requiredFieldError}>
+                    </lightning-input>
+                </div>
+
+                <!-- Upload class 10 marksheet -->
+
+                <div
+                    class="slds-col slds-p-around_x-small slds-small-size_12-of-12 slds-medium-size_6-of-12 slds-large-size_6-of-12">
+
+                    <div class="labels-block">
+
+                        <label class="Attach-Class-10-Marksheet label-block">{attachClass10MarksheetLabel}<abbr
+                                title="required" class="slds-required new">*</abbr></label>
+                        <lightning-helptext class="helperText" content={File_Help_Test_Label} style="margin-top: -5px;">
+                        </lightning-helptext>
+
+                    </div>
+
+                    <lightning-input class="class10File" name="class10File" type="file"
+                        label="Attach Class 10 Marksheet" accept={acceptedFormats} data-filetype="class10"
+                        onchange={handleUploadFile} variant="label-hidden" onpaste={handlePaste}
+                        disabled={isDisableAcademicAllFields} ondragover={handleDragOver}
+                        message-when-value-missing={requiredFieldError}>
+                    </lightning-input>
+
+                    <template for:each={class10Files} for:item="item">
+                        <div key={item.fileName} class="file-item">{Uploaded_File_Label}: {item.fileName}
+                            <div class="file-icons">
+                                <div>
+                                    <lightning-button-icon name="Class Ten Marks Card" class="eye-btn "
+                                        icon-name="utility:preview" alternative-text="Preview" data-filetype="class10"
+                                        data-id={item.title} onclick={handlePreviewFile}>
+                                    </lightning-button-icon>
+                                </div>
+                                <div class="FileIcons">
+                                    <lightning-button-icon name="Class Ten Marks Card" class="eye-btn"
+                                        icon-name="utility:delete" alternative-text="Delete" data-filetype="class10"
+                                        data-id={item.title} disabled={isDisableAcademicAllFields}
+                                        onclick={handleRemoveFile}>
+                                    </lightning-button-icon>
+                                </div>
+                            </div>
+                        </div>
+                    </template>
+
+                </div>
+
+            </div>
+            <div class="save-and-continue-button">
+                <lightning-button name="class10Back" class="slds-m-bottom_large" label="Back" variant="brand"
+                    onclick={handleBack}>
+                </lightning-button>
+                <lightning-button name="class10Next" class="slds-m-bottom_large" label="Next" variant="brand"
+                    onclick={handleNext} style="margin-left: 2%;">
+                </lightning-button>
+            </div>
+
+        </template>
+
+
+        <template if:true={class8Section}>
+
+            <!-- ==========================================================  class 8 starts here  =========================================================================================================================== -->
+
+
+            <!-- Class 8th details start here -->
+
+            <div
+                class="sub-title-block slds-page-header__name-title slds-m-left_large slds-m-right_large slds-p-around-small slds-m-top_large">
+                {class8Details}</div>
+
+            <!-- Class 8 year of passing -->
+
+            <div class="gridTable slds-grid slds-wrap slds-m-around_medium">
+
+                <div
+                    class="slds-col slds-p-around_x-small slds-small-size_1-of-1 slds-medium-size_6-of-12 slds-large-size_6-of-12">
+
+                    <div class="labels-block">
+                        <label class="Year-of-Passing label-block">{yearOfPassingLabel}</label>
+                        <lightning-helptext class="helperText" content={yearHelpText} style="margin-top: -5px;">
+                        </lightning-helptext>
+                    </div>
+                    <lightning-input type="tel" class="no-label year-of-passing" data-field="class8YearOfPassing"
+                        name="class8YearOfPassing" maxlength="4" value={class8YearOfPassing}
+                        onkeypress={handleYearOfPassingValidation} onchange={handleChange}
+                        onbeforeinput={handlePinBeforeInput} variant="label-hidden" onpaste={handlePaste}
+                        disabled={isDisableAcademicAllFields}>
+                    </lightning-input>
+                </div>
+
+                <!-- Mode of Education -->
+
+                <div
+                    class="slds-col slds-p-around_x-small slds-small-size_1-of-1 slds-medium-size_6-of-12 slds-large-size_6-of-12">
+
+                    <div class="labels-block">
+                        <label class="Mode-of-Education label-block">{modeOfEducationLabel}</label>
+                    </div>
+                    <lightning-combobox class="no-label" data-field="class8ModeOfEducation" name="class8ModeOfEducation"
+                        value={class8ModeOfEducation} options={modeOfEducationOptions} onchange={handleChange}
+                        variant="label-hidden" disabled={isDisableAcademicAllFields} placeholder={selectanoptionlabel}>
+                    </lightning-combobox>
+                </div>
+
+                <!-- State of the examination center -->
+
+                <div
+                    class="slds-col slds-p-around_x-small slds-small-size_12-of-12 slds-medium-size_6-of-12 slds-large-size_6-of-12">
+
+                    <div class="labels-block">
+                        <label
+                            class="Select-State-of-the-Exam-Center label-block">{selectStateOfExamCenterLabel}</label>
+                    </div>
+
+                    <lightning-combobox class="no-label" name="class8ExamState" data-field="class8ExamState"
+                        options={statesOptions} value={class8ExamState} variant="label-hidden" onchange={handleChange}
+                        disabled={isDisableAcademicAllFields} placeholder={selectanoptionlabel}>
+                    </lightning-combobox>
+
+                </div>
+
+
+                <!-- District of the exam center -->
+
+                <div
+                    class="slds-col slds-p-around_x-small slds-small-size_12-of-12 slds-medium-size_6-of-12 slds-large-size_6-of-12">
+
+                    <div class="labels-block">
+                        <label
+                            class="Select-District-of-the-Exam-Center label-block">{selectDistrictOfExamCenterLabel}</label>
+                    </div>
+
+                    <lightning-combobox class="no-label" name="class8ExamDistrict" data-field="class8ExamDistrict"
+                        options={districtsOptions8} value={class8ExamDistrict} onchange={handleChange}
+                        variant="label-hidden" disabled={isState8Selected} placeholder={selectanoptionlabel}>
+                    </lightning-combobox>
+
+                </div>
+
+                <template lwc:if={isClass8ModeOfEducationRegular}>
+                    <!-- Block of the exam center -->
+
+                    <div
+                        class="slds-col slds-p-around_x-small slds-small-size_12-of-12 slds-medium-size_6-of-12 slds-large-size_6-of-12">
+
+                        <div class="labels-block">
+                            <label
+                                class="Select-Block-of-the-Exam-Center label-block">{selectBlockOfExamCenterLabel}</label>
+                        </div>
+                        <lightning-combobox class="no-label" name="class8ExamBlock" data-field="class8ExamBlock"
+                            options={filteredBlockOptions8} value={class8ExamBlock} onchange={handleChange}
+                            variant="label-hidden" disabled={isDistrict8Selected} placeholder={selectanoptionlabel}>
+                        </lightning-combobox>
+
+                    </div>
+                </template>
+                <!-- pincode  -->
+
+                <div
+                    class="slds-col slds-p-around_x-small slds-small-size_12-of-12 slds-medium-size_6-of-12 slds-large-size_6-of-12">
+
+                    <div class="labels-block">
+                        <label class="pincode label-block">{pincodeLabel}</label>
+                    </div>
+
+                    <lightning-input type="tel" class="no-label class8pincode pincodeCheck" data-field="class8pincode"
+                        name="class8pincode" maxlength="6" value={class8Pincode} onkeypress={handlePincodeValidation}
+                        onchange={handleChange} variant="label-hidden" onpaste={handlePaste}
+                        disabled={isDisableAcademicAllFields} onbeforeinput={handlePinBeforeInput}>
+                    </lightning-input>
+                </div>
+                <!-- mode of education regular -->
+
+                <!-- Name of the school -->
+
+                <template lwc:if={isClass8ModeOfEducationRegular}>
+
+                    <div
+                        class="slds-col slds-p-around_x-small slds-small-size_1-of-1 slds-medium-size_6-of-12 slds-large-size_6-of-12">
+
+                        <div class="labels-block">
+                            <label class="Name-of-the-School label-block">{nameOfSchoolLabel}</label>
+                        </div>
+
+                        <lightning-combobox class="search-input search-input1" name="class8SchoolName"
+                            value={class8SchoolName} options={filteredSchoolNameOptions8} onchange={selectSchool}
+                            variant="label-hidden" required disabled={Isclass8SchoolName}
+                            placeholder={selectanoptionlabel}>
+                        </lightning-combobox>
+
+
+                    </div>
+
+                </template>
+
+                <!-- Name of the other school-->
+
+                <template lwc:if={isClass8ModeOfEducationRegular}>
+
+                    <template lwc:if={isOtherClass8SchoolName}>
+
+                        <div
+                            class="slds-col slds-p-around_x-small slds-small-size_1-of-1 slds-medium-size_6-of-12 slds-large-size_6-of-12">
+
+                            <div class="labels-block">
+                                <label class="Name-of-the-School label-block">{isOthersPleaseEnterNameOfSchool}</label>
+                                <lightning-helptext content={enterinenglishlabel}
+                                    style="margin-top: -5px;"></lightning-helptext>
+                            </div>
+
+                            <lightning-input class="no-label" data-field="otherClass8SchoolName"
+                                name="class8otherSchoolName" value={class8otherSchoolName} maxlength="70"
+                                onchange={handleChange} variant="label-hidden" onbeforeinput={handleBeforeInput}
+                                onpaste={handlePaste} disabled={isDisableAcademicAllFields}>
+                            </lightning-input>
+
+                        </div>
+
+                    </template>
+
+                </template>
+
+
+                <template lwc:if={isClass8ModeOfEducationDistance}>
+
+                    <!-- Board name -->
+
+                    <div
+                        class="slds-col slds-p-around_x-small slds-small-size_1-of-1 slds-medium-size_6-of-12 slds-large-size_6-of-12">
+
+                        <div class="labels-block">
+                            <label class="Board-Name label-block">{boardNameLabel}</label>
+                        </div>
+
+                        <lightning-combobox class="no-label" data-field="class8BoardName" name="class8BoardName"
+                            value={class8BoardName} options={boardNameOptions} onchange={handleChange}
+                            variant="label-hidden" disabled={isBlock8Selected} placeholder={selectanoptionlabel}>
+                        </lightning-combobox>
+
+                    </div>
+
+                </template>
+
+                <template lwc:if={isClass8ModeOfEducationDistance}>
+
+                    <template lwc:if={isOtherClass8BoardName}>
+
+                        <div
+                            class="slds-col slds-p-around_x-small slds-small-size_1-of-1 slds-medium-size_6-of-12 slds-large-size_6-of-12">
+
+                            <div class="labels-block">
+                                <label class="Name-of-the-School label-block">{isOthersPleaseEnterBoardName}</label>
+                                <lightning-helptext content={enterinenglishlabel}
+                                    style="margin-top: -5px;"></lightning-helptext>
+                            </div>
+
+                            <lightning-input class="no-label" data-field="otherClass8BoardName"
+                                name="otherClass8BoardName" value={otherClass8BoardName} maxlength="70"
+                                onchange={handleChange} variant="label-hidden" onpaste={handlePaste}
+                                onbeforeinput={handleBeforeInput} disabled={isDisableAcademicAllFields}>
+                            </lightning-input>
+
+                        </div>
+
+                    </template>
+                </template>
+
+
+                <!-- Pass percentage -->
+
+
+                <div
+                    class="slds-col slds-p-around_x-small slds-small-size_12-of-12 slds-medium-size_6-of-12 slds-large-size_6-of-12">
+                    <div class="labels-block">
+                        <label class="Pass-Percentage label-block">{percentageLabel}</label>
+                        <lightning-helptext class="helperText" content={Percentage_Help_Text_Label}
+                            style="margin-top: -5px;">
+                        </lightning-helptext>
+                    </div>
+
+                    <lightning-input type="number" maxlength="5" class="no-label check-percentage"
+                        data-field="class8Percentage" step="0.01" min="0" name="class8Percentage"
+                        onbeforeinput={handlePerBeforeInput} value={class8Percentage}
+                        onkeypress={handlePercentageValidation} onchange={handleChange} variant="label-hidden"
+                        onpaste={handlePaste} disabled={isDisableAcademicAllFields}>
+                    </lightning-input>
+
+                </div>
+
+
+                <!-- Upload class 8 marksheet -->
+
+                <div
+                    class="slds-col slds-p-around_x-small slds-small-size_12-of-12 slds-medium-size_6-of-12 slds-large-size_6-of-12">
+
+                    <div class="labels-block">
+
+                        <label class="Attach-Class-8-Marksheet label-block">
+                            {attachClass8MarksheetLabel}
+                        </label>
+                        <lightning-helptext class="helperText" content={File_Help_Test_Label} style="margin-top: -5px;">
+                        </lightning-helptext>
+
+                    </div>
+
+                    <lightning-input class="class8File" name="class8File" type="file" label="Attach Class 8 Marksheet"
+                        accept={acceptedFormats} data-filetype="class8" onchange={handleUploadFile}
+                        variant="label-hidden" onpaste={handlePaste} disabled={isDisableAcademicAllFields}
+                        ondragover={handleDragOver}>
+                    </lightning-input>
+
+                    <template for:each={class8Files} for:item="item">
+                        <div key={item.fileName} class="file-item">{Uploaded_File_Label}: {item.fileName}
+                            <div class="file-icons">
+                                <div>
+                                    <lightning-button-icon name="Class Eight Marks Card" class="eye-btn "
+                                        icon-name="utility:preview" alternative-text="Preview" data-filetype="class8"
+                                        data-id={item.title} onclick={handlePreviewFile}>
+                                    </lightning-button-icon>
+                                </div>
+                                <div class="FileIcons">
+                                    <lightning-button-icon name="Class Eight Marks Card" class="eye-btn"
+                                        icon-name="utility:delete" alternative-text="Delete" data-filetype="class8"
+                                        data-id={item.title} disabled={isDisableAcademicAllFields}
+                                        onclick={handleRemoveFile}>
+                                    </lightning-button-icon>
+                                </div>
+                            </div>
+                        </div>
+                    </template>
+                </div>
+
+
+
+            </div>
+            <div class="save-and-continue-button">
+                <lightning-button name="class8Back" class="slds-m-bottom_large" label="Back" variant="brand"
+                    onclick={handleBack}>
+                </lightning-button>
+                <lightning-button class="slds-m-bottom_large" label="Save and Continue" variant="brand"
+                    disabled={isDisableAcademicAllFields} onclick={handleSaveAndContinue} style="margin-left: 2%;">
+                </lightning-button>
+            </div>
+        </template>
+
+    </div>
+
+</template>

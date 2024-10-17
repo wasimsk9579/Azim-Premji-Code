@@ -1,0 +1,9 @@
+.message {
+    font-size: 24px;
+    animation: blink 3s infinite;
+}
+
+@keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+}

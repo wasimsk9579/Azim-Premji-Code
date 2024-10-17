@@ -1,0 +1,124 @@
+.main-container {
+  display: flex;
+  flex-direction: column;
+  margin: 20px;
+
+
+   
+}
+ 
+.button-container {
+    display: flex;
+    justify-content: flex-end; 
+    gap: 10px;
+     
+}
+ 
+.button {
+    flex: 1; 
+}
+ 
+.valid {
+    color: green;
+  }
+  .valid:before {
+    position: relative;
+    left: -5px;
+    content: "✔";
+  }
+  .invalid {
+    color: red;
+  }
+  .invalid:before {
+    position: relative;
+    left: -5px;
+    content: "✖";
+  }
+ 
+.input-container {
+  position: relative;
+}
+ 
+.toggle-icon{
+  position: absolute;
+  top: 45%;
+  z-index: 1;
+  right: 0px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 30px;
+  width: 30px;
+  outline: none;
+  border: none;
+  box-shadow: none;
+ 
+}
+
+.labelsContainer{
+  font-weight: 550;
+  font-size: 13px !important;
+  margin:0;
+}
+ 
+.bold-label{
+  padding: 0;
+  margin-bottom: 10px;
+}
+
+ 
+.slds-icon-text-default {
+  --slds-c-icon-color-foreground: #ffffff !important;
+}
+
+.verify-button{
+  margin-bottom: 10px !important;
+  margin-top: 10px !important;
+}
+
+.verify-button{
+  display: flex;
+  flex-direction: row;
+}
+
+.consent{
+  display: flex;
+}
+
+
+.consenttext{
+  text-align: justify;
+}
+
+.custom-box {
+  margin-bottom: 1rem;
+}
+
+.label {
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+
+.consent.input-field {
+  display: flex;
+  align-items: flex-start; /* Align items at the start */
+}
+
+.checkbox-field {
+  margin-right: 10px;
+  padding-right: 7px; /* Space between checkbox and text */
+}
+
+.consenttext {
+  max-width: 600px; /* Optional: Limit the width of the text for better readability */
+  line-height: 1.5; /* Improve readability */
+}
+
+
+
+
+.otpbuttons{
+  display: flex;
+  justify-content: space-between;
+  
+}

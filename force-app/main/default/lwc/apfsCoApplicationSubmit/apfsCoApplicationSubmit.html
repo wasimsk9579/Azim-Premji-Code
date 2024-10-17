@@ -1,0 +1,61 @@
+<!--
+  @description       : 
+  @author            : owais.ahanger@cloudodyssey.co
+  @group             : 
+  @last modified on  : 09-23-2024
+  @last modified by  : owais.ahanger@cloudodyssey.co
+-->
+<template>
+    <div class="application-submit-wrapper">
+        <div class="title-block slds-page-header__name-title slds-p-around-small slds-m-top_medium">{applicationSubmitnHeading}</div>
+        <div class="consent-wrapper">
+           <div>
+            <lightning-input type="checkbox" 
+                             onchange={handleCheckboxChange} checked={isConsentGiven} disabled={isConsentDisabled}
+                             message-when-value-missing={requiredfielderror} required>
+            </lightning-input>
+        </div>
+            <div>
+                <p style="font-weight:400;">{consentLabelValue01}</p><br>
+                <p style="font-weight:400;">{consentLabelValue02}</p><br>
+                <p style="font-weight:400;">{consentLabelValue03}</p><br>
+            <p style="font-weight:400;">{consentLabelValue1}</p>
+            <p style="font-weight:400;">{consentLabelValue2}</p>
+            <p style="font-weight:400;">{consentLabelValue3}</p>
+        </div>
+        </div>
+        <div class="preview-submit-wrapper">
+            <lightning-button label="Preview" onclick={handlePreviewApplication} class="slds-m-right_small">
+            </lightning-button>
+            <lightning-button label="I Agree and Submit" variant="brand" onclick={handleSubmitApplication} 
+                              disabled={isSubmitDisabled}>
+            </lightning-button>
+        </div>
+    </div>
+
+
+
+    <!-- Modal for showing the confirmation message -->
+    <template lwc:if={showModal}>
+        <section role="dialog" tabindex="-1" class="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container">
+
+                <!-- Modal Header -->
+                <header class="slds-modal__header">
+                    <h2 class="slds-text-heading_medium">{modalHeadertitle}</h2>
+                </header>
+
+                <!-- Modal Body -->
+                <div class="slds-modal__content slds-p-around_medium">
+                    <p>{modalBodyMessage}</p>
+                </div>
+
+                <!-- Modal Footer -->
+                <footer class="slds-modal__footer slds-text-align_center">
+                    <lightning-button variant="brand"  label="OK" onclick={closeModal}></lightning-button>
+                </footer>
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </template>
+</template>

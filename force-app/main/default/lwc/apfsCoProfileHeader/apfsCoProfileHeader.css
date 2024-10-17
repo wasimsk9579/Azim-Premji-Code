@@ -1,0 +1,14 @@
+*{
+    font-family: var(--lwc-fontFamily, Lato);
+}
+
+.title-block {
+    background: linear-gradient(45deg, #2B308B, #2472A3);
+    color: #fff;
+    padding: 10px;
+    text-transform: capitalize;
+    font-size: 19.2px;
+    line-height: 1.25;
+    display: block;
+    margin: 30px 12px 12px 12px;
+}

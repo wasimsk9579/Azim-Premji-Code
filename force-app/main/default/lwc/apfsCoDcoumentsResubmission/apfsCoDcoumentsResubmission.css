@@ -1,0 +1,68 @@
+.application-card {
+    
+    border-radius: 0.625rem;
+    padding: 12px;
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+ 
+}
+
+.task-wrapper {
+    display: flex;
+    flex-direction: column;
+    margin-top: 0.3125rem;
+   
+}
+.task-title-block{
+    background: linear-gradient(45deg, #2B308B, #2472A3);
+    padding: .5rem 1rem;
+    color: #fff;
+    display: block;
+    text-transform: capitalize;
+    font-size: 1.1rem;
+    font-weight: 700;
+    line-height: 1.25;
+    border-radius: .2rem;
+}
+.file-icons{
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    margin-left: .3rem;
+    gap: 15px;
+}
+ 
+.FileIcons{
+    margin-left: 17px;
+}
+.file-upload-block{
+    gap: 17px;
+}
+.helperTextCss{
+    margin-top: -.2rem;
+    margin-left: .2rem;
+}
+.file-item {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    /* padding: 0.5rem; */
+    border-radius: 4px;
+    margin: 1%;
+    background: #f3f3f3;
+}
+.scrollable-content {
+    max-height: 400px; 
+    overflow-y: auto; 
+    /*border: 1px solid #d8dde6;*/
+    padding: 10px; 
+    /*box-shadow: 0 1px 6px rgba(0, 0, 0, 0.1);*/
+    border-radius: 4px;
+}
+.task-body-content {
+    display: flex;
+    width: 100%;
+    color: rgb(9, 2, 2);
+    background: var(--reva-table-row-background-color);
+}

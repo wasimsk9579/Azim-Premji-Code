@@ -1,0 +1,25 @@
+.slds-table {
+    width: 100%;
+}
+
+.slds-table th {
+    background-color: #f3f6f9;
+}
+
+.slds-table td, .slds-table th {
+    padding: 0.5rem;
+}
+
+.slds-m-top_medium {
+    margin-top: 1rem;
+}
+.fetch-Records{
+    margin-top: 23px;
+}
+.table-info {
+    border: 1px solid #d8dde6; /* Light grey border */
+    border-radius: 0.5rem; /* Rounded corners */
+    padding: 1rem; /* Padding inside the box */
+    background-color: #f4f6f9; /* White background for clarity */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+}

@@ -1,0 +1,43 @@
+<template>
+    <template if:true={missingDocumentsWithFiles.length}>
+        <div class="missingDocumentCss">
+            <div class="task-title-block slds-page-header__name-title slds-p-around-small">
+                {documentFullyRejecetHeading}
+            </div>
+            <div class="gridTable slds-grid slds-wrap slds-m-around_medium section">
+                <template for:each={missingDocumentsWithFiles} for:item="docObj">
+                    <div key={docObj.docType} class="slds-col slds-p-around_x-small slds-small-size_12-of-12 slds-medium-size_6-of-12 slds-large-size_6-of-12">
+                        <div class="task-body-content">
+                            <label class="label-block">{docObj.docType}<abbr title="required"
+                                    class="slds-required">*</abbr></label>
+                            <lightning-helptext class="helperTextCss" content={fileUploadHelpText}>
+                            </lightning-helptext>
+                        </div>
+                        <lightning-input type="file" accept={acceptedFormats} message-when-value-missing="Please upload"
+                            onchange={handleFileChange} data-document-type={docObj.docType} variant="label-hidden">
+                        </lightning-input>
+                        <template if:true={docObj.files}>
+                            <template for:each={docObj.files} for:item="file">
+                                <div key={file.contentDocumentId} class="file-item">
+                                    <strong>{newlyUploadedLabel}&nbsp;:</strong>{file.name}
+                                    <div class="file-icons">
+                                        <lightning-button-icon icon-name="utility:preview" alternative-text="Preview"
+                                            onclick={handlePreview} data-id={file.contentDocumentId} class="eye-btn">
+                                        </lightning-button-icon>
+                                        <lightning-button-icon icon-name="utility:delete" alternative-text="Delete"
+                                            onclick={handleDelete} data-document-type={docObj.docType}
+                                            data-id={file.contentDocumentId} class="eye-btn">
+                                        </lightning-button-icon>
+                                    </div>
+                                </div>
+                            </template>
+                        </template>
+                    </div>
+                </template>
+            <template if:true={isLoading}>
+                <lightning-spinner alternative-text="Loading" size="small"></lightning-spinner>
+            </template>
+        </div>
+        </div>
+    </template>
+</template>

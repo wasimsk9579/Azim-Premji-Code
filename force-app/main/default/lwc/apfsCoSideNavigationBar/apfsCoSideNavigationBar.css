@@ -1,0 +1,116 @@
+/* Default styling of components */
+
+/* navbar parent section */
+
+.navbar-main-section{
+	width:100% !important;
+	height:100vh !important;
+	display: flex;
+	flex-direction: row;
+}
+
+/* side navbar left section */
+
+.side-navbar-left-section{
+    width:20% !important;
+	height: 100%;
+    
+
+}
+
+/* side navbar right section */
+
+.side-navbar-right-section{
+    width:80% !important;
+	 height: 100%;
+    
+}
+
+/* navbar accordian section */
+
+.side-navbar-accordian-section{
+	display: none;
+}
+
+/* navbar accordian's progress bar's label  */
+
+.progress-bar-label{
+	width:230px;
+}
+
+/* Media query starts from here */
+
+@media (max-width: 924boxpx){
+
+/* navbar parent section */
+
+	.navbar-main-section{
+	/* height:100% ; */
+	display: flex;
+	flex-direction: column;
+}
+
+/* side navbar left section */
+
+.side-navbar-left-section{
+	display:none;
+}
+
+/* side navbar right section */
+
+.side-navbar-right-section{
+    width:100% !important;
+	/* height: 100%; */
+    
+}
+
+/* navbar accordian section */
+
+.side-navbar-accordian-section {
+	display: block;
+}
+
+/* navbar accordian's progress bar's label  */
+
+.progress-bar-label{
+	width:100%;
+}
+
+}
+
+@media (max-width:767px){
+
+/* navbar parent section */
+
+	.navbar-main-section{
+	/* height:100% ; */
+	display: flex;
+	flex-direction: column;
+}
+
+/* side navbar left section */
+
+.side-navbar-left-section{
+	display: none;
+}
+
+/* side navbar right section */
+
+.side-navbar-right-section{
+    width:100% !important;
+	/* height: 100%; */
+    
+}
+
+/* navbar accordian section */
+
+.side-navbar-accordian-section {
+	display: block;
+}
+
+/* navbar accordian's progress bar's label  */
+
+.progress-bar-label{
+	width:100%;
+}
+}

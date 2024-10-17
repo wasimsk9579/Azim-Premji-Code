@@ -1,0 +1,106 @@
+<template>
+    <template lwc:if={scholarshipName}>
+        <div class="slds-grid slds-wrap slds-grid_align-spread">  
+            <div class="slds-col slds-size_1-of-3 slds-p-around_small"> 
+                <lightning-input 
+                    label="Scholarship Name" 
+                    value={scholarshipName}
+                    readonly>
+                </lightning-input>
+            </div>
+            <div class="slds-col slds-size_1-of-3 slds-p-around_small">
+                <lightning-input 
+                    label="Edition Name" 
+                    value={editionName}
+                    readonly>
+                </lightning-input>
+            </div>
+            <div class="slds-col slds-size_1-of-3 slds-p-around_small">
+                <lightning-input 
+                    label="Round Name" 
+                    value={roundName}
+                    readonly>
+                </lightning-input>
+            </div>
+        </div>
+    </template>
+   
+    <div class="slds-grid slds-wrap slds-grid_align-spread">
+        <div class="slds-col slds-size_1-of-3 slds-p-around_small">
+            <lightning-combobox
+                name="readOnlyInternal"
+                label="Internal Status"
+                value={readOnlyInternalValue}
+                options={internalReadOnlyPicklistValues}
+                onchange={handleInternalChange}
+                disabled>
+            </lightning-combobox>
+        </div>
+    </div>
+
+    <div class="slds-grid slds-wrap ">
+        <div class="slds-col slds-size_1-of-3 slds-p-around_small">
+            <lightning-combobox
+                name="State"
+                label="State"
+                value={stateValue}
+                options={stateValueOptions}
+                onchange={handleStateChange}>
+            </lightning-combobox>
+        </div>
+            <div class="slds-col slds-size_1-of-3 slds-p-around_small">
+                <lightning-combobox
+                    name="District"
+                    label="District"
+                    value={districtValue}
+                    options={districtValueOptions}
+                    onchange={handleDistrictChange}
+                    disabled={disableDistrictValue}>
+                </lightning-combobox>
+            </div>
+    </div>
+    
+    <div class="slds-grid slds-wrap slds-grid_align-spread">
+        <div class="slds-col slds-size_1-of-3 slds-p-around_small">
+            <lightning-combobox
+                name="referral"
+                label="Referred By Partner"
+                value={referralValue}
+                options={referralPicklistValues}
+                onchange={handleReferralChange}>
+            </lightning-combobox>
+        </div>
+    </div>
+
+    <div class="slds-grid slds-wrap slds-grid_align-spread">
+        <div class="slds-col slds-size_1-of-3 slds-p-around_small">
+            <lightning-button
+                variant="brand"
+                label="Get"
+                onclick={handleFetchRecords}>
+            </lightning-button>
+        </div>
+    </div>
+    <template lwc:if={showDatatable}>
+        <div class="table-info">
+            <template lwc:if={isLoading}>
+                <lightning-spinner alternative-text="Loading" size="small"></lightning-spinner>
+            </template>
+            <template lwc:if={noRecordsMessageVisible}>
+                <div class="slds-text-color_error">No records found.</div>
+            </template>
+            <template lwc:if={records.length}>
+                <p>{records.length} records found</p>
+                <lightning-datatable
+                    key-field="id"
+                    data={records}
+                    columns={columns}
+                    enable-infinite-loading={isInfiniteLoadingEnabled}
+                    onloadmore={loadMoreData}
+                    hide-checkbox-column="true"
+                    onrowselection={handleRowSelection}>
+                </lightning-datatable>
+            </template>
+        </div>
+    </template>
+</template>

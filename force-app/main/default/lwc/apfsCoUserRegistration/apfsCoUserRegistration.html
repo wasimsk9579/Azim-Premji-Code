@@ -1,0 +1,187 @@
+<!--
+  @description       :
+  @author            : ChangeMeIn@UserSettingsUnder.SFDoc
+  @group             :
+  @last modified on  : 07-30-2024
+  @last modified by  : owais.ahanger@cloudodyssey.co
+-->
+
+<template>
+
+    <div class="signup-wrapper">
+        <lightning-layout>
+                <div class=" signup-form-wrapper">
+                    <form>
+                        <lightning-input label="Phone Number" class="bold-label"
+                            placeholder="Enter 10 digit number" data-id="phone-number" value={phoneNumber} type="tel"
+                            max-length="10" min-length="10"  name="phone-number"
+                            onchange={handleInputValidation}
+                            onkeypress={handleKeyPress} 
+                            readonly={toggleInputField}  
+                            required
+                            pattern="[0-9]*">
+                        </lightning-input>
+                        <template if:true={otpVerifiedstatus}>
+                            <p class="slds-text-color_success slds-m-top_x-small ">Phone number is verified.</p>
+                        </template>
+                        <div class="button-container">
+
+                            <template if:false={otpVerifiedstatus}>
+                                <lightning-button label="Verify" onclick={handleSendOtp} class="verify-button"
+                                    disabled={verifyButtonStatus}></lightning-button>
+                            </template>
+                            <template if:true={editButtonStatus}>
+                                <lightning-button label="Edit" onclick={handleEditClick}
+                                    class="verify-button"></lightning-button>
+                            </template>
+                        </div>
+                        <lightning-input class="bold-label " label="First Name (As per the Aadhaar Card)"
+                            placeholder="Enter your First Name" name="first-name" data-id="first-name" value={firstname} type="text"
+                            onblur={outoffiald} onchange={handleInputValidation} onbeforeinput={validateInput}
+                             required>
+                        </lightning-input>
+                        <lightning-input label="Last Name (As per the Aadhaar Card)" class="bold-label"
+                            placeholder="Enter your Last Name" name="last-name" data-id="last-name" value={lastName} type="text"
+                            onchange={handleInputValidation} onbeforeinput={validateInput} onpaste={preventPaste}
+                            required>
+                        </lightning-input>
+
+                        <lightning-radio-group label="Is Aadhaar available?" options={yesNoOptions}
+                            value={aadharAvailable} onchange={handleInputValidation}
+                            class="slds-radio-group" required>
+                        </lightning-radio-group>
+
+
+                        <template if:true={showAadharFields}>
+                            <lightning-input label="Aadhaar Number" placeholder="Enter 12 digit Aadhaar Number"
+                                class="bold-label" value={aadharNumber} type="tel" name="aadhaar-number" data-id="aahaar-number"
+                                max-length="12" min-length="12"
+                                onchange={handleInputValidation} onkeypress={handleKeyPress} required
+                                 pattern="[0-9]*">
+                            </lightning-input>
+                        </template>
+
+                        <template if:true={showRollNumberField}>
+                            <lightning-input label="Enter Roll Number from 10th Marksheet" data-id="roll-number"
+                                placeholder="Enter your Roll Number" name="roll-number" class="bold-label"
+                                value={rollNumber} type="text" onchange={handleInputValidation} maxlength="20"
+                                pattern="[a-zA-Z0-9]*" required>
+                            </lightning-input>
+                        </template>
+
+
+
+
+                        <template lwc:if={otpSent}>
+                            <section role="dialog" tabindex="-1" class="slds-modal slds-fade-in-open">
+                                <div class="slds-modal__container">
+                                    <!-- Modal Header -->
+                                    <header class="slds-modal__header">
+                                        <button
+                                            class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse"
+                                            title="Close" onclick={handleModalCancel}>
+                                            <lightning-icon icon-name="utility:close" alternative-text="close"
+                                                size="small" class="slds-icon-text-default"></lightning-icon>
+                                            <span class="slds-assistive-text">Close</span>
+                                        </button>
+                                        <h2 class="slds-text-heading_medium">Verify Your Mobile Number</h2>
+                                    </header>
+                                    <!-- Modal Body -->
+                                    <div class="slds-modal__content slds-p-around_medium slds-text-align_center">
+                                        <p>Succesfully Generated One Time Password (OTP).</p>
+                                        <p>Sent to: {phoneNumber}</p>
+                                        <lightning-input label="Enter OTP" placeholder="Enter 6 digits OTP" value={otp}
+                                            type="text" max-length="6" min-lenght="6"
+                                            class="bold-label slds-m-top_medium" onchange={handleChangeotpfield}
+                                            onpaste={preventPaste} required>
+                                        </lightning-input>
+                                        <p class="slds-m-top_medium">Resend OTP in: {timeLeft} seconds. </p>
+                                        <template if:true={ResendStatus}> Didn't get the OTP yet?<a
+                                                 onclick={handleResendOtp}
+                                                class="slds-text-link"><strong> Resend OTP</strong></a></template>
+                                    </div>
+                                    <!-- Modal Footer -->
+                                    <footer class="slds-modal__footer otpbuttons">
+                                        <lightning-button class="otp-buttons" variant="neutral" label="Cancel"
+                                            onclick={handleModalCancel}></lightning-button>
+                                        <lightning-button class="otp-buttons" variant="brand" label="Verify"
+                                            onclick={handleVerifyOtp}></lightning-button>
+                                    </footer>
+                                </div>
+                            </section>
+                            <div class="slds-backdrop slds-backdrop_open"></div>
+                        </template>
+
+            
+                        <div class="slds-is-relative input-container">
+                            <lightning-button-icon icon-name={iconName} alternative-text="Show Password" class="toggle-icon"
+                                onclick={togglePasswordVisibility} slot="after" aria-label="Toggle Password Visibility"></lightning-button-icon>
+                            
+                            <lightning-input data-id="new-Password" max-length="20" type={passwordinputType} label="Enter your Password" name="password" onchange={handleInputValidation}
+                                class="bold-label" onfocus={handleFocus} onblur={handleBlur} onpaste={preventPaste}  aria-required="true" required> </lightning-input>
+                                
+                                
+                        </div>
+                        
+        
+                        <template lwc:if={showValidation}>
+                            <div class="slds-box slds-theme_shade slds-theme_alert-texture" role="alert">
+                                <h3>Password must contain the following :</h3>
+                                <p data-id="letter" class="invalid">A lowercase letter</p>
+                                <p data-id="capital" class="invalid">A uppercase letter</p>
+                                <p data-id="number" class="invalid">A number character</p>
+                                <p data-id="length" class="invalid">Minimum 8 characters</p>
+                            </div>
+                        </template>
+                        
+        
+                        <div class="slds-is-relative input-container">
+                            
+                            <lightning-button-icon icon-name={confirmiconName} alternative-text="Show Password"
+                                class="toggle-icon" onclick={toggleconfirmPasswordVisibility}
+                                slot="after" aria-label="Toggle Password Visibility"></lightning-button-icon>
+                            <lightning-input data-id="confirm-Password" class="bold-label" name="confirmPassword" label="Confirm Password"
+                                type={confirmpasswordinputType} max-length="20" value={confirmPassword}
+                                onchange={handleInputValidation} onpaste={preventPaste} aria-required="true" required >
+                            </lightning-input>
+                            
+                            
+                            
+        
+                        </div>
+        
+                            <lightning-layout>
+                                <div class="custom-box">
+                                    <div class="label">
+                                        <label class="labelsContainer">
+                                            Consent <abbr title="required" class="slds-required">*</abbr>
+                                        </label>
+                                    </div>
+                                    <div class="consent input-field">
+                                        <lightning-input type="checkbox" class="checkbox-field" name="consent"
+                                            value={consent} onchange={handleInputValidation} variant="label-hidden">
+                                        </lightning-input>
+                                        <div class="consenttext">
+                                            <p>
+                                                I agree to abide by the terms and conditions as stated in the
+                                                scholarship agreement document. I understand that providing incorrect
+                                                information or documents may result in the rejection of my scholarship
+                                                application.
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </lightning-layout>
+                        <lightning-button type="submit" variant="brand" label="Submit"
+                            class="slds-align_absolute-center" onclick={handleSubmitRegistrationForm}
+                            disabled={IsAllFieldsCompleted}></lightning-button>
+                    </form>
+                </div>
+
+        </lightning-layout>
+    </div>
+
+    <template lwc:if={isSpinnerLoading}>
+        <lightning-spinner alternative-text="Loading"></lightning-spinner>
+    </template>
+</template>

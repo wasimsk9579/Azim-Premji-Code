@@ -1,0 +1,123 @@
+.full-width-card{
+    width: 100%;
+    font-family: var(--lwc-fontFamily, Lato);
+}
+
+/* all labels blocks starts here */
+.labels-block{
+    display: flex;
+    align-items: center;
+    padding-left: 2px;
+}
+
+.fileDetailsBlock button
+{
+    border: none !important;
+}
+.fileDetailsBlock .button
+{
+    border: none !important;
+}
+.application-card {
+    border-radius: 0.625rem;
+    padding: 12px;
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+ 
+}
+.scrollable-container {
+    overflow-y: auto;
+}
+
+.fileContainer{
+    padding-top: 8px;
+
+}
+
+.file-margin{
+    margin-left: 12px;
+}
+
+.file-item {
+    margin-top: 15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    margin-top: 2%;
+    word-wrap: break-word;
+    word-break: break-all;
+    max-width: 100%;
+    margin-right: 0.5rem;
+}
+.file-icons{
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+}
+.FileIcons{
+    margin-left: 10px;
+}
+.file-block{
+    display: flex;
+    gap: 280px;
+}
+.file-upload-block {
+    display: block;
+    width: 100%;
+}
+
+/* media query block starts here */
+@media (max-width: 768px){
+    .full-width-card{
+        width: 100%;
+    }
+        .gridTable{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+    .slds-col{
+        width: 100%;
+
+    }
+
+    .file-block {
+        display: block !important;
+    }
+    .file-margin-mobile{
+        margin-left: 12px;
+    }
+    
+}
+
+@media (max-width: 283px){
+    .full-width-card{
+        width: 100%;
+    }
+    .gridTable{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+    }
+    .slds-col{
+        width: 100%;
+
+    }
+}
+/* media query block ends here */
+
+
+.overlay {
+    position: fixed; 
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000; 
+}

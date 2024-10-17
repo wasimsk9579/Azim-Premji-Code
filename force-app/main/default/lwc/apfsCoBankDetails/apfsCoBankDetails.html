@@ -1,0 +1,237 @@
+<template>
+    <template if:true={showagreement}>
+        <div class="task-wrapper application-card">
+            <!-- Page Title -->
+            <div class="title-block slds-page-header__name-title slds-m-top_medium ">
+                {bankDetailsHeading}
+            </div>
+            <!-- Main Content Container -->
+            <div class="slds-m-horizontal_medium slds-m-bottom_large" style="margin-top: 1rem;">
+
+                <!-- Card Body -->
+                <div class="padding-card">
+                    <div class="slds-grid slds-wrap">
+                        <!-- Bank Name Field -->
+                        <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-p-around_x-small">
+                            <div>
+                                <label class="labelsContainer">
+                                    {bankNameLabel}
+                                    <abbr title="required" class="slds-required">*</abbr>
+                                </label>
+                                <lightning-input
+                                    name="bankname"
+                                    label="Bank Name"
+                                    data-id="bank-name"
+                                    placeholder={banknameplaceholder}
+                                    value={bankName}
+                                    onchange={handlebanknameInputChange}
+                                    variant="label-hidden"
+                                    onbeforeinput={handlebanknamebranchinput}
+                                    class="input-field"
+                                    required
+                                    message-when-value-missing={requiredfielderror}>
+                                </lightning-input>
+                            </div>
+                        </div>
+
+                        <!-- Branch Name Field -->
+                        <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-p-around_x-small">
+                            <div>
+                                <label class="labelsContainer">
+                                    {branchNameLabel}
+                                    <abbr title="required" class="slds-required">*</abbr>
+                                </label>
+                                <lightning-input
+                                    label="Branch Name"
+                                    name="branchname"
+                                    data-id="branch-name"
+                                    placeholder={bankbranchnameplaceholder}
+                                    value={bankAddress}
+                                    onchange={handlebranchnameInputChange}
+                                    onbeforeinput={handlebanknamebranchinput}
+                                    variant="label-hidden"
+                                    class="input-field"
+                                    required
+                                    message-when-value-missing={requiredfielderror}>
+                                </lightning-input>
+                            </div>
+                        </div>
+
+                        <!-- Bank Account Number Field -->
+                        <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-p-around_x-small">
+                            <div>
+                                <label class="labelsContainer">
+                                    {bankAccountNumberLabel}
+                                    <abbr title="required" class="slds-required">*</abbr>
+                                </label>
+                                <div class="selector-dropdown">
+                                    <lightning-input
+                                        name="bankaccountinput"
+                                        label="Bank Account Number"
+                                        placeholder={bankaccountnumberplaceholder}
+                                        type="tel"
+                                        value={bankAccountNumber}
+                                        onchange={handleAccountNumberChange}
+                                        onbeforeinput={handleaccountnumberinput}
+                                        max-length="20"
+                                        pattern="[0-9]*"
+                                        variant="label-hidden"
+                                        class="bankaccountinput"
+                                        message-when-value-missing={requiredfielderror}
+                                        required>
+                                    </lightning-input>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Bank IFSC Code Field -->
+                        <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-p-around_x-small">
+                            <div>
+                                <label class="labelsContainer">
+                                    {bankIfscCodeLabel}
+                                    <abbr title="required" class="slds-required">*</abbr>
+                                </label>
+                                <div class="selector-dropdown">
+                                    <lightning-input
+                                        name="bankifsc"
+                                        label="Bank IFSC Code"
+                                        placeholder={bankIFSCcodeplaceholder}
+                                        onbeforeinput={handPressifscinput}
+                                        value={bankIfscCode}
+                                        onchange={handleIfscChange}
+                                        variant="label-hidden"
+                                        max-length="15"
+                                        class="ifscInput"
+                                        message-when-value-missing={requiredfielderror}
+                                        required>
+                                    </lightning-input>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-p-around_x-small margin">
+                            <div>
+                                <div class="lable-class">
+                                <label class="labelsContainer">
+                                  {uploadBankDocumentLabel}
+                                  <abbr title="required" class="slds-required">*</abbr>
+                                </label> 
+                                
+                              <lightning-helptext  content={bankFileUploadHelptext}></lightning-helptext> 
+                          
+                            </div>
+
+                                <div>
+                                <lightning-input
+                                name="bank-pass-book-file-upload-input" 
+                                class="selector-dropdown"
+                                    type="file"
+                                    label="Upload proof of bank"
+                                    data-id="pasbook-file"
+                                    accept=".jpg,.pdf,.png,.jpeg"
+                                    onchange={handleBankFileUpload}
+                                    variant="label-hidden"
+                                   >
+                                </lightning-input>
+                              
+                            </div>
+                          
+                                <div class="selector-dropdown">
+                                    <template lwc:if={uploadedbankpasbookFiles}> 
+                                        <template for:each={uploadedbankpasbookFiles} for:item="file">
+                                            <div key={file.contentDocumentId} class="file-item">
+                                <span class="fileCss">{uploadfile}: {file.name}</span>
+                                           
+                                            <div class="file-icons">
+                                        <div >
+
+                                            <lightning-button-icon
+                                                name="passbookfile"
+                                                class="eye-btn button-icon"
+                                                icon-name="utility:preview"
+                                                alternative-text="Preview"
+                                                data-id={file.contentDocumentId}
+                                                onclick={handleFilePreview}></lightning-button-icon>
+                                            </div>
+                                            <div class="FileIcons">
+                                            <lightning-button-icon
+                                                name="passbookfile"
+                                                class="eye-btn"
+                                                icon-name="utility:delete"
+                                                alternative-text="Delete"           
+                                                data-id={file.contentDocumentId}
+                                                onclick={handlebankpassbookFileRemove}
+                                                ></lightning-button-icon>
+                                            </div>
+                                        </div> 
+                                     
+                                    </div>  
+                                  
+                                        </template>
+                                    </template>
+                                    
+                                </div>
+                            </div>
+                            <div class="noteclass">({fileUploadNote})</div>
+                        </div>
+                        
+                      
+                        <!-- Terms and Conditions Checkbox -->
+                         <div class="gridTable slds-grid slds-wrap consentclass">
+                            <div class="consent-checkbox">
+                                <div class="child-consent">
+                                    <abbr title="required" class="slds-required">*</abbr>
+                                    <div>
+                                        <input
+                                            type="checkbox"
+                                            id="bankConsentCheckbox"
+                                            onchange={handleConsentChange}
+                                            checked={termsAccepted}
+                                            class="ConsentVal"/> 
+                                    </div>
+                                </div>
+                                <div class="child-consentlabel">
+                                    <label class="consentlabel">{bankDetailConsent}</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="fileconsenterror">
+                        <template lwc:if={consentcheckerror}>
+                            {completethisfield}
+                        </template>
+                    </div> 
+                        <!-- Submit Button -->
+                        <div class="button_class">
+                            <div>
+                                <lightning-button
+                                    label="Back"
+                                    onclick={handleback}
+                                    variant="brand"
+                                    class="slds-m-right_small">
+                                </lightning-button>
+                            </div>
+                            <div>
+                                <lightning-button
+                                    label="Submit"
+                                    onclick={handleSave}
+                                    variant="brand">
+                                </lightning-button>
+                            </div>
+                        </div>
+
+                        <template if:true={isLoading}>
+                            <div class="overlay">
+                                <lightning-spinner alternative-text="Loading" size="medium"></lightning-spinner>
+                            </div>
+                        </template>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </template>
+    <template if:false={showagreement}>
+        <c-apfs-co-applicant-offer-agreement-letter></c-apfs-co-applicant-offer-agreement-letter>
+    </template>
+</template>

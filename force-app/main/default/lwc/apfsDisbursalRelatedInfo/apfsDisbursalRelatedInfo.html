@@ -1,0 +1,11 @@
+<template>
+    <template lwc:if={contactDetails}>
+        <template if:true={contactDetails}>
+            <div class="related-info">
+                <h3><strong>Applicant Details</strong></h3>
+                ifsc code , Disbursal Amount , Account no , Offer Id
+                <p><strong>Bank Name</strong> &nbsp; contactDetails[0].Name</p>
+            </div>
+        </template>
+    </template>
+</template>

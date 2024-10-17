@@ -1,0 +1,32 @@
+<!--
+  @description       : 
+  @author            : owais.ahanger@cloudodyssey.co
+  @group             : 
+  @last modified on  : 08-12-2024
+  @last modified by  : ChangeMeIn@UserSettingsUnder.SFDoc
+-->
+<template>
+    <lightning-card title="Applicant Documents" icon-name="custom:custom63">
+        <lightning-datatable
+            key-field="id"
+            data={documents}
+            columns={columns}
+            hide-checkbox-column
+            onrowaction={handleRowAction}
+        >
+        </lightning-datatable>
+
+    </lightning-card>
+  <!--  <c-apfs-co-document-reject 
+    is-open={showModal} 
+    content-version-id={selectedContentVersionId}
+    content-document-id={selectedContentDocumentId}
+    file-preview-url={imagePreviewURL}
+    application-id={selectedApplicationId}
+    document-type={selectedDocumentType}
+    file-extension={fileExtension}
+    
+    oncancel={closeModal} 
+    onreject={handleReject}>
+</c-apfs-co-document-reject>-->
+</template>

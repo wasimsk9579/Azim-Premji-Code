@@ -1,0 +1,24 @@
+.slds-table {
+    width: 100%;
+}
+
+.slds-table th {
+    background-color: #f3f6f9;
+}
+
+.slds-table td, .slds-table th {
+    padding: 0.5rem;
+}
+
+.slds-m-top_medium {
+    margin-top: 1rem;
+}
+.fetch-Records{
+    margin-top: 23px;
+}
+.rejectedReason{
+    margin-top: -15px;
+}
+.required-class{
+    margin-left: -2px;
+}

@@ -1,0 +1,81 @@
+<!--
+  @description       : 
+  @author            : owais.ahanger@cloudodyssey.co
+  @group             : 
+  @last modified on  : 08-30-2024
+  @last modified by  : ChangeMeIn@UserSettingsUnder.SFDoc
+-->
+<template>
+
+    
+     
+    <div class="mobile-number-verification-wrapper">
+        <!-- Mobile Number Registration Section -->
+        <template lwc:if={showEnterMobileNumberSection}>
+        <div class="send-otp-wrapper">
+            <div class="mobile-number-heading">
+                <h1 style="color:#fff;font-weight: 700;">REGISTER YOUR MOBILE NUMBER</h1>
+                <h1 style="color:#fff;font-weight: 700;align-content: center;">अपना मोबाइल नंबर पंजीकृत करें</h1>
+            </div>
+            <div class="mobile-number-input">
+                <lightning-input class="reset-password-input-labels" type="tel" label="Mobile Number"
+                    placeholder="Enter Your Mobile Number" value={mobileNumber} max-length="10" min-length="10" pattern="[0-9]*"
+                    onchange={handleMobileNumberChange} aria-label="Enter your 10-digit mobile number"
+                    aria-required="true" tabindex="0"  required></lightning-input>
+            </div>
+            <div class="slds-text-align_center button-send-otp">
+                <lightning-button label="Send OTP" variant="brand" onclick={handleSendOtp}
+                    disabled={isSendOtpButtonDisabled} aria-disabled={isSendOtpButtonDisabled}
+                    tabindex="0"></lightning-button>
+            </div>
+            <div class="already-signup-link " style="color: #fff;">
+
+                Already registered? &nbsp;<a style="color: #fff;" href={loginPageUrl} target="_blank">Login</a>
+            </div>
+        </div>
+    </template>
+      <!-- Mobile Number Verification Section -->
+   <template lwc:elseif={showEnterOtpScetion}>
+       
+         <div class="verify-otp-wrapper">
+            <div class="verify-mobile-number-heading">
+                <h1 style="color:#fff;font-weight: 700;">VERIFY YOUR MOBILE NUMBER</h1>
+                <h1 style="color:#fff;font-weight: 700; align-content: center; "> अपने मोबाइल नंबर सत्यापित करें</h1>
+            </div>
+            <div class="mobile-number-display">
+                <p style="color:#fff">Mobile Number: {mobileNumber}</p>
+                <lightning-button 
+                    variant="base"  
+                    label="Edit" 
+                    onclick={handleEditMobileNumber}>
+                </lightning-button>
+            </div>
+        <div class="otp-verification-input">
+
+            <lightning-input class="reset-password-input-labels" type="tel" label="Enter OTP" placeholder="Enter Received OTP"
+                max-length="6" min-length="6" pattern="[0-9]*" aria-label="Enter six digit OTP" aria-required="true"
+                tabindex="0" onchange={handleOtpChange}  required></lightning-input>
+
+        </div>
+
+        <div class="slds-text-align_center button-verify-otp">
+            <lightning-button  variant="brand" label="Verify OTP" onclick={handleVerifyOtp}
+                disabled={isVerifyOtpButtonDisabled}></lightning-button>
+            
+        </div>
+        <div class="button-resend-otp"><p style="color:#fff">Didn't get the code yet? {timeLeft}s &nbsp;
+            <lightning-button variant="base" label="Resend OTP" onclick={handleResendOtp}
+                disabled={isResendOtpButtonDisabled}></lightning-button>
+        </p></div>
+        </div>
+    </template>
+
+      <!-- User Signup Form-->
+    <template lwc:elseif={showUserSignupFormSection}>
+        <c-apfs-co-user-signup-form verified-mobile-number={mobileNumber}></c-apfs-co-user-signup-form>
+    </template>
+    </div>
+    <template if:true={isLoading}>
+        <lightning-spinner alternative-text="Loading" size="medium"></lightning-spinner>
+    </template>
+</template>

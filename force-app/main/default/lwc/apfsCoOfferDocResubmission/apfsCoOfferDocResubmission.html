@@ -1,0 +1,78 @@
+<template>
+    <div class="application-card">
+    <template lwc:if={offerLetterDocuments.length}>
+        <div class="task-title-block slds-page-header__name-title slds-p-around-small">
+            {documentRejectedHeading}
+        </div>
+        <div class="task-body scrollable-content">
+            <!------First Section(Detail Section)-->
+                <template for:each={offerLetterDocuments} for:item="item">
+                    <div key={item.contentVersionId} class="file-item">
+                        <div class="gridTable slds-grid slds-wrap slds-m-around_medium">
+                            <div class="slds-col slds-p-around_x-small slds-small-size_12-of-12 slds-medium-size_6-of-12 slds-large-size_6-of-12">
+                                <div class="task-body-content">
+                                    <p><strong>{documentLabel}&nbsp;:</strong> {item.fileType}</p>
+                                </div>
+                                <div class="task-body-content">
+                                    <p><strong>{rejectionLabel}&nbsp;:</strong> {item.comment}</p>
+                                </div>
+                                <strong>{previouslyUploadedlabel}&nbsp;:</strong> {item.fileName}
+                                <div class="file-icons">
+                                    <lightning-button-icon name="oldFile" class="eye-btn" icon-name="utility:preview"
+                                        alternative-text="Preview" data-id={item.contentDocumentId}
+                                        onclick={handlePreviewFile}>
+                                    </lightning-button-icon>
+                                </div>
+                            </div>
+
+                            <!-- File Upload Section -->
+                            <div class="slds-col slds-p-around_x-small slds-small-size_12-of-12 slds-medium-size_6-of-12 slds-large-size_6-of-12">
+                                <div class="task-body-content">
+                                    <label class="label-block">Re-Upload {item.fileType}<abbr title="required"
+                                            class="slds-required">*</abbr></label>
+                                    <lightning-helptext class="helperTextCss" content={fileUploadHelpText}>
+                                    </lightning-helptext>
+                                </div>
+                                <lightning-input class="inputButtonCss" data-id={item.contentDocumentId}
+                                    data-title={item.title} name={item.fileType} type="file" onchange={handleUploadFile}
+                                    label="Upload File" accept=".pdf, .jpeg, .jpg, .png" variant="label-hidden">
+                                </lightning-input>
+
+                                <!-- Display Newly Uploaded Files -->
+                                <template if:true={item.files.length}>
+                                    <template for:each={item.files} for:item="newItem">
+                                        <div key={newItem.title} class="file-item">
+                                            <strong>{newlyUploadedLabel}&nbsp;: </strong> {newItem.title}
+                                            <div class="file-icons">
+                                                <!-- Preview File -->
+                                                <lightning-button-icon class="eye-btn" icon-name="utility:preview"
+                                                    alternative-text="Preview" data-id={newItem.contentDocumentId}
+                                                    onclick={handlePreviewFile}>
+                                                </lightning-button-icon>
+
+                                                <!-- Remove File -->
+                                                <lightning-button-icon class="eye-btn" icon-name="utility:delete"
+                                                        alternative-text="Delete" data-id={newItem.contentDocumentId}
+                                                        data-file-name={newItem.title} onclick={handleRemoveFile}>
+                                                    </lightning-button-icon>
+                                            </div>
+                                        </div>
+                                    </template>
+                                </template>
+                            </div>
+                        </div>
+                    </div>
+                </template>
+        </div>
+    </template>
+    <c-apfs-co-missing-app-dcouments application-id={recordId} missing-doc-type={missingDocType} onmissingdocumentscheck={handleMissingDocumentsCheck}></c-apfs-co-missing-app-dcouments>
+    <template lwc:if={displaySaveButton}>
+        <div class="slds-m-bottom_large slds-align_absolute-center" style="margin-top: 13px;">
+            <lightning-button label="Submit" variant="brand" onclick={handleCheckAndUpdate}></lightning-button>
+        </div>
+    </template>
+    </div>
+    <template if:false={displaySaveButton}>
+        <p>There are no documents available for resubmission or missing</p>
+    </template>
+</template>

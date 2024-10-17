@@ -1,0 +1,62 @@
+.application-card {
+    border-radius: 0.625rem;
+    padding: 12px;
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-top: 7px;
+}
+.task-title-block{
+    background: linear-gradient(45deg, #2B308B, #2472A3);
+    padding: .5rem 1rem;
+    color: #fff;
+    display: block;
+    text-transform: capitalize;
+    font-size: 1.1rem;
+    font-weight: 700;
+    line-height: 1.25;
+    border-radius: .2rem;
+    margin-top: 1rem;
+}
+.file-icons{
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    margin-left: .3rem;
+    gap: 15px;
+}
+.file-item{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    border-radius: 4px;
+    margin-top: 1%;
+    word-wrap: break-word;
+    word-break: break-all;
+}
+.task-body-content {
+    display: flex;
+    width: 100%;
+    color: rgb(9, 2, 2);
+    background: var(--reva-table-row-background-color);
+}
+.helperTextCss{
+    margin-top: -.2rem;
+    margin-left: .2rem;
+}
+.missingDocumentCss{
+    margin-top: 1%;
+    /*border-radius: 4px;
+    border: 1px solid #d8dde6;
+    box-shadow: 0 1px 6px rgba(0, 0, 0, 0.1);
+    background: #f3f3f3;*/
+}
+.section{
+    max-height: 400px; 
+    overflow-y: auto; 
+    /*border: 1px solid #d8dde6;*/
+    padding: 10px; 
+    background: #f3f3f3;
+    /*box-shadow: 0 1px 6px rgba(0, 0, 0, 0.1);*/
+    border-radius: 4px;
+}

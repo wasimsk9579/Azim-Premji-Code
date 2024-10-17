@@ -1,0 +1,103 @@
+<!--
+  @description       : 
+  @author            : ChangeMeIn@UserSettingsUnder.SFDoc
+  @group             : 
+  @last modified on  : 09-12-2024
+  @last modified by  : ChangeMeIn@UserSettingsUnder.SFDoc
+-->
+<template>
+    <div class="application-card scrollable-container">
+        <div class="title-block slds-page-header__name-title slds-p-around-small slds-m-top_medium">{refferalHeadingLabel}</div>
+        <div>
+            <div class="gridTable slds-grid slds-wrap slds-m-around_medium">
+                <div class="slds-col slds-p-around_x-small slds-small-size_1-of-1 slds-medium-size_12-of-12 slds-large-size_12-of-12">
+                    <div class="labels-block">
+                        <label class="referance label-block-ref" data-aura-rendered-by="430:534;a">{referalNameLabel}<abbr title="required" class="slds-required new" data-aura-rendered-by="434:534;a">*</abbr></label> 
+                    </div>
+                    <div class="slds-p-top_medium">
+                        <lightning-radio-group
+                            variant="label-hidden"
+                            options={referalOptions}
+                            value={radioClassFieldVal}
+                            disabled ={disableRadioButton}
+                            type="radio" onchange={handleRadio}  
+                            class="radioClass">  
+                            required  
+                        </lightning-radio-group>
+                    </div>
+                </div> 
+            </div>       
+            <template lwc:if={isReferred}>
+                    <div class="gridTable slds-grid slds-wrap slds-m-around_medium">
+                        
+                        <div class="slds-col slds-p-around_x-small slds-small-size_12-of-12 slds-medium-size_6-of-12 slds-large-size_6-of-12">
+
+                            <div class="labels-block">
+                                <label class="label-block-ref">{partnerState}<abbr title="required" class="slds-required new">*</abbr></label>
+                            </div>
+
+                            <lightning-combobox 
+                                class="state" 
+                                name="state" 
+                                data-field="state"
+                                options={stateOptions}
+                                value={selectedState} 
+                                onchange={handleStateChange} 
+                                placeholder={selectanoptionlabel}
+                                message-when-value-missing={requiredFieldError}
+                                variant="label-hidden"
+                                required
+                                disabled={disableReferralState}>
+                            </lightning-combobox>
+                            
+                        </div>
+                        <div class="slds-col slds-p-around_x-small slds-small-size_12-of-12 slds-medium-size_6-of-12 slds-large-size_6-of-12">
+
+                            <div class="labels-block">
+                                <label class=" label-block-ref">{nameOfThePartner}<abbr title="required" class="slds-required new">*</abbr></label>
+                            </div>
+
+                            <lightning-combobox 
+                                class="organization" 
+                                name="organization" 
+                                data-field="organization"
+                                options={organizationOptions}
+                                value={selectedOrganization} 
+                                onchange={handleOrganizationChange} 
+                                placeholder={selectanoptionlabel}
+                                message-when-value-missing={requiredFieldError}
+                                variant="label-hidden" 
+                                required
+                                disabled={disableOrganisationName}>
+                            </lightning-combobox>
+                            
+                        </div>
+
+                        <div class="slds-col slds-p-around_x-small slds-small-size_1-of-1 slds-medium-size_6-of-12 slds-large-size_6-of-12">
+                            <div class="labels-block">
+                                <label class=" label-block-ref" data-aura-rendered-by="430:534;a">{refferalNameLabel}<abbr title="required" class="slds-required new" data-aura-rendered-by="434:534;a"></abbr></label>
+                                <lightning-helptext content={enterinenglishlabel} style="margin-top: -5px;"></lightning-helptext>
+                            </div>
+                            <lightning-input variant="label-hidden" class="referralName" max-length="70" value ={referralNameFieldVal}  onbeforeinput={handlebeforchangeReferralName}   onchange={handleReferralName} disabled ={disableReferralName}></lightning-input>
+                        </div>
+                    </div>
+            </template>	
+            <div class="gridTable slds-grid slds-wrap slds-m-around_medium save-and-continue-button">
+            </div>
+            <div class="btn-submit  slds-size_1-of-1 slds-p-around_x-small slds-align_absolute-center">
+                <lightning-button 
+                    label="Save and Continue" 
+                    disabled={isDisableSaveAndContinue}
+                    onclick={handleSaveAndContinue}  
+                    variant="brand"
+                    >
+                </lightning-button>
+            </div>   
+        </div>
+    </div> 
+    <template lwc:if={isLoading}>
+        <div class="overlay">
+            <lightning-spinner alternative-text="Loading" size="medium"></lightning-spinner>
+        </div>
+    </template>
+</template>

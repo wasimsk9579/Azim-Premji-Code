@@ -1,0 +1,26 @@
+<!--
+  @description       : 
+  @author            : owais.ahanger@cloudodyssey.co
+  @group             : 
+  @last modified on  : 09-23-2024
+  @last modified by  : owais.ahanger@cloudodyssey.co
+-->
+<template>
+    <div  class="scholarship-tabs-wrapper">
+        <template lwc:if={scholarships}>
+            <div class="scholarship-tabs">
+            <lightning-tabset onactive={handleTabChange}>
+                <template for:each={scholarships} for:item="scholarship">
+                    <lightning-tab key={scholarship.roundId} value={scholarship.roundId} label={scholarship.scholarshipName} >
+                        <c-apfs-co-applications scholarship-round-id={scholarship.roundId}></c-apfs-co-applications>
+                    </lightning-tab>
+                </template>
+            </lightning-tabset>
+        </div>
+        </template>
+        <template lwc:else>
+            <div class="no-scholarship-label">No active scholarship at the moment, Please come back later.</div>
+        </template>
+
+    </div>
+</template>

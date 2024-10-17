@@ -1,0 +1,84 @@
+.application-card {
+    
+    border-radius: 0.625rem;
+    padding: 12px;
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+ 
+}
+
+.case-wrapper {
+    display: flex;
+    flex-direction: column;
+    margin-top: 0.3125rem;
+   
+}
+.query-title-block{
+    background: linear-gradient(45deg, #2B308B, #2472A3);
+    padding: .5rem 1rem;
+    color: #fff;
+    display: block;
+    text-transform: capitalize;
+    font-size: 1.1rem;
+    font-weight: 700;
+    line-height: 1.25;
+    border-radius: .2rem;
+}
+.case-header {
+    display: flex;
+    justify-content: space-between;
+    background: var(--reva-table-heading-background-color);
+    border-top-left-radius: 0.625rem;
+    border-top-right-radius: 0.625rem;
+    padding: 0.9375rem 0.5rem;
+    margin-bottom: 0.1875rem;
+    color: #0f0e0e;
+}
+ 
+.case-heading {
+    font-weight: 700;
+    font-size: 15px;
+    align-items: center;
+}
+ 
+.case-subject {
+    font-size: 14px;
+    align-items: center;
+}
+ 
+.case-body {
+    display: flex;
+    flex-direction: column;
+    font-size: 13px;
+    
+}
+ 
+.case-body-content {
+    display: flex;
+    width: 100%;
+    padding: 0.5rem;
+    color: rgb(9, 2, 2);
+    margin-bottom: 0.1875rem;
+    background: var(--reva-table-row-background-color);
+}
+ 
+.label {
+    font-weight: bold;
+    margin-right: 0.75rem;
+    min-width: 8.75rem;
+}
+    
+.value {
+    flex-grow: 1;
+    text-align: left;
+    white-space: normal; /* Allows the text to wrap */
+    overflow: visible; /* Ensure no content is hidden */
+    word-wrap: break-word; /* Ensure long words or URLs break properly */
+}
+
+/* Optional: You can add media queries to adjust the font size or layout for mobile devices */
+@media (max-width: 600px) {
+    .value {
+        font-size: 14px; /* Adjust the font size for smaller screens if needed */
+    }
+}

@@ -1,0 +1,75 @@
+<template>
+    <lightning-card title="School Records">
+        <div class="slds-m-around_medium">
+            <div class="slds-grid slds-wrap slds-grid_align-spread">
+                <div class="slds-col slds-size_1-of-3 slds-p-around_small">
+                    <lightning-combobox
+                        name="picklist1"
+                        label="School Location"
+                        value={picklistValue1}
+                        options={picklistOptions1}
+                        onchange={handlePicklist1Change}>
+                    </lightning-combobox>
+                </div>
+                
+                <div class="slds-col slds-size_1-of-3 slds-p-around_small">
+                    <lightning-combobox
+                        name="picklist2"
+                        label="School Management"
+                        value={picklistValue2}
+                        options={picklistOptions2}
+                        onchange={handlePicklist2Change}>
+                    </lightning-combobox>
+                </div>
+                
+                <div class="slds-col slds-size_1-of-3 slds-p-around_small fetch-Records">
+                    <lightning-button
+                        variant="brand"
+                        label="Apply"
+                        onclick={handleFetchRecords}>
+                    </lightning-button>
+                </div>
+            </div>
+            <template lwc:if={isLoading}>
+                <lightning-spinner alternative-text="Loading" size="small"></lightning-spinner>
+            </template>
+            <template lwc:if={selectedRows.length}>
+                <p>{selectedRows.length} record(s) selected</p>
+                <div class="slds-grid slds-wrap ">
+                    <div class="slds-col slds-size_1-of-3 slds-p-around_small">
+                    <lightning-combobox
+                        name="updatePicklist"
+                        label="Update School Location"
+                        value={updatePicklistValue}
+                        options={picklistOptions1}
+                        onchange={handlePicklistUpdateChange}>
+                    </lightning-combobox>
+                    </div>
+
+                    <div class="slds-col slds-size_2-of-3 slds-p-around_small fetch-Records">
+                    <lightning-button
+                        variant="brand"
+                        label="Update Selected Records"
+                        onclick={handleUpdateRecords}>
+                    </lightning-button>
+                    </div>
+                </div>
+            </template>
+
+            
+            <template lwc:if={records}>
+                <p>{records.length} record(s) found</p>
+            </template>
+            <template lwc:if={records}>
+                <lightning-datatable
+                    key-field="id"
+                    data={records}
+                    columns={columns}
+                    max-row-selection ="999"
+                    onrowselection={handleRowSelection}>
+                </lightning-datatable>
+            </template>
+            
+        </div>
+    </lightning-card>
+</template>

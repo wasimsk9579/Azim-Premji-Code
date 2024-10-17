@@ -1,0 +1,103 @@
+.application-card {
+    border-radius: 0.625rem;
+    padding: 12px;
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+.full-width-card{
+    width: 100%;
+}
+.emailvalue{
+    padding-top: 4px;
+}
+.labels-block{
+    display: flex;
+    align-items: center;
+    padding-left: 2px;
+}
+.label-block-ref{
+        font-weight: 550;
+        font-size: 13px !important;
+        font-family: var(--apfs-font-family, Lato);
+        margin: 0;
+}
+.fileerror
+{
+    color: red;
+}
+.btn-submit{
+    margin-bottom: 0.75rem !important;
+}
+.file-upload-block {
+    display: block;
+    width: 100%;
+}
+ 
+.file-item {
+    display: flex;
+    align-items: center;
+}
+ 
+.file-name {
+    flex-grow: 1;
+    margin-right: 10px;
+}
+ 
+.eye-btn {
+    margin-left: 5px;
+}
+.scrollable-container {
+    overflow-y: auto;
+}
+.radio-group-no {
+    --slds-c-radio-color-background-checked: #ffffff !important;
+    --slds-c-radio-mark-color-foreground: #f20707 !important;
+}
+ 
+ @media (max-width: 924px){
+    .full-width-card{
+        width: 100%;
+    }
+    .gridTable{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+    }
+    .slds-col{
+        width: 100%;
+ 
+    }
+}
+ 
+@media (max-width: 767px){
+    .full-width-card{
+        width: 100%;
+    }
+    .gridTable{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+    }
+    .slds-col{
+        width: 100%;
+ 
+    }
+}
+
+
+.slds-checkbox_container {
+    display: flex;
+    align-items: center; 
+}
+
+.checkbox-input {
+    margin-right: 0.5rem; 
+    margin-bottom: 2.5rem;
+}
+
+.checkbox-text {
+    cursor: default; 
+    line-height: 1.5; 
+}

@@ -1,0 +1,31 @@
+<template>
+    <div class="container">
+        <div class="document-list">
+            <lightning-card title="Uploaded Documents" icon-name="custom:custom63">
+                <lightning-datatable
+                    key-field="id"
+                    data={documents}
+                    columns={columns}
+                    hide-checkbox-column
+                    onrowaction={handleRowAction}
+                ></lightning-datatable>
+            </lightning-card>
+        </div>
+
+        <template if:true={isPreviewOpen}>
+            <div class="preview">
+                <c-application-uploaded-documents-preview 
+                    file-preview-url={selectedDocument.filePreviewUrl}
+                    content-version-id={selectedDocument.contentVersionId}
+                    content-document-id={selectedDocument.contentDocumentId}
+                    contact-id={selectedDocument.contactId}
+                    application-id={selectedDocument.applicationId}
+                    document-type={selectedDocument.documentType}
+                    file-extension={selectedDocument.fileExtension}
+                    file-name={selectedDocument.fileName}
+                    onclose={handlePreviewCancel}>
+                </c-application-uploaded-documents-preview>
+            </div>
+        </template>
+    </div>
+</template>

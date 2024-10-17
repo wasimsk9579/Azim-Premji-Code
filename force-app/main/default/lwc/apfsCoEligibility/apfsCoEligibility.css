@@ -1,0 +1,129 @@
+.slds-modal__content {
+    overflow: auto;
+    max-height: 400px;
+    font-family: var(--lwc-fontFamily, Lato);
+    
+}
+
+.slds-modal__container {
+    max-width: 80% !important;
+    margin: auto;
+}
+
+
+
+
+.error-messages{
+    font-size: 12px;
+    margin-bottom: 7px;
+   
+    
+}
+.custom-combobox-wrapper{
+margin-top: -15px;
+}
+
+.error-messages-for-gender{
+    margin-top: 5px;
+}
+
+
+
+.combobox-container-gender{
+    margin-top: 7px;
+
+}
+
+.hindimargin{
+    margin-top: 0px !important;
+}
+
+.genderbox{
+    margin-top: 0px !important;
+}
+
+
+.custom-modal-container {
+    max-height: 100vh; /* Set a maximum height for the modal */
+    overflow: hidden; /* Prevent the modal from overflowing */
+    width: 80%; /* Ensure the modal container width */
+}
+
+.custom-modal-content {
+    max-height: calc(90vh - 150px); /* Adjust based on header and footer height */
+    overflow-y: auto; /* Allow vertical scrolling if content overflows */
+    overflow-x: hidden; /* Prevent horizontal overflow */
+    padding-right: 15px; /* Add padding for scrollbar */
+}
+
+
+.slds-modal__header, .slds-modal__footer {
+    position: sticky;
+    top: 0;
+    z-index: 2;
+    background: #fff; /* Ensure background color is the same as modal background */
+}
+
+.hindi-label {
+    display: inline-block;
+    margin-left: 10px;
+    /* font-weight: normal; */
+    color: #000;
+}
+
+/* Mobile view */
+@media (max-width: 768px) {
+    .hindi-label {
+        display: block;
+        margin-left: 0;
+        
+    }
+
+    .combobox-container {
+        display: flex;
+        flex-direction: column;
+        text-align: justify;
+        
+    }
+}
+
+.error-color{
+     color:rgb(234, 0, 30) ;
+}
+
+/* Desktop view */
+@media (min-width: 769px) {
+    .combobox-container {
+        display: flex;
+        flex-direction: row;
+    }
+
+    .hindi-label {
+        display: inline-block;
+         
+    }
+}
+
+.custom-radio-group-spacing  {
+   
+    margin-top: 5px;
+    display: flex;
+   
+}
+
+.custom-checkbox-spacing{
+    margin-top: 5px;
+    display: flex;
+
+}
+
+.custom-radio-background  {
+    padding: 5px;
+    border-radius: 4px;
+}
+
+.slds-button_success{
+    --slds-c-button-color-background: #156622 !important;
+    --slds-c-button-text-color:white !important;
+
+}

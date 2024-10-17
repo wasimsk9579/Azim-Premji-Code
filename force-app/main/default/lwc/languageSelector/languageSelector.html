@@ -1,0 +1,12 @@
+<template>
+    <div class="combobox-container">
+    <lightning-combobox
+        name="language"
+        label="Select Language"
+        value={selectedLanguage}
+        placeholder="Select a language"
+        options={languageOptions}
+        onchange={handleLanguageChange}
+    ></lightning-combobox>
+    </div>
+</template>

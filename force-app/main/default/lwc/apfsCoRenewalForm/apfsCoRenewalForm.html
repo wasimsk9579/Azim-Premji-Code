@@ -1,0 +1,545 @@
+<!--
+  @description       : 
+  @author            : ChangeMeIn@UserSettingsUnder.SFDoc
+  @group             : 
+  @last modified on  : 09-03-2024
+  @last modified by  : ChangeMeIn@UserSettingsUnder.SFDoc
+-->
+<template>
+    <div class="applicaton-card">
+        <form onsubmit={handleSave}>
+            <div class="title-block slds-page-header__name-title slds-m-vertical_large ">
+                RENEWAL APPLICATION
+           </div>
+           <div class="sub-title-block slds-page-header__name-title slds-m-left_large slds-m-right_large slds-p-around-small">{personalInformationHeading}</div>
+           <div class="personal"> 
+            <div class="slds-col slds-size_1-of-2 marginclass">
+                <label class="labelsContainer">
+                 declaration form
+                </label>
+                <lightning-button
+                    class="no-border-button rightflex"
+                    variant="base"
+                    label="Download"
+                    onclick={handleDecelarationclick}
+                ></lightning-button>
+            </div>
+           <lightning-layout multiple-rows>
+            <lightning-layout-item size="12" small-device-size="12" medium-device-size="6" large-device-size="6" padding="horizontal-small">
+                <div class="custom-box">
+                        <div class="label-block">
+                            <label class="labelsContainer">
+                                {firstNameLabel}
+                                <abbr title="required" class="slds-required">*</abbr>
+                            </label>
+                        </div>
+                        <div class="input-block">
+                            <lightning-input
+                                        type="text"
+                                        class="input-field"
+                                        value={firstName}
+                                        disabled
+                                        variant="label-hidden"
+                                        required>
+                            </lightning-input>
+                        </div>
+                </div>
+            </lightning-layout-item>
+            <lightning-layout-item size="12" small-device-size="12" medium-device-size="6" large-device-size="6" padding="horizontal-small">
+                <div class="custom-box">
+                    <div class="label-block">
+                        <label class="labelsContainer">
+                            {lastNameLabel}
+                            <abbr title="required" class="slds-required">*</abbr>
+                        </label>
+                    </div>
+                    <div class="input-block">
+                        <lightning-input
+                                    type="text"
+                                    class="input-field"
+                                    value={lastName}
+                                    disabled
+                                    variant="label-hidden"
+                                    required>
+                                </lightning-input>
+                    </div>
+                </div>
+            </lightning-layout-item>
+        </lightning-layout>
+        <lightning-layout multiple-rows>
+            <lightning-layout-item size="12" small-device-size="12" medium-device-size="6" large-device-size="6" padding="horizontal-small">
+                <div class="custom-box">
+                        <div class="label-block">
+                            <label class="labelsContainer">
+                                {mobileNumberLabel}
+                                <abbr title="required" class="slds-required">*</abbr>
+                            </label>
+                        </div>
+                        <div class="input-block">
+                            <lightning-input
+                                        type="tel"
+                                        class="input-field"
+                                        value={PhoneNumber}
+                                        variant="label-hidden"
+                                        disabled
+                                        required>
+                            </lightning-input>
+                        </div>
+                </div>
+            </lightning-layout-item>
+            <lightning-layout-item size="12" small-device-size="12" medium-device-size="6" large-device-size="6" padding="horizontal-small">
+                <div class="custom-box" >
+                    <div class="label-block">
+                        <label class="labelsContainer">
+                            {aadhaarNumberLabel}
+                            <abbr title="required" class="slds-required">*</abbr>
+                        </label>
+                    </div>
+                    <div class="input-block">
+                        <lightning-input
+                                    type="text"
+                                    class="input-field"
+                                    value={aadhaar}
+                                    disabled
+                                    variant="label-hidden"
+                                    required>
+                                </lightning-input>
+                    </div>
+                </div>
+            </lightning-layout-item>
+        </lightning-layout>
+        <lightning-layout multiple-rows>
+            <lightning-layout-item size="12" small-device-size="12" medium-device-size="6" large-device-size="6" padding="horizontal-small">
+                <div class="custom-box">
+                        <div class="label-block">
+                            <label class="labelsContainer">
+                                {genderLabel}
+                                <abbr title="required" class="slds-required">*</abbr>
+                            </label>
+                        </div>
+                        <div class="input-block">
+                            <lightning-input
+                                        type="text"
+                                        class="input-field"
+                                        value={gender}
+                                        disabled
+                                        variant="label-hidden"
+                                        required>
+                            </lightning-input>
+                        </div>
+                </div>
+            </lightning-layout-item>
+            <lightning-layout-item size="12" small-device-size="12" medium-device-size="6" large-device-size="6" padding="horizontal-small">
+                <div class="custom-box">
+                    <div class="label-block">
+                        <label class="labelsContainer">
+                            {dateOfBirthLabel}
+                            <abbr title="required" class="slds-required">*</abbr>
+                        </label>
+                    </div>
+                    <div class="input-block">
+                        <lightning-input
+                                    type="date"
+                                    class="input-field"
+                                    value={birthDate}
+                                    variant="label-hidden"
+                                    disabled
+                                    required>
+                        </lightning-input>
+                    </div>
+            </div>
+            </lightning-layout-item>
+        </lightning-layout>
+        
+            <lightning-layout multiple-rows>
+                <lightning-layout-item size="12" small-device-size="12" medium-device-size="6" large-device-size="6" padding="horizontal-small">
+                    <div class="custom-box">
+                        <div class="label-block">
+                            <label class="labelsContainer">
+                                {stateLabel}
+                                <abbr title="required" class="slds-required">*</abbr>
+                            </label>
+                        </div>
+                        <div class="input-block">
+                            <lightning-input
+                                        type="text"
+                                        class="input-field"
+                                        value={state}
+                                        variant="label-hidden"
+                                        disabled
+                                        required>
+                            </lightning-input>
+                        </div>
+                    </div>
+                </lightning-layout-item>
+                <lightning-layout-item size="12" small-device-size="12" medium-device-size="6" large-device-size="6" padding="horizontal-small">
+                    <div class="custom-box">
+                        <div class="label-block">
+                            <label class="labelsContainer">
+                                {districtLabel}
+                                <abbr title="required" class="slds-required">*</abbr>
+                            </label>
+                        </div>
+                        <div class="input-block">
+                            <lightning-input
+                                        type="text"
+                                        class="input-field"
+                                        value={district}
+                                        variant="label-hidden"
+                                        disabled
+                                        required>
+                            </lightning-input>
+                        </div>
+                        
+                    </div>
+                </lightning-layout-item>
+            </lightning-layout>
+
+            <lightning-layout multiple-rows>
+                <lightning-layout-item size="12" small-device-size="12" medium-device-size="6" large-device-size="6" padding="horizontal-small">
+                    <div class="custom-box">
+                        <div class="label-block">
+                            <label class="labelsContainer">
+                                {addressForCommunicationLabel}
+                                <abbr title="required" class="slds-required">*</abbr>
+                            </label>
+                        </div>
+                        <div class="input-block">
+                            <lightning-textarea
+                            class="input-field noresize"
+                            value={fulladdress}
+                            disabled
+                            required
+                            variant="label-hidden"
+                            rows="3"
+                        ></lightning-textarea>
+                        </div>
+                    </div>
+                </lightning-layout-item>
+                <lightning-layout-item size="12" small-device-size="12" medium-device-size="6" large-device-size="6" padding="horizontal-small">
+                    <div class="custom-box">
+                        <div class="label-block">
+                            <label class="labelsContainer">
+                                Application Id
+                                <abbr title="required" class="slds-required">*</abbr>
+                            </label>
+                        </div>
+                        <div class="input-block">
+                            <lightning-input
+                                        type="text"
+                                        class="input-field"
+                                        value={applicationNumber}
+                                        variant="label-hidden"
+                                        disabled
+                                        required>
+                            </lightning-input>
+                        </div>
+                        
+                    </div>
+                </lightning-layout-item>
+            </lightning-layout>
+        </div>
+        <div class="sub-title-block slds-page-header__name-title slds-m-left_large slds-m-right_large slds-p-around-small">{admissionDetails}</div>
+        <div class="personal">
+            <lightning-layout multiple-rows>
+                <lightning-layout-item size="12" small-device-size="12" medium-device-size="6" large-device-size="6" padding="horizontal-small">
+                    <div class="custom-box">
+                            <div class="label-block">
+                                <label class="labelsContainer">
+                                    Where did you use the scholarship amount?
+                                    <abbr title="required" class="slds-required">*</abbr>
+                                </label>
+                            </div>
+                            <div class="input-block">
+                                <lightning-combobox
+                                value="123"
+                                placeholder={selectanoptionlabel}
+                                message-when-value-missing={requiredfielderror}
+                                options={YesorNoOptions}
+                                onchange={handleScholarshipUsageChange}
+                                variant="label-hidden"
+                                required>
+                            </lightning-combobox>
+                            </div>
+                    </div>
+                </lightning-layout-item>
+                <lightning-layout-item size="12" small-device-size="12" medium-device-size="6" large-device-size="6" padding="horizontal-small">
+                    <div class="custom-box">
+                        <div class="label-block">
+                            <label class="labelsContainer">
+                                Did you qualify in the previous year examination?
+                                <abbr title="required" class="slds-required">*</abbr>
+                            </label>
+                        </div>
+                        <div class="input-block">
+                            <lightning-combobox
+                            value={qualification}
+                            placeholder={selectanoptionlabel}
+                            message-when-value-missing={requiredfielderror}
+                            options={YesorNoOptions}
+                            onchange={handlePreviousExamChange}
+                            variant="label-hidden"
+                            required>
+                        </lightning-combobox>
+                        </div>
+                </div>
+                </lightning-layout-item>
+            </lightning-layout>
+            <lightning-layout multiple-rows>
+                <template lwc:if={isQualified}>
+                <lightning-layout-item size="12" small-device-size="12" medium-device-size="6" large-device-size="6" padding="horizontal-small">
+                    <div class="custom-box">
+                        <div class="label-block">
+                            <label class="labelsContainer">
+                                Are you continuing in the same college?
+                                <abbr title="required" class="slds-required">*</abbr>
+                            </label>
+                            </div>
+                            <div class="input-block">
+                                <lightning-combobox
+                                value={continuingCollege}
+                                placeholder={selectanoptionlabel}
+                                 message-when-value-missing={requiredfielderror}
+                                options={YesorNoOptions}
+                                onchange={handleContinuingCollegeChange}
+                                variant="label-hidden"
+                                required>
+                            </lightning-combobox>
+                        </div>
+                    </div>
+                </lightning-layout-item>
+                </template>
+                <template lwc:if={isContinuingSameCollege}>
+                <lightning-layout-item size="12" small-device-size="12" medium-device-size="6" large-device-size="6" padding="horizontal-small">
+                    <div class="custom-box">
+                        <div class="label-block">
+                            <label class="labelsContainer">
+                                Are you continuing in the same course?
+                                <abbr title="required" class="slds-required">*</abbr>
+                            </label>
+                            </div>
+                            <div class="input-block">
+                                <lightning-combobox
+                                value={qua}
+                                placeholder={selectanoptionlabel}
+                                message-when-value-missing={requiredfielderror}
+                                options={YesorNoOptions}
+                                onchange={handleContinuingCourseChange}
+                                variant="label-hidden"
+                                required>
+                            </lightning-combobox>
+                        </div>
+                    </div>
+                </lightning-layout-item>
+                </template>
+                <template lwc:if={isnotContinuingSameCollege}>
+                    <lightning-layout-item size="12" small-device-size="12" medium-device-size="6" large-device-size="6" padding="horizontal-small">
+                        <div class="custom-box">
+                            <div class="label-block">
+                                <label class="labelsContainer">
+                                    {nameOfInstitute}
+                                    <abbr title="required" class="slds-required">*</abbr>
+                                </label>
+                                <lightning-helptext content={nameofinstitutehelptext}
+                                style="margin-top: -5px;"></lightning-helptext>
+                            </div>
+                            <div class="selector-dropdown">
+                            <lightning-input name="collegeDropdown" data-id="college-input" type="search"
+                                    label="Name of Institute" placeholder={searchinstituteplaceholder}
+                                    value={selectedCollege} onchange={handleCollegeChange} variant="label-hidden"
+                                    class="search-input-right-icon"
+                                    message-when-value-missing={requiredfielderror} required>
+                                </lightning-input>
+                                <template if:true={filteredInstitutes}>
+                                    <ul class="dropdown-list">
+                                        <template for:each={filteredInstitutes} for:item="inst">
+                                            <li key={inst.Id} onclick={selectInstitute} data-value={inst.Institute_Name__c}
+                                                class="dropdown-item">
+                                                {inst.Institute_Name__c}
+                                            </li>
+                                        </template>
+                                    </ul>
+                                </template>
+                                <template if:true={noResults}>
+                                    <ul class="dropdown-result">
+                                        <li class="no-results-item">No institute found. Please select 'Others'.</li>
+                                    </ul>
+                                </template>
+                        </div>
+                        </div>
+                    </lightning-layout-item>
+                    <lightning-layout-item size="12" small-device-size="12" medium-device-size="6" large-device-size="6" padding="horizontal-small">
+                        <div class="custom-box">
+                            <div class="label-block">
+                                <label class="labelsContainer">
+                                    {courseName}
+                                    <abbr title="required" class="slds-required">*</abbr>
+                                </label>
+                                <lightning-helptext content={coursenamehelptext} style="margin-top: -5px;"></lightning-helptext>
+                            </div>
+                            <div class="input-block">
+                            <lightning-input
+                            name="courseName"
+                            label="Course Name"
+                            placeholder="Enter Course Name"
+                            value={selectedCourse}
+                            onchange={handleCourseChange}
+                            onbeforeinput={handlecourseinput}
+                            class="input-field"
+                            variant="label-hidden"
+                            required
+                            max-length="70"
+                        ></lightning-input>
+                        </div>
+                        </div>
+                    </lightning-layout-item>
+                    <lightning-layout-item size="12" small-device-size="12" medium-device-size="6" large-device-size="6" padding="horizontal-small">
+                        <div class="custom-box">
+                            <div class="label-block">
+                                <label class="labelsContainer">
+                                    {courseTypes}
+                                    <abbr title="required" class="slds-required">*</abbr>
+                                </label>
+                            </div>
+                            <div class="input-block">
+                                <lightning-combobox name="courseType" label="Course Type" 
+                                value={courseType} options={courseTypeOptions} onchange={handleCourseTypeChange}
+                                class="no-label" variant="label-hidden" disabled={isDisableAdmissionAllFields}
+                                placeholder={selectanoptionlabel}
+                                 message-when-value-missing={requiredfielderror} required></lightning-combobox>
+                        </div>
+                        </div>
+                    </lightning-layout-item>
+                    <lightning-layout-item size="12" small-device-size="12" medium-device-size="6" large-device-size="6" padding="horizontal-small">
+                        <div class="custom-box">
+                            <div class="label-block">
+                                <label class="labelsContainer">
+                                    {courseCategoryLabel}
+                                    <abbr title="required" class="slds-required">*</abbr>
+                                </label>
+                            </div>
+                            <div class="input-block">
+                                <lightning-combobox name="coursecategory" label="Course Category"
+                                placeholder={selectanoptionlabel} value={coursecategory} options={coursecategoryOptions}
+                                onchange={handlecoursecategoryChange} class="no-label" variant="label-hidden"
+                                disabled={isDisableAdmissionAllFields} message-when-value-missing={requiredfielderror}
+                                required></lightning-combobox>
+                        </div>
+                        </div>
+                    </lightning-layout-item>
+                    <template if:true={showCategoryDetails}>
+                        <lightning-layout-item size="12" small-device-size="12" medium-device-size="6" large-device-size="6" padding="horizontal-small">
+                            <div class="custom-box">
+                                <div class="label-block">
+                                    <label class="labelsContainer">
+                                        {otherCourseCategoryLabel}
+                                        <abbr title="required" class="slds-required">*</abbr>
+                                    </label>
+                                </div>
+                                <div class="input-block">
+                            <lightning-input name="residence" label="Please mention course category details"
+                            placeholder={entercoursecategoryplaceholder} value={coursecaategoryDetails}
+                            onbeforeinput={handlecoursecategoryinput} onchange={handlecoursecategoryDetailsChange}
+                            class="input-field" variant="label-hidden" max-length="70"
+                            disabled={isDisableAdmissionAllFields} message-when-value-missing={requiredfielderror}
+                            required></lightning-input>
+    
+                            </div>
+                            </div>
+                        </lightning-layout-item>
+                    </template>
+
+                    <lightning-layout-item size="12" small-device-size="12" medium-device-size="6" large-device-size="6" padding="horizontal-small">
+                        <div class="custom-box">
+                            <div class="label-block">
+                                <label class="labelsContainer">
+                                    {courseStartDates}
+                                    <abbr title="required" class="slds-required">*</abbr>
+                                </label>
+                            </div>
+                            <div class="input-block">
+                                <lightning-input name="courseStartDate" type="month" label="Select Start Date"
+                                placeholder="Select Start Date" variant="label-hidden" value={courseStartDate}
+                                onclick={onclickcoursedate} onchange={handleCourseStartDateChange} min={minDate}
+                                max={maxDate} disabled={isDisableAdmissionAllFields}
+                                message-when-value-missing={requiredfielderror}
+                                message-when-too-short={coursestartdateinvalidinput}
+                                message-when-too-long={coursestartdateinvalidinput}
+                                message-when-bad-input={coursestartdateinvalidinput} required>
+                            </lightning-input>
+
+                        </div>
+                        </div>
+                    </lightning-layout-item>
+                    <lightning-layout-item size="12" small-device-size="12" medium-device-size="6" large-device-size="6" padding="horizontal-small">
+                        <div class="custom-box">
+                            <div class="label-block">
+                                <label class="labelsContainer">
+                                    {courseDurationInYear}
+                                    <abbr title="required" class="slds-required">*</abbr>
+                                </label>
+                            </div>
+                            <div class="input-block">
+                                <lightning-combobox name="courseduration" type="number" max-length="2"
+                                options={courseDurationOptions} label="Course Duration (in years)"
+                                placeholder={selectanoptionlabel} value={courseDuration}
+                                onchange={handleCourseDurationChange} class="input-field" variant="label-hidden"
+                                disabled={isDisableAdmissionAllFields} message-when-value-missing={requiredfielderror}
+                                required></lightning-combobox>
+                        </div>
+                        </div>
+                    </lightning-layout-item>
+                    <lightning-layout-item size="12" small-device-size="12" medium-device-size="6" large-device-size="6" padding="horizontal-small">
+                        <div class="custom-box">
+                            <div class="label-block">
+                                <label class="labelsContainer">
+                                    {whichYearOfCourseYouAreStudyingNow}
+                                    <abbr title="required" class="slds-required">*</abbr>
+                                </label>
+                            </div>
+                            <div class="input-block">
+                                <lightning-combobox name="currentYear" label="Which Year Of Course You Are Studying Now"
+                                placeholder={selectanoptionlabel} value={currentYear} options={courseYearOptions}
+                                onchange={handleCurrentYearChange} class="no-label" variant="label-hidden"
+                                disabled={isDisablecourseyearAllFields} messsage-when-value-missing={requiredfielderror}
+                                required></lightning-combobox>
+                        </div>
+                        </div>
+                    </lightning-layout-item>
+                    </template>
+            </lightning-layout>
+            <lightning-layout multiple-rows>
+                <template lwc:if={isnotContinuingSameCourse}>
+                <lightning-layout-item size="12" small-device-size="12" medium-device-size="6" large-device-size="6" padding="horizontal-small">
+                    <div class="custom-box">
+                        <div class="label-block">
+                            <label class="labelsContainer">
+                                {courseName}
+                                <abbr title="required" class="slds-required">*</abbr>
+                            </label>
+                            <lightning-helptext content={coursenamehelptext} style="margin-top: -5px;"></lightning-helptext>
+                        </div>
+                        <div class="input-block">
+                        <lightning-input
+                        name="courseName"
+                        label="Course Name"
+                        placeholder="Enter Course Name"
+                        value={selectedCourse}
+                        onchange={handleCourseChange}
+                        onbeforeinput={handlecourseinput}
+                        class="input-field"
+                        variant="label-hidden"
+                        required
+                        max-length="70"
+                    ></lightning-input>
+                    </div>
+                    </div>
+                </lightning-layout-item>
+                </template>
+            </lightning-layout>
+        </div>
+       
+    </form>
+
+    </div>
+</template>

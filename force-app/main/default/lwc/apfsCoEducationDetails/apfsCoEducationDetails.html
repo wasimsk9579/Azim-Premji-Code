@@ -1,0 +1,19 @@
+<template>
+    <div class="application-card">
+
+        <div class="title-block slds-page-header__name-title slds-p-around-small slds-m-top_medium">{educationHeading}
+        </div>
+
+        <template if:true={class12Section}>
+            <c-apfs-co-education-class12></c-apfs-co-education-class12>
+        </template>
+
+        <template if:true={class10Section}>
+            <c-apfs-co-education-class10></c-apfs-co-education-class10>
+        </template>
+        
+        <template if:true={class10Section}>
+            <c-apfs-co-education-class8></c-apfs-co-education-class8>
+        </template>
+    </div>
+</template>

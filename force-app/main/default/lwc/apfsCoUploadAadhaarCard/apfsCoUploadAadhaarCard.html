@@ -1,0 +1,62 @@
+<!--
+  @description       : 
+  @author            : owais.ahanger@cloudodyssey.co
+  @group             : 
+  @last modified on  : 09-16-2024
+  @last modified by  : owais.ahanger@cloudodyssey.co
+-->
+<template>
+    
+    <div class="upload-aadhaar-card-wrapper">
+        <div class="upload-aadhaar-info label-block">
+            <label class="labelsContainer">
+                {uploadAadhaarCardLabel}
+            </label>
+            <template lwc:if={isAadhaarAvailable}>
+                <abbr title="required" class="slds-required">*</abbr>
+            </template>
+            
+            <lightning-helptext content={helpTextForAadhaarUploadLabel} style="margin-top: -5px;"></lightning-helptext>
+        </div>
+        <div class="upload-aadhaar-card-file-input">
+            <lightning-input
+            name="aadhaar-card-input-file"
+            type="file"
+            accept={acceptedFormats}
+            message-when-value-missing={pleaseUploadAadahrCard}
+            disabled={isProfileEditable}
+            onchange={handleAadhaarCardUpload}
+            ondragover={handleDragOver}
+            variant="label-hidden"
+            class="aadhaar-card-input-file">
+            </lightning-input>
+        </div>
+       
+    
+
+    <div class="preview-aadhaar-card-wrapper">
+        <template lwc:if={uploadedFiles}>
+            
+                <template for:each={uploadedFiles} for:item="file">
+                    
+                    <div key={file.contentDocumentId} class="aadhaar-card-uploaded-files-wrapper">
+                        <div class="file-name">{uploadedfilelabel}:{file.name}</div>
+                        <div class="file-action-buttons-wrapper">
+                        <lightning-button-icon class="file-action-buttons" icon-name="utility:preview"  alternative-text="Preview" onclick={handleAadhaarCardFilePreview} data-id={file.contentDocumentId}></lightning-button-icon>
+                        <lightning-button-icon  class="file-action-buttons slds-m-left_large " icon-name="utility:delete"  alternative-text="Delete" disabled={isProfileEditable} onclick={handleAadhaarCardFileDelete} data-id={file.contentDocumentId} data-index={index}></lightning-button-icon>
+                        </div>
+                        
+                    </div>
+                </template>
+        </template>
+    </div>
+
+</div>
+    <template lwc:if={isAadhaarCardUploading}>
+        <div class="overlay">
+        <lightning-spinner alternative-text="Loading" size="medium"></lightning-spinner>
+        </div>
+    </template>
+
+
+</template>

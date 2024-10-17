@@ -1,0 +1,453 @@
+<!--
+  @description       : 
+  @author            : ChangeMeIn@UserSettingsUnder.SFDoc
+  @group             : 
+  @last modified on  : 08-30-2024
+  @last modified by  : ChangeMeIn@UserSettingsUnder.SFDoc
+-->
+<template>
+    <div class="application-card">
+    <div class="title-block slds-page-header__name-title slds-p-around-small">Socio-Economic details</div>
+    <div class="slds-m-top_x-large slds-m-right_large slds-m-left_large slds-m-bottom_large">
+   
+        <!-- socio economic background -->
+        <!-- row 1-->
+   
+        <div class="gridTable slds-grid slds-wrap slds-m-around_medium">
+
+        <div class="slds-col slds-p-around_x-small slds-small-size_1-of-1 slds-medium-size_6-of-12 slds-large-size_6-of-12">
+            <div class="labels-block">
+                <label class="specially-abled-person label-block" data-aura-rendered-by="430:534;a">Are you a specially abled person <abbr title="required" class="slds-required new" data-aura-rendered-by="434:534;a">*</abbr></label>
+            </div>
+            <lightning-combobox 
+            name="speciallyAbledPerson" 
+            value={speciallyAbledPerson} 
+            options={speciallyAbledPersonOptions} 
+            onchange={handleChange} 
+            variant="label-hidden"
+            onmouseover={handleMouseOver}
+            onmouseout={handleMouseOut} 
+            required
+            ></lightning-combobox> 
+        </div>
+
+
+        <template lwc:if={isSpeciallyAbled}>
+            <div class="slds-col slds-p-around_x-small slds-small-size_1-of-1 slds-medium-size_6-of-12 slds-large-size_6-of-12">
+                    
+                <div class="labels-block">
+                    <label class="disabilityType label-block" data-aura-rendered-by="430:534;a">If yes, then disability type?<abbr title="required" class="slds-required new" data-aura-rendered-by="434:534;a">*</abbr></label>
+                </div>
+
+                <lightning-combobox 
+                name="disabilityType" 
+                value={disabilityType} 
+                options={disabilityTypeOptions} 
+                onchange={handleChange} 
+                variant="label-hidden"
+                onmouseover={handleMouseOver}
+                onmouseout={handleMouseOut} 
+                required
+                ></lightning-combobox> 
+            </div>
+        </template>
+
+        <template lwc:if={isOtherDisability}>
+
+            <div class="slds-col slds-p-around_x-small slds-small-size_1-of-1 slds-medium-size_6-of-12 slds-large-size_6-of-12">
+                <div class="labels-block">
+                    <label class="otherDisablitity label-block" data-aura-rendered-by="430:534;a">If others, please specify the disability type<abbr title="required" class="slds-required new" data-aura-rendered-by="434:534;a">*</abbr></label>
+                </div>
+                <lightning-input 
+                name="otherDisablitity" 
+                value={otherDisablitity} 
+                onchange={handleChange} 
+                variant="label-hidden"
+                onmouseover={handleMouseOver}
+                onmouseout={handleMouseOut} 
+                required
+                ></lightning-input> 
+            </div>
+
+        </template>
+
+        </div>
+        <!-- Row 2 -->
+        <div class="gridTable slds-grid slds-wrap slds-m-around_medium">
+            
+            <div class="slds-col slds-p-around_x-small slds-small-size_1-of-1 slds-medium-size_6-of-12 slds-large-size_6-of-12">
+                <div class="labels-block">
+                    <label class="Religion label-block" data-aura-rendered-by="430:534;a">Religion<abbr title="required" class="slds-required new" data-aura-rendered-by="434:534;a">*</abbr></label>
+                </div>
+                <lightning-combobox 
+                name="religion" 
+                value={religion} 
+                options={religionOptions} 
+                onchange={handleChange} 
+                variant="label-hidden"
+                onmouseover={handleMouseOver}
+                onmouseout={handleMouseOut} 
+                required
+                ></lightning-combobox> 
+            </div>
+
+           <template lwc:if={isOtherReligion}>
+
+            <div class="slds-col slds-p-around_x-small slds-small-size_12-of-12 slds-medium-size_6-of-12 slds-large-size_6-of-12">
+                <div class="labels-block">
+                    <label class="otherReligion label-block" data-aura-rendered-by="430:534;a">If others, please specify the religion<abbr title="required" class="slds-required new" data-aura-rendered-by="434:534;a">*</abbr></label>
+                </div>
+
+                <lightning-input 
+                name="otherReligion" 
+                value={otherReligion} 
+                variant="label-hidden"
+                onmouseover={handleMouseOver}
+                onmouseout={handleMouseOut} 
+                onchange={handleChange}
+                required
+                ></lightning-input>
+            </div>
+
+           </template>
+
+        </div>
+        <!-- Row 3 -->
+        <div class="gridTable slds-grid slds-wrap slds-m-around_medium">
+        
+            <div class="slds-col slds-p-around_x-small slds-small-size_12-of-12 slds-medium-size_6-of-12 slds-large-size_6-of-12">
+                
+                <div class="labels-block">
+                    <label class="category label-block" data-aura-rendered-by="430:534;a">Community/Category<abbr title="required" class="slds-required new" data-aura-rendered-by="434:534;a">*</abbr></label>
+                </div>
+
+                <lightning-combobox 
+                name="category" 
+                options={categoryOptions} 
+                value={category} 
+                onchange={handleChange}
+                variant="label-hidden"
+                onmouseover={handleMouseOver}
+                onmouseout={handleMouseOut} 
+                required>
+            </lightning-combobox>
+            </div>
+
+            <template lwc:if={isCommunity}>
+
+                <div class="slds-col slds-p-around_x-small slds-small-size_12-of-12 slds-medium-size_6-of-12 slds-large-size_6-of-12">
+                
+                    <div class="labels-block">
+                        <label class="communityName label-block" data-aura-rendered-by="430:534;a">Please mention the community’s name here.<abbr title="required" class="slds-required new" data-aura-rendered-by="434:534;a">*</abbr></label>
+                    </div>
+                    
+                    <lightning-input
+                    name="communityName" 
+                    value={communityName} 
+                    onchange={handleChange}
+                    variant="label-hidden"
+                    onmouseover={handleMouseOver}
+                    onmouseout={handleMouseOut}
+                    required
+                    ></lightning-input>
+                </div>
+
+            </template>
+
+        </div>
+        <!-- Row 4 -->
+
+        <div class="gridTable slds-grid slds-wrap slds-m-around_medium">
+           
+
+            <div class="slds-col slds-p-around_x-small slds-small-size_12-of-12 slds-medium-size_6-of-12 slds-large-size_6-of-12">
+                <div class="labels-block">
+                    <label class="familyStatus label-block" data-aura-rendered-by="430:534;a">Current Family Status <abbr title="required" class="slds-required new" data-aura-rendered-by="434:534;a">*</abbr></label>
+                </div>
+               
+                <lightning-combobox 
+                name="familyStatus" 
+                value={familyStatus} 
+                options={familyStatusOptions}
+                onchange={handleChange}
+                variant="label-hidden"
+                onmouseover={handleMouseOver}
+                onmouseout={handleMouseOut}
+                required></lightning-combobox>
+            </div>
+
+            <template lwc:if={isOtherFamilyStatus}>
+
+                <div class="slds-col slds-p-around_x-small slds-small-size_12-of-12 slds-medium-size_6-of-12 slds-large-size_6-of-12">
+
+                    <div class="labels-block">
+                        <label class="otherFamilyStatus label-block" data-aura-rendered-by="430:534;a">If others, please specify<abbr title="required" class="slds-required new" data-aura-rendered-by="434:534;a">*</abbr></label>
+                    </div>
+                    
+                    <lightning-input
+                    name="otherFamilyStatus" 
+                    value={otherFamilyStatus} 
+                    onchange={handleChange}
+                    variant="label-hidden"
+                    onmouseover={handleMouseOver}
+                    onmouseout={handleMouseOut}
+                    required
+                    ></lightning-input>
+                </div>
+            </template>
+
+        </div>
+
+
+
+        <!-- Mother's details block -->
+
+
+        <div class="gridTable slds-grid slds-wrap slds-m-around_medium">           
+
+                <div class="slds-col slds-p-around_x-small slds-small-size_12-of-12 slds-medium-size_6-of-12 slds-large-size_6-of-12">
+                    <div class="labels-block">
+                        <label class="motherName label-block" data-aura-rendered-by="430:534;a">Mother's Name<abbr title="required" class="slds-required new" data-aura-rendered-by="434:534;a">*</abbr></label>
+                    </div>
+                
+                    <lightning-input 
+                    name="motherName" 
+                    value={motherName} 
+                    onchange={handleChange}
+                    variant="label-hidden"
+                    onmouseover={handleMouseOver}
+                    onmouseout={handleMouseOut}
+                    required></lightning-input>
+                </div>
+
+                <div class="slds-col slds-p-around_x-small slds-small-size_12-of-12 slds-medium-size_6-of-12 slds-large-size_6-of-12">
+
+                    <div class="labels-block">
+                        <label class="mothersLivingStatus label-block" data-aura-rendered-by="430:534;a">Mother's Living Status<abbr title="required" class="slds-required new" data-aura-rendered-by="434:534;a">*</abbr></label>
+                    </div>
+                    
+                    <lightning-combobox
+                    name="mothersLivingStatus" 
+                    value={mothersLivingStatus} 
+                    options={livingStatusOptions}
+                    onchange={handleChange}
+                    variant="label-hidden"
+                    onmouseover={handleMouseOver}
+                    onmouseout={handleMouseOut}
+                    required
+                    ></lightning-combobox>
+                </div>
+        </div>
+
+        <template lwc:if={isMotherLivingStatus}>
+            <div class="gridTable slds-grid slds-wrap slds-m-around_medium">           
+
+                <div class="slds-col slds-p-around_x-small slds-small-size_12-of-12 slds-medium-size_6-of-12 slds-large-size_6-of-12">
+    
+                    <div class="labels-block">
+                        <label class="mothersEducationalDetails label-block" data-aura-rendered-by="430:534;a">Mother's Educational Datails (if Applicable)<abbr title="required" class="slds-required new" data-aura-rendered-by="434:534;a">*</abbr></label>
+                    </div>
+                    
+                    <lightning-combobox
+                    name="mothersEducationalDetails" 
+                    value={mothersEducationalDetails} 
+                    options={mothersEducationalDetailsOptions}
+                    onchange={handleChange}
+                    variant="label-hidden"
+                    onmouseover={handleMouseOver}
+                    onmouseout={handleMouseOut}
+                    required
+                    ></lightning-combobox>
+                </div>
+    
+                <div class="slds-col slds-p-around_x-small slds-small-size_12-of-12 slds-medium-size_6-of-12 slds-large-size_6-of-12">
+
+                    <div class="labels-block">
+                        <label class="mothersOccupationalDetails label-block" data-aura-rendered-by="430:534;a">Mother's Occupation (if Applicable)<abbr title="required" class="slds-required new" data-aura-rendered-by="434:534;a">*</abbr></label>
+                    </div>
+                    
+                    <lightning-combobox
+                    name="mothersOccupationalDetails" 
+                    value={mothersOccupationalDetails} 
+                    options={mothersOccupationalDetailsOptions}
+                    onchange={handleChange}
+                    variant="label-hidden"
+                    onmouseover={handleMouseOver}
+                    onmouseout={handleMouseOut}
+                    required
+                    ></lightning-combobox>
+
+                </div>
+            </div>
+        </template>
+
+
+        <!-- Father's details -->
+
+        <div class="gridTable slds-grid slds-wrap slds-m-around_medium">           
+
+            <div class="slds-col slds-p-around_x-small slds-small-size_12-of-12 slds-medium-size_6-of-12 slds-large-size_6-of-12">
+                <div class="labels-block">
+                    <label class="fatherName label-block" data-aura-rendered-by="430:534;a">Father's Name<abbr title="required" class="slds-required new" data-aura-rendered-by="434:534;a">*</abbr></label>
+                </div>
+            
+                <lightning-input 
+                name="fatherName" 
+                value={fatherName} 
+                onchange={handleChange}
+                variant="label-hidden"
+                onmouseover={handleMouseOver}
+                onmouseout={handleMouseOut}
+                required></lightning-input>
+            </div>
+
+            <div class="slds-col slds-p-around_x-small slds-small-size_12-of-12 slds-medium-size_6-of-12 slds-large-size_6-of-12">
+
+                <div class="labels-block">
+                    <label class="fatherLivingStatus label-block" data-aura-rendered-by="430:534;a">Father's Living Status<abbr title="required" class="slds-required new" data-aura-rendered-by="434:534;a">*</abbr></label>
+                </div>
+                
+                <lightning-combobox
+                name="fathersLivingStatus" 
+                value={fatherLivingStatus} 
+                options={livingStatusOptions}
+                onchange={handleChange}
+                variant="label-hidden"
+                onmouseover={handleMouseOver}
+                onmouseout={handleMouseOut}
+                required
+                ></lightning-combobox>
+            </div>
+    </div>
+
+    <template lwc:if={isFatherLivingStatus}>
+        <div class="gridTable slds-grid slds-wrap slds-m-around_medium">           
+
+            <div class="slds-col slds-p-around_x-small slds-small-size_12-of-12 slds-medium-size_6-of-12 slds-large-size_6-of-12">
+
+                <div class="labels-block">
+                    <label class="fathersEducationalDetails label-block" data-aura-rendered-by="430:534;a">Father's Educational Datails (if Applicable)<abbr title="required" class="slds-required new" data-aura-rendered-by="434:534;a">*</abbr></label>
+                </div>
+                
+                <lightning-combobox
+                name="fathersEducationalDetails" 
+                value={fathersEducationalDetails} 
+                options={fathersEducationalDetailsOptions}
+                onchange={handleChange}
+                variant="label-hidden"
+                onmouseover={handleMouseOver}
+                onmouseout={handleMouseOut}
+                required
+                ></lightning-combobox>
+            </div>
+
+            <div class="slds-col slds-p-around_x-small slds-small-size_12-of-12 slds-medium-size_6-of-12 slds-large-size_6-of-12">
+
+                <div class="labels-block">
+                    <label class="fatherOccupationalDetails label-block" data-aura-rendered-by="430:534;a">Father's Occupation (if Applicable)<abbr title="required" class="slds-required new" data-aura-rendered-by="434:534;a">*</abbr></label>
+                </div>
+                
+                <lightning-combobox
+                name="fatherOccupationalDetails" 
+                value={fatherOccupationalDetails} 
+                options={fatherOccupationalDetailsOptions}
+                onchange={handleChange}
+                variant="label-hidden"
+                onmouseover={handleMouseOver}
+                onmouseout={handleMouseOut}
+                required
+                ></lightning-combobox>
+
+            </div>
+        </div>
+    </template>
+
+
+    <!-- Gaurdian's details -->
+
+    <div class="gridTable slds-grid slds-wrap slds-m-around_medium">           
+
+        <div class="slds-col slds-p-around_x-small slds-small-size_12-of-12 slds-medium-size_6-of-12 slds-large-size_6-of-12">
+            <div class="labels-block">
+                <label class="gaurdianName label-block" data-aura-rendered-by="430:534;a">Gaurdain's Name<abbr title="required" class="slds-required new" data-aura-rendered-by="434:534;a">*</abbr></label>
+            </div>
+        
+            <lightning-input 
+            name="gaurdianName" 
+            value={gaurdianName} 
+            onchange={handleChange}
+            variant="label-hidden"
+            onmouseover={handleMouseOver}
+            onmouseout={handleMouseOut}
+            required></lightning-input>
+        </div>
+
+        <div class="slds-col slds-p-around_x-small slds-small-size_12-of-12 slds-medium-size_6-of-12 slds-large-size_6-of-12">
+
+            <div class="labels-block">
+                <label class="gaurdianEducationalDetails label-block" data-aura-rendered-by="430:534;a">Gaurdian's Educational Datails (if Applicable)<abbr title="required" class="slds-required new" data-aura-rendered-by="434:534;a">*</abbr></label>
+            </div>
+            
+            <lightning-combobox
+            name="gaurdianEducationalDetails" 
+            value={gaurdianEducationalDetails} 
+            options={gaurdianEducationalDetailsOptions}
+            onchange={handleChange}
+            variant="label-hidden"
+            onmouseover={handleMouseOver}
+            onmouseout={handleMouseOut}
+            required
+            ></lightning-combobox>
+        </div>
+    </div>
+
+    <!-- income details -->
+
+    <div class="gridTable slds-grid slds-wrap slds-m-around_medium">  
+        
+        <!-- <div class="slds-col slds-p-around_x-small slds-small-size_12-of-12 slds-medium-size_6-of-12 slds-large-size_6-of-12">
+            <div class="labels-block">
+                <label class="familyMember label-block" data-aura-rendered-by="430:534;a">If other's, please specify<abbr title="required" class="slds-required new" data-aura-rendered-by="434:534;a">*</abbr></label>
+            </div>
+         
+            <lightning-combobox 
+            name="familyMember" 
+            value={familyMember} 
+            options={gaurdianEducationalDetailsOptions}
+            onchange={handleChange}
+            variant="label-hidden"
+            onmouseover={handleMouseOver}
+            onmouseout={handleMouseOut}
+            required></lightning-combobox>
+        </div> -->
+
+        <div class="slds-col slds-p-around_x-small slds-small-size_12-of-12 slds-medium-size_6-of-12 slds-large-size_6-of-12">
+            <div class="labels-block">
+                <label class="familyIncome label-block" data-aura-rendered-by="430:534;a">Family income per year (in INR)<abbr title="required" class="slds-required new" data-aura-rendered-by="434:534;a">*</abbr></label>
+            </div>
+        
+            <lightning-combobox 
+            name="familyIncome" 
+            value={familyIncome} 
+            options={gaurdianEducationalDetailsOptions}
+            onchange={handleChange}
+            variant="label-hidden"
+            onmouseover={handleMouseOver}
+            onmouseout={handleMouseOut}
+            required></lightning-combobox>
+        </div>
+
+    </div>
+      
+    <div class="gridTable slds-grid slds-wrap slds-m-around_medium save-and-continue-button">
+        <lightning-button 
+        class="slds-m-bottom_large"  
+        label="Save and Continue" 
+        variant="brand"
+        onclick={handleSaveAndContinue}>
+        </lightning-button>
+      </div>
+    
+</div>
+</div>
+</template>
